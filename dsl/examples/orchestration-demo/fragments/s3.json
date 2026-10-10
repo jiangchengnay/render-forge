@@ -1,0 +1,60 @@
+{
+  "task_id": "s3",
+  "type": "system",
+  "tracks": [
+    {
+      "effect": "flowfield",
+      "at": 0,
+      "dur": 8,
+      "ease": "inOutSine",
+      "opacity": 0.35,
+      "blend": "lighter",
+      "params": {
+        "count": 1100,
+        "noiseScale": 1.7,
+        "noiseSpeed": 0.1,
+        "velocity": 190,
+        "lineWidth": 0.8,
+        "alpha": 0.55
+      }
+    },
+    {
+      "effect": "particles",
+      "at": 0,
+      "dur": 4,
+      "ease": "outCubic",
+      "opacity": 0.45,
+      "blend": "lighter",
+      "params": {
+        "count": 240,
+        "behavior": "drift",
+        "shape": "star",
+        "spawn": "random",
+        "alpha": 0.85,
+        "sizeMul": 1.4,
+        "strength": 380
+      }
+    },
+    {
+      "effect": "particles",
+      "at": 4.05,
+      "dur": 3.95,
+      "ease": "inCubic",
+      "opacity": 0.7,
+      "blend": "lighter",
+      "params": {
+        "count": 520,
+        "behavior": "explode",
+        "shape": "dot",
+        "spawn": "center",
+        "alpha": 0.9,
+        "sizeMul": 1.1,
+        "strength": 520,
+        "wrap": true
+      }
+    }
+  ],
+  "meta": {
+    "worker_note": "特效点缀：全程细流动场；前半稀疏星点，副歌（4.05s）粒子从中心爆发。"
+  }
+}

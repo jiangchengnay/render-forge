@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "dossierRef": "dossier.json",
+    "generatedAt": "2026-10-11T00:00:00.000Z"
+  },
+  "music": {
+    "emotion_curve": [
+      {
+        "start": 0,
+        "end": 4,
+        "intensity": 0.3,
+        "label": "平静",
+        "preset_hint": "calm-breathe"
+      },
+      {
+        "start": 4,
+        "end": 8,
+        "intensity": 0.8,
+        "label": "释然",
+        "preset_hint": "uplifting-bloom"
+      }
+    ],
+    "key_moments": [
+      {
+        "t": 4,
+        "type": "rise",
+        "note": "副歌进入，能量上扬"
+      }
+    ],
+    "sections_mapped": [
+      {
+        "start": 0,
+        "end": 4,
+        "type": "intro",
+        "mood": "叙述"
+      },
+      {
+        "start": 4,
+        "end": 8,
+        "type": "chorus",
+        "mood": "绽放"
+      }
+    ]
+  },
+  "lyrics": [
+    {
+      "index": 1,
+      "text": "我看见光",
+      "line": "前奏",
+      "emotion": "期待",
+      "imagery": [
+        "光"
+      ],
+      "metaphor": "希望初现",
+      "note": "开场语气轻"
+    },
+    {
+      "index": 2,
+      "text": "它缓缓升起",
+      "line": "前奏",
+      "emotion": "温柔",
+      "imagery": [
+        "上升"
+      ],
+      "metaphor": "希望逐渐明晰",
+      "note": ""
+    },
+    {
+      "index": 3,
+      "text": "穿过漫长黑夜",
+      "line": "副歌",
+      "emotion": "坚定",
+      "imagery": [
+        "黑夜",
+        "穿越"
+      ],
+      "metaphor": "历经低谷",
+      "note": "力度增强"
+    },
+    {
+      "index": 4,
+      "text": "终于照亮我",
+      "line": "副歌",
+      "emotion": "释然",
+      "imagery": [
+        "照亮"
+      ],
+      "metaphor": "被希望笼罩",
+      "note": "高潮收束"
+    }
+  ],
+  "mapping": [
+    {
+      "lyric_index": 1,
+      "meaning": "希望初现",
+      "action": "微光渐亮+浮现",
+      "transition": {
+        "type": "none",
+        "dur": 0
+      },
+      "layer_hint": "text"
+    },
+    {
+      "lyric_index": 2,
+      "meaning": "希望上升",
+      "action": "升起+放大",
+      "transition": {
+        "type": "fade",
+        "dur": 0.5
+      },
+      "layer_hint": "subject"
+    },
+    {
+      "lyric_index": 3,
+      "meaning": "穿越黑暗",
+      "action": "横向穿越+拉长",
+      "transition": {
+        "type": "dissolve",
+        "dur": 0.4
+      },
+      "layer_hint": "accent"
+    },
+    {
+      "lyric_index": 4,
+      "meaning": "被光照亮",
+      "action": "绽放+扩散",
+      "transition": {
+        "type": "fade",
+        "dur": 0.6
+      },
+      "layer_hint": "subject"
+    }
+  ],
+  "layers": {
+    "focus_curve": [
+      {
+        "t": 0,
+        "focus": "text",
+        "reason": "开场字幕引入"
+      },
+      {
+        "t": 2,
+        "focus": "subject",
+        "reason": "主体开始升起"
+      },
+      {
+        "t": 4,
+        "focus": "accent",
+        "reason": "副歌粒子/特效爆发"
+      },
+      {
+        "t": 6,
+        "focus": "subject",
+        "reason": "焦点回到主体收束"
+      }
+    ]
+  }
+}

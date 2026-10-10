@@ -1,0 +1,44 @@
+{
+  "name": "render-forge",
+  "version": "1.0.0",
+  "description": "让普通 LLM 产出接近 Opus 级程序化渲染动画的框架",
+  "main": "tools/render.js",
+  "bin": {
+    "render-forge-mcp": "tools/mcp-server.js"
+  },
+  "scripts": {
+    "gen-manifest": "node tools/gen-manifest.js",
+    "sync-effects": "node tools/sync-effects.js",
+    "find-browser": "node tools/find-browser.js",
+    "validate": "node tools/validate.js",
+    "test": "node tools/test.js",
+    "critique": "node tools/critique-cli.js",
+    "vision": "node tools/vision.js",
+    "render": "node tools/render.js",
+    "mcp": "node tools/mcp-server.js",
+    "serve": "npx --yes serve . -l 5173",
+    "patch": "node tools/patch.js",
+    "gen-template-schema": "node tools/gen-template-schema.js",
+    "apply-patch": "node tools/apply-patch.js",
+    "find-ffmpeg": "node tools/find-ffmpeg.js",
+    "install-ffmpeg": "node tools/install-ffmpeg.js",
+    "export": "node tools/export-webcodecs.js",
+    "check-docs": "node tools/check-docs.js"
+  },
+  "keywords": [
+    "animation",
+    "canvas",
+    "procedural",
+    "storyboard",
+    "pv",
+    "mv",
+    "mcp"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "puppeteer": "^25.13.0"
+  }
+}

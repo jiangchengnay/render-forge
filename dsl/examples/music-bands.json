@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Music Bands",
+    "width": 1080,
+    "height": 1080,
+    "duration": 8,
+    "seed": 1
+  },
+  "palette": "synthSunset",
+  "audio": true,
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.5,
+      "threshold": 0.65
+    }
+  ],
+  "acts": [
+    {
+      "id": "a",
+      "dur": 8,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#2a1038",
+        "outer": "#050109"
+      },
+      "tracks": [
+        {
+          "effect": "dotGrid",
+          "at": 0,
+          "dur": 8,
+          "opacity": 0.3,
+          "params": {
+            "spacing": 0.05
+          }
+        },
+        {
+          "effect": "ripples",
+          "at": 0,
+          "dur": 8,
+          "blend": "lighter",
+          "params": {
+            "count": 3,
+            "maxRadius": "=0.2 + audio.bass * 0.5",
+            "lineWidth": "=1 + audio.bass * 4",
+            "color": "$accent"
+          }
+        },
+        {
+          "effect": "morphPolygon",
+          "at": 0,
+          "dur": 8,
+          "blend": "lighter",
+          "params": {
+            "sides": 6,
+            "radius": "=0.06 + audio.mid * 0.1",
+            "rotSpeed": "=0.3 + audio.mid * 1.0",
+            "fill": "rgba(255,159,69,0.4)",
+            "stroke": "$1",
+            "lineWidth": 3
+          }
+        },
+        {
+          "effect": "particles",
+          "at": 0,
+          "dur": 8,
+          "blend": "lighter",
+          "opacity": "=0.3 + audio.treble * 0.6",
+          "params": {
+            "count": 400,
+            "behavior": "drift",
+            "shape": "star",
+            "alpha": 0.8,
+            "sizeMul": "=0.5 + audio.treble * 1.5"
+          }
+        },
+        {
+          "effect": "spectrum",
+          "at": 0,
+          "dur": 8,
+          "params": {
+            "count": 40,
+            "x": 0.5,
+            "y": 0.9,
+            "w": 0.8,
+            "h": 0.15,
+            "mirrored": true
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2193 @@
+{
+  "feedback": {
+    "decay": {
+      "type": "number",
+      "default": 0.94,
+      "desc": "残影衰减"
+    },
+    "scale": {
+      "type": "number",
+      "default": 0.98,
+      "desc": "每帧缩放"
+    },
+    "rotate": {
+      "type": "number",
+      "default": 0.004,
+      "desc": "每帧旋转（弧度）"
+    },
+    "hueShift": {
+      "type": "number",
+      "default": 0,
+      "desc": "每帧色相偏移（度）"
+    }
+  },
+  "flowfield": {
+    "count": {
+      "type": "number",
+      "default": 2000
+    },
+    "noiseScale": {
+      "type": "number",
+      "default": 1.5
+    },
+    "noiseSpeed": {
+      "type": "number",
+      "default": 0.08
+    },
+    "velocity": {
+      "type": "number",
+      "default": 180
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 1
+    },
+    "alpha": {
+      "type": "number",
+      "default": 0.4
+    }
+  },
+  "kaleidoscope": {
+    "slices": {
+      "type": "number",
+      "default": 8
+    },
+    "rotSpeed": {
+      "type": "number",
+      "default": 0.1
+    },
+    "zoom": {
+      "type": "number",
+      "default": 0.5
+    },
+    "srcLines": {
+      "type": "number",
+      "default": 8
+    }
+  },
+  "lissajous": {
+    "a": {
+      "type": "number",
+      "default": 3
+    },
+    "b": {
+      "type": "number",
+      "default": 2
+    },
+    "phase": {
+      "type": "number",
+      "default": 1.57
+    },
+    "radius": {
+      "type": "number",
+      "default": 0.42
+    },
+    "samples": {
+      "type": "number",
+      "default": 2000
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 1.5
+    },
+    "rotSpeed": {
+      "type": "number",
+      "default": 0.15
+    },
+    "color": {
+      "type": "string",
+      "default": "$0"
+    }
+  },
+  "image": {
+    "src": {
+      "type": "string",
+      "desc": "注册时的 id"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5,
+      "desc": "中心 x（0-1）"
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5,
+      "desc": "中心 y（0-1）"
+    },
+    "w": {
+      "type": "number",
+      "default": 0.4,
+      "desc": "区域宽（相对画布）"
+    },
+    "h": {
+      "type": "number",
+      "default": 0.4,
+      "desc": "区域高"
+    },
+    "fit": {
+      "type": "string",
+      "default": "contain",
+      "range": [
+        "contain",
+        "cover",
+        "stretch"
+      ],
+      "desc": "适配方式"
+    },
+    "opacity": {
+      "type": "number",
+      "default": 1
+    },
+    "rotate": {
+      "type": "number",
+      "default": 0,
+      "desc": "旋转（弧度）"
+    },
+    "scale": {
+      "type": "number",
+      "default": 1,
+      "desc": "额外缩放"
+    },
+    "shadow": {
+      "type": "boolean",
+      "default": false,
+      "desc": "是否加阴影"
+    },
+    "radius": {
+      "type": "number",
+      "default": 0,
+      "desc": "圆角（像素）"
+    },
+    "grayscale": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "video": {
+    "src": {
+      "type": "string",
+      "desc": "注册时的 id"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "w": {
+      "type": "number",
+      "default": 0.4
+    },
+    "h": {
+      "type": "number",
+      "default": 0.4
+    },
+    "fit": {
+      "type": "string",
+      "default": "cover"
+    },
+    "loop": {
+      "type": "boolean",
+      "default": true
+    },
+    "muted": {
+      "type": "boolean",
+      "default": true
+    },
+    "startAt": {
+      "type": "number",
+      "default": 0,
+      "desc": "从视频第几秒开始"
+    },
+    "opacity": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "svg": {
+    "src": {
+      "type": "string",
+      "desc": "注册 id"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "w": {
+      "type": "number",
+      "default": 0.3
+    },
+    "h": {
+      "type": "number",
+      "default": 0.3
+    },
+    "fit": {
+      "type": "string",
+      "default": "contain"
+    },
+    "opacity": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "imageMask": {
+    "src": {
+      "type": "string"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "w": {
+      "type": "number",
+      "default": 0.6
+    },
+    "h": {
+      "type": "number",
+      "default": 0.6
+    },
+    "feather": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "metaball": {
+    "count": {
+      "type": "number",
+      "default": 6
+    },
+    "blur": {
+      "type": "number",
+      "default": 30
+    },
+    "alpha": {
+      "type": "number",
+      "default": 0.85
+    }
+  },
+  "fbmNoise": {
+    "scale": {
+      "type": "number",
+      "default": 3,
+      "desc": "噪声频率，越大越碎"
+    },
+    "octaves": {
+      "type": "number",
+      "default": 4,
+      "desc": "倍频层数"
+    },
+    "warp": {
+      "type": "number",
+      "default": 0.5,
+      "desc": "域扭曲强度"
+    },
+    "speed": {
+      "type": "number",
+      "default": 0.15,
+      "desc": "演化速度"
+    },
+    "bands": {
+      "type": "number",
+      "default": 0,
+      "desc": ">0 时条带化"
+    },
+    "alpha": {
+      "type": "number",
+      "default": 1,
+      "desc": "透明度"
+    },
+    "colorA": {
+      "type": "string",
+      "default": "$0",
+      "desc": "亮部色"
+    },
+    "colorB": {
+      "type": "string",
+      "default": "$bg",
+      "desc": "暗部色"
+    },
+    "resolution": {
+      "type": "number",
+      "default": 320,
+      "desc": "内部纹理分辨率"
+    },
+    "pixelSize": {
+      "type": "number",
+      "default": 2,
+      "desc": "像素颗粒大小"
+    }
+  },
+  "noiseMask": {
+    "scale": {
+      "type": "number",
+      "default": 2.5,
+      "desc": "噪声频率"
+    },
+    "threshold": {
+      "type": "number",
+      "default": 0.5,
+      "desc": "显示阈值 0-1"
+    },
+    "speed": {
+      "type": "number",
+      "default": 0.1,
+      "desc": "演化速度"
+    },
+    "color": {
+      "type": "string",
+      "default": "$0",
+      "desc": "填充色"
+    },
+    "step": {
+      "type": "number",
+      "default": 6,
+      "desc": "采样网格像素"
+    }
+  },
+  "particles": {
+    "count": {
+      "type": "number",
+      "default": 500,
+      "desc": "粒子数"
+    },
+    "behavior": {
+      "type": "string",
+      "default": "drift",
+      "range": [
+        "drift",
+        "attract",
+        "explode",
+        "vortex",
+        "gravity",
+        "flow",
+        "none"
+      ],
+      "desc": "运动行为"
+    },
+    "shape": {
+      "type": "string",
+      "default": "dot",
+      "range": [
+        "dot",
+        "square",
+        "line",
+        "star"
+      ],
+      "desc": "粒子形状"
+    },
+    "spawn": {
+      "type": "string",
+      "default": "random",
+      "range": [
+        "random",
+        "center",
+        "ring",
+        "edge"
+      ],
+      "desc": "出生位置"
+    },
+    "alpha": {
+      "type": "number",
+      "default": 0.9
+    },
+    "sizeMul": {
+      "type": "number",
+      "default": 1
+    },
+    "strength": {
+      "type": "number",
+      "default": 400,
+      "desc": "行为力度"
+    },
+    "wrap": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "shape": {
+    "kind": {
+      "type": "string",
+      "default": "polygon",
+      "range": [
+        "polygon",
+        "star",
+        "circle",
+        "rect",
+        "line",
+        "path"
+      ]
+    },
+    "points": {
+      "type": "array",
+      "desc": "kind=polygon/path 时的顶点，归一化 [-1,1]"
+    },
+    "sides": {
+      "type": "number",
+      "default": 6,
+      "desc": "多边形边数"
+    },
+    "starPoints": {
+      "type": "number",
+      "default": 5,
+      "desc": "星形角数"
+    },
+    "innerRadius": {
+      "type": "number",
+      "default": 0.5,
+      "desc": "星形内半径比 0-1"
+    },
+    "radius": {
+      "type": "number",
+      "default": 0.15,
+      "desc": "圆半径（相对短边）"
+    },
+    "w": {
+      "type": "number",
+      "default": 0.2,
+      "desc": "矩形宽（相对画布）"
+    },
+    "h": {
+      "type": "number",
+      "default": 0.2,
+      "desc": "矩形高"
+    },
+    "size": {
+      "type": "number",
+      "default": 0.15,
+      "desc": "整体尺寸（相对短边）"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "rotate": {
+      "type": "number",
+      "default": 0,
+      "desc": "旋转（弧度）"
+    },
+    "scale": {
+      "type": "number",
+      "default": 1
+    },
+    "opacity": {
+      "type": "number",
+      "default": 1
+    },
+    "fill": {
+      "type": "string",
+      "default": ""
+    },
+    "stroke": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 2
+    },
+    "closed": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "path": {
+    "points": {
+      "type": "array",
+      "desc": "画布归一化点 [[x,y],...]，x/y ∈ [0,1]"
+    },
+    "smooth": {
+      "type": "string",
+      "default": "linear",
+      "range": [
+        "linear",
+        "catmullRom"
+      ]
+    },
+    "closed": {
+      "type": "boolean",
+      "default": false
+    },
+    "grow": {
+      "type": "boolean",
+      "default": false,
+      "desc": "按进度逐段生长"
+    },
+    "dash": {
+      "type": "array",
+      "desc": "[on, off] 虚线（像素）"
+    },
+    "stroke": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "fill": {
+      "type": "string",
+      "default": ""
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 2
+    },
+    "opacity": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "polygonRing": {
+    "count": {
+      "type": "number",
+      "default": 12,
+      "desc": "多边形数量"
+    },
+    "radius": {
+      "type": "number",
+      "default": 0.3,
+      "desc": "环半径（相对短边）"
+    },
+    "sides": {
+      "type": "number",
+      "default": 6,
+      "desc": "每个多边形的边数"
+    },
+    "size": {
+      "type": "number",
+      "default": 0.06,
+      "desc": "多边形大小"
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 2,
+      "desc": "描边宽度（像素）"
+    },
+    "rotSpeed": {
+      "type": "number",
+      "default": 0.2,
+      "desc": "旋转速度"
+    },
+    "radiusVar": {
+      "type": "number",
+      "default": 0,
+      "desc": "半径波动 0-1"
+    },
+    "stagger": {
+      "type": "number",
+      "default": 0,
+      "desc": "逐个延迟比例 0-1"
+    },
+    "color": {
+      "type": "string",
+      "default": "$0"
+    },
+    "color2": {
+      "type": "string",
+      "default": "$1"
+    }
+  },
+  "ripples": {
+    "count": {
+      "type": "number",
+      "default": 6,
+      "desc": "波纹数量"
+    },
+    "cx": {
+      "type": "number",
+      "default": 0.5
+    },
+    "cy": {
+      "type": "number",
+      "default": 0.5
+    },
+    "maxRadius": {
+      "type": "number",
+      "default": 0.7,
+      "desc": "最大半径"
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 2,
+      "desc": "线宽（像素）"
+    },
+    "color": {
+      "type": "string",
+      "default": "$0"
+    },
+    "alpha": {
+      "type": "number",
+      "default": 0.8
+    }
+  },
+  "gridWarp": {
+    "cols": {
+      "type": "number",
+      "default": 20
+    },
+    "rows": {
+      "type": "number",
+      "default": 20
+    },
+    "dot": {
+      "type": "number",
+      "default": 2
+    },
+    "noiseAmp": {
+      "type": "number",
+      "default": 0.05
+    },
+    "noiseScale": {
+      "type": "number",
+      "default": 2
+    },
+    "speed": {
+      "type": "number",
+      "default": 0.3
+    },
+    "color": {
+      "type": "string",
+      "default": "$0"
+    }
+  },
+  "strokeGrow": {
+    "paths": {
+      "type": "array",
+      "desc": "路径数组，每项 {kind:'arc'|'line', ...}"
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 3
+    },
+    "color": {
+      "type": "string",
+      "default": "$0"
+    },
+    "stagger": {
+      "type": "number",
+      "default": 0.3
+    }
+  },
+  "morphPolygon": {
+    "sides": {
+      "type": "number",
+      "default": 6
+    },
+    "radius": {
+      "type": "number",
+      "default": 0.3
+    },
+    "cx": {
+      "type": "number",
+      "default": 0.5
+    },
+    "cy": {
+      "type": "number",
+      "default": 0.5
+    },
+    "rotSpeed": {
+      "type": "number",
+      "default": 0.5
+    },
+    "fill": {
+      "type": "string",
+      "default": "$0"
+    },
+    "stroke": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 3
+    },
+    "breath": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "subtitle": {
+    "src": {
+      "type": "string",
+      "desc": "字幕 id"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.88
+    },
+    "size": {
+      "type": "number",
+      "default": 0.028
+    },
+    "weight": {
+      "type": "number",
+      "default": 600
+    },
+    "color": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "rgba(0,0,0,0.5)"
+    },
+    "padding": {
+      "type": "number",
+      "default": 0.012
+    },
+    "maxWidth": {
+      "type": "number",
+      "default": 0.8
+    }
+  },
+  "titleCard": {
+    "title": {
+      "type": "string",
+      "default": "TITLE",
+      "desc": "主标题"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "",
+      "desc": "副标题"
+    },
+    "badge": {
+      "type": "string",
+      "default": "",
+      "desc": "徽章文字（上方胶囊）"
+    },
+    "tag": {
+      "type": "string",
+      "default": "",
+      "desc": "底部标签"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5,
+      "range": [
+        0,
+        1
+      ]
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5,
+      "range": [
+        0,
+        1
+      ]
+    },
+    "titleSize": {
+      "type": "number",
+      "default": 0.075,
+      "desc": "主标题字号（相对画布宽）"
+    },
+    "titleWeight": {
+      "type": "number",
+      "default": 700
+    },
+    "subSize": {
+      "type": "number",
+      "default": 0.028
+    },
+    "badgeSize": {
+      "type": "number",
+      "default": 0.018
+    },
+    "tagSize": {
+      "type": "number",
+      "default": 0.018
+    },
+    "stagger": {
+      "type": "number",
+      "default": 0.4,
+      "desc": "逐字延迟比例"
+    },
+    "divider": {
+      "type": "boolean",
+      "default": true,
+      "desc": "是否显示分隔线"
+    }
+  },
+  "lyricLine": {
+    "text": {
+      "type": "string",
+      "desc": "歌词文本"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "size": {
+      "type": "number",
+      "default": 0.06,
+      "desc": "字号（相对画布宽）"
+    },
+    "weight": {
+      "type": "number",
+      "default": 600
+    },
+    "mode": {
+      "type": "string",
+      "default": "fill",
+      "range": [
+        "fill",
+        "scan",
+        "fade"
+      ],
+      "desc": "高亮模式"
+    },
+    "colorBase": {
+      "type": "string",
+      "default": "rgba(255,255,255,0.25)"
+    },
+    "colorHi": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "colorGlow": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "glow": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "bezierText": {
+    "text": {
+      "type": "string"
+    },
+    "points": {
+      "type": "array",
+      "desc": "控制点 [[x,y],...]，坐标 0-1",
+      "default": [
+        [
+          0.1,
+          0.8
+        ],
+        [
+          0.3,
+          0.2
+        ],
+        [
+          0.7,
+          0.8
+        ],
+        [
+          0.9,
+          0.2
+        ]
+      ]
+    },
+    "size": {
+      "type": "number",
+      "default": 0.05
+    },
+    "weight": {
+      "type": "number",
+      "default": 600
+    },
+    "spread": {
+      "type": "number",
+      "default": 1.5,
+      "desc": "字间采样间隔"
+    },
+    "showPath": {
+      "type": "boolean",
+      "default": true
+    },
+    "pathWidth": {
+      "type": "number",
+      "default": 1.5
+    },
+    "samples": {
+      "type": "number",
+      "default": 200
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "colorPath": {
+      "type": "string",
+      "default": "rgba(255,255,255,0.3)"
+    }
+  },
+  "bulletList": {
+    "items": {
+      "type": "array",
+      "desc": "列表项字符串数组"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.15
+    },
+    "y": {
+      "type": "number",
+      "default": 0.35
+    },
+    "size": {
+      "type": "number",
+      "default": 0.03
+    },
+    "weight": {
+      "type": "number",
+      "default": 500
+    },
+    "lineGap": {
+      "type": "number",
+      "default": 0.08,
+      "desc": "行间距（相对高）"
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "colorBullet": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "stagger": {
+      "type": "number",
+      "default": 0.5
+    }
+  },
+  "codeBlock": {
+    "lines": {
+      "type": "array",
+      "desc": "代码行字符串数组"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.15
+    },
+    "y": {
+      "type": "number",
+      "default": 0.4
+    },
+    "size": {
+      "type": "number",
+      "default": 0.022
+    },
+    "weight": {
+      "type": "number",
+      "default": 400
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "rgba(0,0,0,0.8)"
+    },
+    "cursor": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "typewriter": {
+    "text": {
+      "type": "string",
+      "default": "Hello"
+    },
+    "size": {
+      "type": "number",
+      "default": 0.08
+    },
+    "weight": {
+      "type": "number",
+      "default": 600
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "align": {
+      "type": "string",
+      "default": "center"
+    },
+    "cursor": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "wordPop": {
+    "text": {
+      "type": "string"
+    },
+    "size": {
+      "type": "number",
+      "default": 0.08
+    },
+    "weight": {
+      "type": "number",
+      "default": 600
+    },
+    "stagger": {
+      "type": "number",
+      "default": 0.5
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "align": {
+      "type": "string",
+      "default": "center"
+    },
+    "rise": {
+      "type": "number",
+      "default": 0.5
+    }
+  },
+  "blurFocus": {
+    "text": {
+      "type": "string"
+    },
+    "size": {
+      "type": "number",
+      "default": 0.08
+    },
+    "weight": {
+      "type": "number",
+      "default": 600
+    },
+    "maxBlur": {
+      "type": "number",
+      "default": 20,
+      "desc": "起始模糊像素"
+    },
+    "scaleFrom": {
+      "type": "number",
+      "default": 1
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "align": {
+      "type": "string",
+      "default": "center"
+    }
+  },
+  "shake": {
+    "amp": {
+      "type": "number",
+      "default": 0.02,
+      "desc": "幅度（相对画布短边）"
+    },
+    "freq": {
+      "type": "number",
+      "default": 30,
+      "desc": "频率（Hz）"
+    },
+    "decay": {
+      "type": "number",
+      "default": 0,
+      "desc": "衰减 0-1"
+    },
+    "rotate": {
+      "type": "number",
+      "default": 0,
+      "desc": "旋转抖动幅度（弧度）"
+    },
+    "seed": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "waveform": {
+    "mode": {
+      "type": "string",
+      "default": "bars",
+      "range": [
+        "bars",
+        "wave"
+      ]
+    },
+    "dir": {
+      "type": "string",
+      "default": "vertical",
+      "range": [
+        "vertical",
+        "horizontal"
+      ]
+    },
+    "band": {
+      "type": "string",
+      "default": "full",
+      "range": [
+        "full",
+        "bass",
+        "mid",
+        "treble"
+      ],
+      "desc": "频率段"
+    },
+    "count": {
+      "type": "number",
+      "default": 48
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.7
+    },
+    "w": {
+      "type": "number",
+      "default": 0.7
+    },
+    "h": {
+      "type": "number",
+      "default": 0.2
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "color2": {
+      "type": "string",
+      "default": "$1"
+    },
+    "gap": {
+      "type": "number",
+      "default": 0.3
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 2
+    },
+    "opacity": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "lensFlare": {
+    "x": {
+      "type": "number",
+      "default": 0.7
+    },
+    "y": {
+      "type": "number",
+      "default": 0.3
+    },
+    "size": {
+      "type": "number",
+      "default": 0.12
+    },
+    "color": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "color2": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "ghosts": {
+      "type": "number",
+      "default": 5
+    },
+    "streak": {
+      "type": "boolean",
+      "default": true
+    },
+    "streakWidth": {
+      "type": "number",
+      "default": 0.6
+    },
+    "opacity": {
+      "type": "number",
+      "default": 0.9
+    }
+  },
+  "lightSweep": {
+    "angle": {
+      "type": "number",
+      "default": 45
+    },
+    "width": {
+      "type": "number",
+      "default": 0.1
+    },
+    "color": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "opacity": {
+      "type": "number",
+      "default": 0.5
+    },
+    "from": {
+      "type": "number",
+      "default": -0.3
+    },
+    "to": {
+      "type": "number",
+      "default": 1.3
+    }
+  },
+  "textMask": {
+    "text": {
+      "type": "string",
+      "default": "MASK"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "size": {
+      "type": "number",
+      "default": 0.18
+    },
+    "weight": {
+      "type": "number",
+      "default": 800
+    },
+    "align": {
+      "type": "string",
+      "default": "center",
+      "range": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    "letterSpacing": {
+      "type": "number",
+      "default": 0
+    },
+    "mode": {
+      "type": "string",
+      "default": "cutout",
+      "range": [
+        "cutout",
+        "fill"
+      ]
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    }
+  },
+  "spectrum": {
+    "count": {
+      "type": "number",
+      "default": 32
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.75
+    },
+    "w": {
+      "type": "number",
+      "default": 0.7
+    },
+    "h": {
+      "type": "number",
+      "default": 0.25
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "color2": {
+      "type": "string",
+      "default": "$1"
+    },
+    "gap": {
+      "type": "number",
+      "default": 0.2
+    },
+    "opacity": {
+      "type": "number",
+      "default": 1
+    },
+    "mirrored": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "counterNumber": {
+    "from": {
+      "type": "number",
+      "default": 0
+    },
+    "to": {
+      "type": "number",
+      "default": 1000
+    },
+    "decimals": {
+      "type": "number",
+      "default": 0
+    },
+    "prefix": {
+      "type": "string",
+      "default": ""
+    },
+    "suffix": {
+      "type": "string",
+      "default": ""
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "size": {
+      "type": "number",
+      "default": 0.12
+    },
+    "weight": {
+      "type": "number",
+      "default": 800
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "colorAccent": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "comma": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "progressRing": {
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "radius": {
+      "type": "number",
+      "default": 0.15
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 0.02
+    },
+    "value": {
+      "type": "number",
+      "default": 0.75,
+      "desc": "0-1 进度"
+    },
+    "label": {
+      "type": "string",
+      "default": null,
+      "desc": "中心文字，默认百分比"
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "bgColor": {
+      "type": "string",
+      "default": null
+    },
+    "fontSize": {
+      "type": "number",
+      "default": null
+    }
+  },
+  "barChart": {
+    "x": {
+      "type": "number",
+      "default": 0.15
+    },
+    "y": {
+      "type": "number",
+      "default": 0.3
+    },
+    "w": {
+      "type": "number",
+      "default": 0.7
+    },
+    "h": {
+      "type": "number",
+      "default": 0.4
+    },
+    "values": {
+      "type": "array",
+      "default": [
+        0.4,
+        0.7,
+        0.5,
+        0.9,
+        0.6
+      ],
+      "desc": "0-1 数组"
+    },
+    "labels": {
+      "type": "array",
+      "default": null
+    },
+    "gap": {
+      "type": "number",
+      "default": 0.15
+    },
+    "colors": {
+      "type": "array",
+      "default": null
+    },
+    "labelSize": {
+      "type": "number",
+      "default": 0.016
+    },
+    "stagger": {
+      "type": "number",
+      "default": 0.4
+    }
+  },
+  "lineChart": {
+    "x": {
+      "type": "number",
+      "default": 0.15
+    },
+    "y": {
+      "type": "number",
+      "default": 0.3
+    },
+    "w": {
+      "type": "number",
+      "default": 0.7
+    },
+    "h": {
+      "type": "number",
+      "default": 0.4
+    },
+    "values": {
+      "type": "array",
+      "default": [
+        0.2,
+        0.5,
+        0.35,
+        0.7,
+        0.55,
+        0.9,
+        0.75
+      ]
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 3
+    },
+    "fill": {
+      "type": "boolean",
+      "default": true
+    },
+    "grid": {
+      "type": "boolean",
+      "default": true
+    },
+    "dots": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "pieChart": {
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "radius": {
+      "type": "number",
+      "default": 0.18
+    },
+    "inner": {
+      "type": "number",
+      "default": 0,
+      "desc": "0-1，>0 为环图"
+    },
+    "values": {
+      "type": "array",
+      "default": [
+        0.3,
+        0.25,
+        0.2,
+        0.15,
+        0.1
+      ]
+    },
+    "colors": {
+      "type": "array",
+      "default": null
+    },
+    "startAngle": {
+      "type": "number",
+      "default": -1.5708
+    },
+    "gap": {
+      "type": "number",
+      "default": 0.02
+    }
+  },
+  "radarChart": {
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "radius": {
+      "type": "number",
+      "default": 0.2
+    },
+    "values": {
+      "type": "array",
+      "default": [
+        0.7,
+        0.5,
+        0.9,
+        0.6,
+        0.8
+      ]
+    },
+    "labels": {
+      "type": "array",
+      "default": null
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "labelSize": {
+      "type": "number",
+      "default": 0.018
+    }
+  },
+  "geoShapes": {
+    "count": {
+      "type": "number",
+      "default": 12
+    },
+    "alpha": {
+      "type": "number",
+      "default": 0.25
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 1.5
+    },
+    "stagger": {
+      "type": "number",
+      "default": 0.6
+    },
+    "stroke": {
+      "type": "boolean",
+      "default": true
+    },
+    "fill": {
+      "type": "boolean",
+      "default": false
+    },
+    "float": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "dotGrid": {
+    "spacing": {
+      "type": "number",
+      "default": 0.05
+    },
+    "dotR": {
+      "type": "number",
+      "default": 0.002
+    },
+    "color": {
+      "type": "string",
+      "default": "rgba(255,255,255,0.15)"
+    },
+    "reveal": {
+      "type": "string",
+      "default": "radial",
+      "range": [
+        "radial",
+        "fade",
+        "sweep"
+      ]
+    }
+  },
+  "gradientBlob": {
+    "count": {
+      "type": "number",
+      "default": 3
+    },
+    "alpha": {
+      "type": "number",
+      "default": 0.35
+    },
+    "mode": {
+      "type": "string",
+      "default": "screen",
+      "desc": "合成模式"
+    }
+  },
+  "frameRect": {
+    "x": {
+      "type": "number",
+      "default": 0.1
+    },
+    "y": {
+      "type": "number",
+      "default": 0.1
+    },
+    "w": {
+      "type": "number",
+      "default": 0.3
+    },
+    "h": {
+      "type": "number",
+      "default": 0.2
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 2
+    },
+    "corners": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "divider": {
+    "dir": {
+      "type": "string",
+      "default": "h",
+      "range": [
+        "h",
+        "v"
+      ]
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "x0": {
+      "type": "number",
+      "default": 0.2
+    },
+    "x1": {
+      "type": "number",
+      "default": 0.8
+    },
+    "y0": {
+      "type": "number",
+      "default": 0.2
+    },
+    "y1": {
+      "type": "number",
+      "default": 0.8
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 2
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    }
+  },
+  "logoMark": {
+    "style": {
+      "type": "string",
+      "default": "cross",
+      "range": [
+        "cross",
+        "circles",
+        "square-stack",
+        "diamond"
+      ]
+    },
+    "size": {
+      "type": "number",
+      "default": 0.06
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    }
+  },
+  "stripes": {
+    "angle": {
+      "type": "number",
+      "default": 45,
+      "desc": "角度（度）"
+    },
+    "gap": {
+      "type": "number",
+      "default": 0.03
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": null
+    },
+    "color": {
+      "type": "string",
+      "default": "rgba(255,255,255,0.08)"
+    }
+  },
+  "bigGlyph": {
+    "glyph": {
+      "type": "string",
+      "default": "“"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.15
+    },
+    "y": {
+      "type": "number",
+      "default": 0.3
+    },
+    "size": {
+      "type": "number",
+      "default": 0.3
+    },
+    "rotate": {
+      "type": "number",
+      "default": 0
+    },
+    "color": {
+      "type": "string",
+      "default": "rgba(255,255,255,0.3)"
+    }
+  },
+  "cursor": {
+    "points": {
+      "type": "array",
+      "default": [
+        [
+          0.2,
+          0.3
+        ],
+        [
+          0.6,
+          0.3
+        ],
+        [
+          0.6,
+          0.7
+        ]
+      ],
+      "desc": "路径点 0-1"
+    },
+    "size": {
+      "type": "number",
+      "default": 0.03
+    },
+    "color": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "showTrail": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "clickRipple": {
+    "clicks": {
+      "type": "array",
+      "default": [
+        {
+          "x": 0.5,
+          "y": 0.5,
+          "at": 0.3
+        }
+      ],
+      "desc": "点击点 [{x,y,at,duration}]"
+    },
+    "color": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "maxRadius": {
+      "type": "number",
+      "default": 0.08
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 3
+    },
+    "dot": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "keyPress": {
+    "keys": {
+      "type": "array",
+      "default": [
+        "Ctrl",
+        "K"
+      ]
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "keySize": {
+      "type": "number",
+      "default": 0.06
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#1a1a1f"
+    },
+    "accentColor": {
+      "type": "string",
+      "default": "$accent"
+    }
+  },
+  "connector": {
+    "from": {
+      "type": "array",
+      "default": [
+        0.2,
+        0.5
+      ],
+      "desc": "[x,y] 0-1"
+    },
+    "to": {
+      "type": "array",
+      "default": [
+        0.8,
+        0.5
+      ]
+    },
+    "style": {
+      "type": "string",
+      "default": "straight",
+      "range": [
+        "straight",
+        "curve",
+        "elbow"
+      ]
+    },
+    "arrow": {
+      "type": "boolean",
+      "default": true
+    },
+    "lineWidth": {
+      "type": "number",
+      "default": 3
+    },
+    "color": {
+      "type": "string",
+      "default": "$accent"
+    }
+  },
+  "tagCloud": {
+    "tags": {
+      "type": "array",
+      "default": [
+        "React",
+        "TypeScript"
+      ]
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "size": {
+      "type": "number",
+      "default": 0.024
+    },
+    "maxWidth": {
+      "type": "number",
+      "default": 0.8
+    },
+    "bgColor": {
+      "type": "string",
+      "default": null
+    },
+    "textColor": {
+      "type": "string",
+      "default": "$accent"
+    },
+    "borderColor": {
+      "type": "string",
+      "default": null
+    },
+    "stagger": {
+      "type": "number",
+      "default": 0.5
+    }
+  },
+  "labelText": {
+    "text": {
+      "type": "string",
+      "desc": "文字"
+    },
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "size": {
+      "type": "number",
+      "default": 0.024
+    },
+    "weight": {
+      "type": "number",
+      "default": 500
+    },
+    "color": {
+      "type": "string",
+      "default": "$fg"
+    },
+    "align": {
+      "type": "string",
+      "default": "center",
+      "range": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    "letterSpacing": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "browserFrame": {
+    "x": {
+      "type": "number",
+      "default": 0.15
+    },
+    "y": {
+      "type": "number",
+      "default": 0.2
+    },
+    "w": {
+      "type": "number",
+      "default": 0.7
+    },
+    "h": {
+      "type": "number",
+      "default": 0.55
+    },
+    "url": {
+      "type": "string",
+      "default": "example.com"
+    },
+    "lines": {
+      "type": "number",
+      "default": 0,
+      "desc": "占位线行数"
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "barColor": {
+      "type": "string",
+      "default": "#f0f0f4"
+    },
+    "radius": {
+      "type": "number",
+      "default": 0.012
+    }
+  },
+  "terminalWindow": {
+    "x": {
+      "type": "number",
+      "default": 0.15
+    },
+    "y": {
+      "type": "number",
+      "default": 0.2
+    },
+    "w": {
+      "type": "number",
+      "default": 0.7
+    },
+    "h": {
+      "type": "number",
+      "default": 0.5
+    },
+    "title": {
+      "type": "string",
+      "default": "terminal"
+    },
+    "lines": {
+      "type": "array",
+      "default": [
+        "$ npm install"
+      ],
+      "desc": "命令/输出行"
+    },
+    "fontSize": {
+      "type": "number",
+      "default": 0.022
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "#1a1a1f"
+    },
+    "barColor": {
+      "type": "string",
+      "default": "#0f0f12"
+    },
+    "promptColor": {
+      "type": "string",
+      "default": "#00ffa3"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#e8e8e8"
+    }
+  },
+  "phoneFrame": {
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "w": {
+      "type": "number",
+      "default": 0.28,
+      "desc": "宽度（高=宽*2.05）"
+    },
+    "frameColor": {
+      "type": "string",
+      "default": "#1a1a1f"
+    },
+    "screenColor": {
+      "type": "string",
+      "default": "#ffffff"
+    }
+  },
+  "cardStack": {
+    "x": {
+      "type": "number",
+      "default": 0.5
+    },
+    "y": {
+      "type": "number",
+      "default": 0.5
+    },
+    "w": {
+      "type": "number",
+      "default": 0.42
+    },
+    "h": {
+      "type": "number",
+      "default": 0.5
+    },
+    "count": {
+      "type": "number",
+      "default": 3
+    },
+    "colors": {
+      "type": "array",
+      "default": null
+    }
+  }
+}

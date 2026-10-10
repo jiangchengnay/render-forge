@@ -1,0 +1,85 @@
+{
+  "task_id": "s4",
+  "type": "system",
+  "tracks": [
+    {
+      "effect": "lyricLine",
+      "at": 0.1,
+      "dur": 1.8,
+      "ease": "linear",
+      "opacity": 1,
+      "params": {
+        "text": "我看见光",
+        "x": 0.5,
+        "y": 0.72,
+        "size": 0.07,
+        "weight": 800,
+        "mode": "fade",
+        "colorBase": "rgba(255,255,255,0.2)",
+        "colorHi": "$fg",
+        "colorGlow": "$accent",
+        "glow": true
+      }
+    },
+    {
+      "effect": "lyricLine",
+      "at": 2.1,
+      "dur": 1.8,
+      "ease": "linear",
+      "opacity": 1,
+      "params": {
+        "text": "它缓缓升起",
+        "x": 0.5,
+        "y": 0.72,
+        "size": 0.07,
+        "weight": 800,
+        "mode": "fill",
+        "colorBase": "rgba(255,255,255,0.2)",
+        "colorHi": "$fg",
+        "colorGlow": "$accent",
+        "glow": true
+      }
+    },
+    {
+      "effect": "lyricLine",
+      "at": 4.1,
+      "dur": 1.8,
+      "ease": "linear",
+      "opacity": 1,
+      "params": {
+        "text": "穿过漫长黑夜",
+        "x": 0.5,
+        "y": 0.72,
+        "size": 0.07,
+        "weight": 800,
+        "mode": "scan",
+        "colorBase": "rgba(255,255,255,0.2)",
+        "colorHi": "$fg",
+        "colorGlow": "$accent",
+        "glow": true
+      }
+    },
+    {
+      "effect": "lyricLine",
+      "at": 6.1,
+      "dur": 1.8,
+      "ease": "linear",
+      "opacity": 1,
+      "params": {
+        "text": "终于照亮我",
+        "x": 0.5,
+        "y": 0.72,
+        "size": 0.08,
+        "weight": 900,
+        "mode": "fill",
+        "colorBase": "rgba(255,255,255,0.15)",
+        "colorHi": "$fg",
+        "colorGlow": "$accent",
+        "glow": true
+      }
+    }
+  ],
+  "meta": {
+    "worker_note": "歌词逐句呈现，按 phrases 时间淡入淡出；文字固定在 y=0.72，遵守「避开中心」底线。"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "task_id": "s1",
+  "type": "system",
+  "tracks": [
+    {
+      "effect": "fbmNoise",
+      "at": 0,
+      "dur": 8,
+      "ease": "linear",
+      "opacity": 0.32,
+      "params": {
+        "scale": 2.2,
+        "octaves": 3,
+        "warp": 0.55,
+        "speed": 0.06,
+        "colorA": "$0",
+        "colorB": "$bg",
+        "resolution": 320,
+        "pixelSize": 3
+      }
+    },
+    {
+      "effect": "gradientBlob",
+      "at": 0,
+      "dur": 8,
+      "ease": "inOutSine",
+      "opacity": 0.4,
+      "blend": "lighter",
+      "params": {
+        "count": 3,
+        "alpha": 0.3,
+        "mode": "screen"
+      }
+    }
+  ],
+  "meta": {
+    "worker_note": "氛围底纹：噪声场全程铺底；渐变光斑随副歌增强（前半冷、后半暖）。"
+  }
+}

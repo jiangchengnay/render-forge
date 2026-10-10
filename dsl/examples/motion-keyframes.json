@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "Motion Keyframes",
+    "width": 1080,
+    "height": 1080,
+    "duration": 5,
+    "seed": 3
+  },
+  "palette": "synthSunset",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.5,
+      "threshold": 0.65
+    }
+  ],
+  "acts": [
+    {
+      "id": "a1",
+      "dur": 5,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#2a1038",
+        "outer": "#050109"
+      },
+      "tracks": [
+        {
+          "effect": "shape",
+          "at": 0,
+          "dur": 5,
+          "motion": {
+            "keys": [
+              {
+                "t": 0,
+                "x": 0.1,
+                "y": 0.8
+              },
+              {
+                "t": 0.33,
+                "x": 0.3,
+                "y": 0.2
+              },
+              {
+                "t": 0.66,
+                "x": 0.7,
+                "y": 0.75
+              },
+              {
+                "t": 1,
+                "x": 0.9,
+                "y": 0.25
+              }
+            ],
+            "path": "catmullRom",
+            "ease": "inOutCubic",
+            "rotateFollow": true
+          },
+          "params": {
+            "kind": "polygon",
+            "sides": 3,
+            "size": 0.06,
+            "fill": "#ffe8d6",
+            "stroke": "$accent",
+            "lineWidth": 2
+          }
+        },
+        {
+          "effect": "shape",
+          "at": 0.5,
+          "dur": 4.5,
+          "motion": {
+            "keys": [
+              {
+                "t": 0,
+                "x": 0.9,
+                "y": 0.15
+              },
+              {
+                "t": 0.5,
+                "x": 0.5,
+                "y": 0.85
+              },
+              {
+                "t": 1,
+                "x": 0.1,
+                "y": 0.3
+              }
+            ],
+            "path": "catmullRom",
+            "ease": "linear"
+          },
+          "params": {
+            "kind": "circle",
+            "radius": 0.025,
+            "fill": "$1"
+          }
+        }
+      ]
+    }
+  ]
+}

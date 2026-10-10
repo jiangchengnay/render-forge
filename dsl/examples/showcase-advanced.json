@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "title": "Render Forge Showcase",
+    "width": 1080,
+    "height": 1080,
+    "duration": 10,
+    "seed": 2026
+  },
+  "palette": "deepSea",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.35,
+      "threshold": 0.72,
+      "radius": 16
+    },
+    {
+      "effect": "vignette",
+      "amount": 0.55
+    },
+    {
+      "effect": "grain",
+      "amount": 0.05,
+      "cell": 2
+    }
+  ],
+  "acts": [
+    {
+      "id": "rhythm",
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#0a1530",
+        "outer": "#020610"
+      },
+      "transitionIn": {
+        "type": "fade",
+        "dur": 0.5,
+        "color": "#000"
+      },
+      "transitionOut": {
+        "type": "wipe",
+        "dur": 0.35,
+        "dir": "left",
+        "color": "#020610"
+      },
+      "camera": {
+        "zoomFrom": 1.15,
+        "zoomTo": 1,
+        "ease": "outCubic"
+      },
+      "tracks": [
+        {
+          "effect": "ripples",
+          "at": 0,
+          "dur": 4,
+          "opacity": 0.7,
+          "blend": "lighter",
+          "params": {
+            "count": 3,
+            "maxRadius": "=0.2 + sin(t * 3) * 0.15",
+            "lineWidth": 2,
+            "color": "$accent",
+            "alpha": 0.8
+          }
+        },
+        {
+          "effect": "morphPolygon",
+          "at": 0,
+          "dur": 4,
+          "opacity": 0.85,
+          "blend": "lighter",
+          "params": {
+            "sides": 6,
+            "radius": "=0.06 + abs(sin(t * 2)) * 0.04",
+            "rotSpeed": 0.5,
+            "fill": "rgba(0,229,255,0.4)",
+            "stroke": "$accent",
+            "lineWidth": 2.5,
+            "breath": 0.1
+          }
+        },
+        {
+          "effect": "gridWarp",
+          "at": 0,
+          "dur": 4,
+          "opacity": 0.35,
+          "blend": "lighter",
+          "params": {
+            "cols": 40,
+            "rows": 40,
+            "dot": 1,
+            "noiseAmp": "=0.02 + sin(t) * 0.015",
+            "noiseScale": 1.4,
+            "speed": 0.12,
+            "color": "$1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "group",
+      "dur": 3,
+      "background": {
+        "type": "gradient",
+        "angle": 135,
+        "stops": [
+          {
+            "at": 0,
+            "color": "#03080f"
+          },
+          {
+            "at": 1,
+            "color": "#0a1e38"
+          }
+        ]
+      },
+      "transitionIn": {
+        "type": "wipe",
+        "dur": 0.35,
+        "dir": "left",
+        "color": "#020610"
+      },
+      "transitionOut": {
+        "type": "glitch",
+        "dur": 0.3,
+        "colors": [
+          "#00e5ff",
+          "#ffffff"
+        ]
+      },
+      "tracks": [
+        {
+          "effect": "morphPolygon",
+          "at": 0,
+          "dur": 3,
+          "group": "twin",
+          "opacity": 0.9,
+          "blend": "lighter",
+          "groupTransform": {
+            "scaleFrom": 0.3,
+            "scaleTo": 1,
+            "rotateFrom": 0,
+            "rotateTo": 1.57,
+            "ease": "outCubic",
+            "dur": 2
+          },
+          "params": {
+            "sides": 6,
+            "radius": 0.05,
+            "cx": 0.35,
+            "cy": 0.5,
+            "fill": "rgba(0,229,255,0.5)",
+            "stroke": "$accent",
+            "lineWidth": 2
+          }
+        },
+        {
+          "effect": "morphPolygon",
+          "at": 0,
+          "dur": 3,
+          "group": "twin",
+          "opacity": 0.9,
+          "blend": "lighter",
+          "groupTransform": {
+            "scaleFrom": 0.3,
+            "scaleTo": 1,
+            "rotateFrom": 0,
+            "rotateTo": 1.57,
+            "ease": "outCubic",
+            "dur": 2
+          },
+          "params": {
+            "sides": 4,
+            "radius": 0.05,
+            "cx": 0.65,
+            "cy": 0.5,
+            "fill": "rgba(255,45,149,0.5)",
+            "stroke": "$1",
+            "lineWidth": 2
+          }
+        },
+        {
+          "effect": "connector",
+          "at": 0,
+          "dur": 3,
+          "opacity": 0.8,
+          "blend": "lighter",
+          "params": {
+            "from": [
+              0.35,
+              0.5
+            ],
+            "to": [
+              0.65,
+              0.5
+            ],
+            "style": "straight",
+            "color": "$accent",
+            "lineWidth": 2,
+            "arrow": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "finale",
+      "dur": 3,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.2,
+        "inner": "#0a1830",
+        "outer": "#020610"
+      },
+      "transitionIn": {
+        "type": "glitch",
+        "dur": 0.3,
+        "colors": [
+          "#00e5ff",
+          "#ffffff"
+        ]
+      },
+      "camera": {
+        "zoomFrom": 0.9,
+        "zoomTo": 1.1,
+        "ease": "inOutCubic"
+      },
+      "tracks": [
+        {
+          "effect": "dotGrid",
+          "at": 0,
+          "dur": 3,
+          "opacity": 0.6,
+          "params": {
+            "spacing": 0.045,
+            "dotR": 0.002,
+            "color": "rgba(90,180,255,0.4)",
+            "reveal": "radial"
+          }
+        },
+        {
+          "effect": "titleCard",
+          "at": 0.3,
+          "dur": 2.4,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "badge": "POWERED BY",
+            "title": "表达式 + 分组 + 镜头",
+            "subtitle": "t · clips · groupTransform · camera",
+            "x": 0.5,
+            "y": 0.45,
+            "titleSize": 0.055,
+            "titleWeight": 800,
+            "stagger": 0.5,
+            "subSize": 0.022,
+            "badgeSize": 0.014
+          }
+        }
+      ]
+    }
+  ]
+}

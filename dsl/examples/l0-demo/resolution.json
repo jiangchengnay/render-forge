@@ -1,0 +1,11 @@
+{
+  "action": "use_bridge",
+  "resolution": "深层串联",
+  "note": "用户不许问：找到深层串联依据（情绪基调），据此处理。",
+  "basis": {
+    "has_conflict": true,
+    "item_index": 0,
+    "aspect": "情绪基调",
+    "possible_bridge": "用户的「重生」可理解为内心秩序重建，与歌曲「光一直在，只是你暂时看不见」的静默自愈深层串联。"
+  }
+}

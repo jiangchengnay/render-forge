@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "Music Vocal Split",
+    "width": 1080,
+    "height": 1080,
+    "duration": 12,
+    "seed": 3
+  },
+  "palette": "auroraGreen",
+  "audio": true,
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.4,
+      "threshold": 0.7
+    }
+  ],
+  "acts": [
+    {
+      "id": "a",
+      "dur": 12,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#04120e",
+        "outer": "#01060a"
+      },
+      "tracks": [
+        {
+          "effect": "dotGrid",
+          "at": 0,
+          "dur": 12,
+          "opacity": 0.3,
+          "params": {
+            "spacing": 0.05
+          }
+        },
+        {
+          "effect": "lyricLine",
+          "at": "phrase:1",
+          "dur": 3,
+          "params": {
+            "text": "第一句歌词",
+            "x": 0.5,
+            "y": 0.5,
+            "size": 0.08,
+            "mode": "fill",
+            "colorHi": "#ffffff"
+          }
+        },
+        {
+          "effect": "lyricLine",
+          "at": "phrase:2",
+          "dur": 3,
+          "params": {
+            "text": "第二句歌词",
+            "x": 0.5,
+            "y": 0.5,
+            "size": 0.08,
+            "mode": "fill",
+            "colorHi": "#ffffff"
+          }
+        },
+        {
+          "effect": "lissajous",
+          "at": "interlude:1",
+          "dur": 2,
+          "blend": "lighter",
+          "params": {
+            "a": 3,
+            "b": 5,
+            "radius": 0.3,
+            "samples": 1500,
+            "color": "$accent",
+            "color2": "$1"
+          }
+        }
+      ]
+    }
+  ]
+}

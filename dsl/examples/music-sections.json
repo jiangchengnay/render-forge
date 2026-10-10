@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "Music Sections",
+    "width": 1080,
+    "height": 1080,
+    "duration": 16,
+    "seed": 2
+  },
+  "palette": "deepSea",
+  "audio": true,
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.5,
+      "threshold": 0.65
+    }
+  ],
+  "acts": [
+    {
+      "id": "verse",
+      "dur": 8,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#0a1838",
+        "outer": "#020610"
+      },
+      "tracks": [
+        {
+          "effect": "dotGrid",
+          "at": 0,
+          "dur": 8,
+          "opacity": 0.4,
+          "params": {
+            "spacing": 0.05,
+            "reveal": "radial"
+          }
+        },
+        {
+          "effect": "titleCard",
+          "at": 0.5,
+          "dur": 7,
+          "params": {
+            "title": "VERSE",
+            "subtitle": "安静叙述",
+            "x": 0.5,
+            "y": 0.5,
+            "divider": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "chorus",
+      "dur": 8,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.2,
+        "inner": "#3a1a10",
+        "outer": "#050109"
+      },
+      "tracks": [
+        {
+          "effect": "gridWarp",
+          "at": 0,
+          "dur": 8,
+          "opacity": 0.3,
+          "blend": "lighter",
+          "params": {
+            "cols": 32,
+            "rows": 32,
+            "noiseAmp": "=0.02 + audio.energy * 0.05"
+          }
+        },
+        {
+          "effect": "ripples",
+          "at": 0,
+          "dur": 8,
+          "blend": "lighter",
+          "params": {
+            "count": 4,
+            "maxRadius": "=0.3 + audio.bass*0.4",
+            "lineWidth": 3,
+            "color": "$1"
+          }
+        },
+        {
+          "effect": "titleCard",
+          "at": 0.5,
+          "dur": 7,
+          "params": {
+            "title": "CHORUS",
+            "subtitle": "全力爆发",
+            "x": 0.5,
+            "y": 0.5,
+            "divider": false,
+            "titleSize": 0.1
+          }
+        }
+      ]
+    }
+  ]
+}

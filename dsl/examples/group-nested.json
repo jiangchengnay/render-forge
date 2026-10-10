@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "Group Nested",
+    "width": 1080,
+    "height": 1080,
+    "duration": 4,
+    "seed": 4
+  },
+  "palette": "cyberMint",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.4,
+      "threshold": 0.7
+    }
+  ],
+  "acts": [
+    {
+      "id": "a1",
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#04120e",
+        "outer": "#01060a"
+      },
+      "tracks": [
+        {
+          "type": "group",
+          "id": "hero",
+          "at": 0,
+          "dur": 4,
+          "transform": {
+            "x": 0.5,
+            "y": 0.5,
+            "scale": 1
+          },
+          "motion": {
+            "keys": [
+              {
+                "t": 0,
+                "x": 0.5,
+                "y": 0.5
+              },
+              {
+                "t": 0.5,
+                "x": 0.5,
+                "y": 0.35
+              },
+              {
+                "t": 1,
+                "x": 0.5,
+                "y": 0.5
+              }
+            ],
+            "path": "catmullRom",
+            "ease": "inOutCubic"
+          },
+          "children": [
+            {
+              "type": "group",
+              "id": "inner",
+              "at": 0,
+              "dur": 4,
+              "transform": {
+                "x": 0.5,
+                "y": 0.5,
+                "scale": 1
+              },
+              "motion": {
+                "keys": [
+                  {
+                    "t": 0,
+                    "x": 0.5,
+                    "y": 0.5,
+                    "rotate": 0
+                  },
+                  {
+                    "t": 1,
+                    "x": 0.5,
+                    "y": 0.5,
+                    "rotate": 6.28
+                  }
+                ],
+                "path": "linear",
+                "ease": "linear"
+              },
+              "children": [
+                {
+                  "effect": "shape",
+                  "at": 0,
+                  "dur": 4,
+                  "params": {
+                    "kind": "polygon",
+                    "sides": 6,
+                    "size": 0.12,
+                    "fill": "rgba(0,255,163,0.25)",
+                    "stroke": "$accent",
+                    "lineWidth": 3
+                  }
+                },
+                {
+                  "effect": "shape",
+                  "at": 0,
+                  "dur": 4,
+                  "transform": {
+                    "x": 0.65,
+                    "y": 0.5
+                  },
+                  "params": {
+                    "kind": "circle",
+                    "radius": 0.03,
+                    "fill": "$1"
+                  }
+                }
+              ]
+            },
+            {
+              "effect": "labelText",
+              "at": 0.5,
+              "dur": 3.5,
+              "params": {
+                "text": "NESTED",
+                "x": 0.5,
+                "y": 0.85,
+                "size": 0.03,
+                "color": "$fg"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

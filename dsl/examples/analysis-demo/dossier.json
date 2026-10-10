@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "generatedAt": "2026-10-11T00:00:00.000Z",
+    "audioFile": "demo.mp3",
+    "duration": 8
+  },
+  "song": {
+    "title": "demo",
+    "lyricsAvailable": true
+  },
+  "audio": {
+    "duration": 8,
+    "tempo": 120,
+    "beats": [
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3,
+      3.5,
+      4,
+      4.5,
+      5,
+      5.5,
+      6,
+      6.5,
+      7,
+      7.5
+    ],
+    "onsets": [
+      0.05,
+      2.05,
+      4.05,
+      6.05
+    ],
+    "sections": [
+      {
+        "start": 0,
+        "end": 4,
+        "type": "intro",
+        "energy": "low"
+      },
+      {
+        "start": 4,
+        "end": 8,
+        "type": "chorus",
+        "energy": "high"
+      }
+    ],
+    "bands_summary": {
+      "bass": [
+        {
+          "start": 0,
+          "end": 4,
+          "mean": 0.2,
+          "peak": 0.4
+        },
+        {
+          "start": 4,
+          "end": 8,
+          "mean": 0.7,
+          "peak": 1
+        }
+      ],
+      "mid": [
+        {
+          "start": 0,
+          "end": 4,
+          "mean": 0.3,
+          "peak": 0.5
+        },
+        {
+          "start": 4,
+          "end": 8,
+          "mean": 0.6,
+          "peak": 0.9
+        }
+      ],
+      "treble": [
+        {
+          "start": 0,
+          "end": 4,
+          "mean": 0.15,
+          "peak": 0.3
+        },
+        {
+          "start": 4,
+          "end": 8,
+          "mean": 0.5,
+          "peak": 0.8
+        }
+      ]
+    },
+    "phrases": [
+      {
+        "start": 0,
+        "end": 2
+      },
+      {
+        "start": 2,
+        "end": 4
+      },
+      {
+        "start": 4,
+        "end": 6
+      },
+      {
+        "start": 6,
+        "end": 8
+      }
+    ],
+    "interludes": [
+      {
+        "start": 4,
+        "end": 4.5
+      }
+    ]
+  },
+  "lyrics": [
+    {
+      "index": 1,
+      "text": "我看见光",
+      "start": 0,
+      "end": 2
+    },
+    {
+      "index": 2,
+      "text": "它缓缓升起",
+      "start": 2,
+      "end": 4
+    },
+    {
+      "index": 3,
+      "text": "穿过漫长黑夜",
+      "start": 4,
+      "end": 6
+    },
+    {
+      "index": 4,
+      "text": "终于照亮我",
+      "start": 6,
+      "end": 8
+    }
+  ],
+  "constitution": {
+    "_note": "对应本目录 constitution.json（此处内联便于单独阅读）",
+    "mood": "uplifting",
+    "narrative_style": "克制",
+    "interpretation_boundary": "「光」可隐喻希望；「黑夜」按字面与隐喻皆可",
+    "conflict_notes": []
+  },
+  "presets": [
+    {
+      "preset": "uplifting-bloom",
+      "description": "向上绽放的释然",
+      "mood": [
+        "uplifting",
+        "warm"
+      ],
+      "layers": {},
+      "transition": {
+        "type": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "preset": "calm-breathe",
+      "description": "平静呼吸式律动",
+      "mood": [
+        "calm",
+        "gentle"
+      ],
+      "layers": {},
+      "transition": {
+        "type": "fade",
+        "duration": 0.8
+      }
+    }
+  ]
+}

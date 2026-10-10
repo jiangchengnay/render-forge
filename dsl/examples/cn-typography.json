@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "title": "中文排版测试",
+    "width": 1080,
+    "height": 1080,
+    "duration": 4,
+    "seed": 5
+  },
+  "palette": "deepSea",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.3,
+      "threshold": 0.75,
+      "radius": 12
+    },
+    {
+      "effect": "vignette",
+      "amount": 0.5
+    },
+    {
+      "effect": "grain",
+      "amount": 0.04,
+      "cell": 2
+    }
+  ],
+  "acts": [
+    {
+      "id": "cn",
+      "start": 0,
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#0a1830",
+        "outer": "#020610"
+      },
+      "transitionIn": {
+        "type": "fade",
+        "dur": 0.4,
+        "color": "#000"
+      },
+      "tracks": [
+        {
+          "effect": "dotGrid",
+          "at": 0,
+          "dur": 4,
+          "opacity": 0.5,
+          "params": {
+            "spacing": 0.05,
+            "dotR": 0.002,
+            "color": "rgba(90,180,255,0.3)",
+            "reveal": "radial"
+          }
+        },
+        {
+          "effect": "titleCard",
+          "at": 0.3,
+          "dur": 3.4,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "badge": "开源项目发布",
+            "title": "让普通 AI 也能做出接近 Opus 级别的程序化渲染动画效果",
+            "subtitle": "确定性引擎 · 45 种组件 · 节拍对齐 · 中文排版",
+            "tag": "Render Forge v1.0.0",
+            "x": 0.5,
+            "y": 0.5,
+            "titleSize": 0.065,
+            "titleWeight": 800,
+            "stagger": 0.5,
+            "subSize": 0.022,
+            "subWeight": 400,
+            "badgeSize": 0.016,
+            "tagSize": 0.016,
+            "safeMargin": 0.1
+          }
+        }
+      ]
+    }
+  ]
+}

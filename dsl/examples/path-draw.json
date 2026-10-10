@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "Path Draw",
+    "width": 1080,
+    "height": 1080,
+    "duration": 4,
+    "seed": 2
+  },
+  "palette": "auroraGreen",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.5,
+      "threshold": 0.6
+    }
+  ],
+  "acts": [
+    {
+      "id": "a1",
+      "dur": 4,
+      "background": {
+        "type": "solid",
+        "color": "#020610"
+      },
+      "tracks": [
+        {
+          "effect": "path",
+          "at": 0,
+          "dur": 4,
+          "params": {
+            "points": [
+              [
+                0.1,
+                0.7
+              ],
+              [
+                0.3,
+                0.3
+              ],
+              [
+                0.5,
+                0.6
+              ],
+              [
+                0.7,
+                0.2
+              ],
+              [
+                0.9,
+                0.5
+              ]
+            ],
+            "smooth": "linear",
+            "grow": true,
+            "stroke": "$accent",
+            "lineWidth": 4
+          }
+        },
+        {
+          "effect": "path",
+          "at": 0.5,
+          "dur": 3.5,
+          "params": {
+            "points": [
+              [
+                0.1,
+                0.85
+              ],
+              [
+                0.3,
+                0.6
+              ],
+              [
+                0.5,
+                0.9
+              ],
+              [
+                0.7,
+                0.65
+              ],
+              [
+                0.9,
+                0.85
+              ]
+            ],
+            "smooth": "catmullRom",
+            "grow": true,
+            "stroke": "$1",
+            "lineWidth": 3
+          }
+        },
+        {
+          "effect": "path",
+          "at": 1,
+          "dur": 3,
+          "params": {
+            "points": [
+              [
+                0.35,
+                0.15
+              ],
+              [
+                0.65,
+                0.15
+              ],
+              [
+                0.65,
+                0.45
+              ],
+              [
+                0.35,
+                0.45
+              ]
+            ],
+            "smooth": "linear",
+            "closed": true,
+            "stroke": "$2",
+            "fill": "rgba(0,255,163,0.15)",
+            "lineWidth": 3
+          }
+        }
+      ]
+    }
+  ]
+}

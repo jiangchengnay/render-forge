@@ -1,0 +1,15 @@
+node_modules/
+output/
+.cuckoo/
+*.log
+package-lock.json
+# 中间产物
+output/*.b64.txt
+output/critique-report*.json
+crit.log
+crit.err
+npm-install.*
+
+# ffmpeg 二进制（体积大，用户自行安装）
+bin/*.exe
+bin/ffmpeg

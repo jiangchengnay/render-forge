@@ -1,0 +1,162 @@
+{
+  "paradigm": "choreography",
+  "global": {
+    "palette": "deepSea",
+    "seed": 42,
+    "width": 1080,
+    "height": 1080,
+    "duration": 8,
+    "style": "epic-tech",
+    "narrative_style": "克制",
+    "bottom_line_rules": [
+      "转场不连续同类型",
+      "文字避开中心",
+      "配色统一",
+      "时长与音频对齐"
+    ],
+    "post": [
+      {
+        "effect": "bloom",
+        "amount": 0.32,
+        "threshold": 0.72,
+        "radius": 16
+      },
+      {
+        "effect": "vignette",
+        "amount": 0.6
+      },
+      {
+        "effect": "grain",
+        "amount": 0.05,
+        "cell": 2
+      }
+    ]
+  },
+  "timeline": {
+    "beats": [
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3,
+      3.5,
+      4,
+      4.5,
+      5,
+      5.5,
+      6,
+      6.5,
+      7,
+      7.5
+    ],
+    "onsets": [
+      0.05,
+      2.05,
+      4.05,
+      6.05
+    ],
+    "phrases": [
+      {
+        "start": 0,
+        "end": 2
+      },
+      {
+        "start": 2,
+        "end": 4
+      },
+      {
+        "start": 4,
+        "end": 6
+      },
+      {
+        "start": 6,
+        "end": 8
+      }
+    ],
+    "sections": [
+      {
+        "start": 0,
+        "end": 4,
+        "type": "intro"
+      },
+      {
+        "start": 4,
+        "end": 8,
+        "type": "chorus"
+      }
+    ],
+    "focus_curve": [
+      {
+        "t": 0,
+        "focus": "text",
+        "reason": "开场字幕引入"
+      },
+      {
+        "t": 2,
+        "focus": "subject",
+        "reason": "主体开始升起"
+      },
+      {
+        "t": 4,
+        "focus": "accent",
+        "reason": "副歌粒子/特效爆发"
+      },
+      {
+        "t": 6,
+        "focus": "subject",
+        "reason": "焦点回到主体收束"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "id": "s1",
+      "type": "system",
+      "role": "background",
+      "scope": "全片",
+      "brief": "氛围底纹：噪声场随 section 由冷到暖缓慢演化，全程铺底；文字避开中心。",
+      "docs": [
+        "EFFECTS#fbmNoise",
+        "EFFECTS#gradientBlob",
+        "audio#sections"
+      ]
+    },
+    {
+      "id": "s2",
+      "type": "system",
+      "role": "subject",
+      "scope": "全片",
+      "brief": "核心视觉：多边形环随节拍呼吸、副歌放大，从低处升起；重心不放在画面正中偏上。",
+      "docs": [
+        "EFFECTS#polygonRing",
+        "EFFECTS#morphPolygon",
+        "audio#bands"
+      ]
+    },
+    {
+      "id": "s3",
+      "type": "system",
+      "role": "accent",
+      "scope": "全片",
+      "brief": "特效点缀：粒子随 onset 爆发 + 流动场，副歌段落增强。",
+      "docs": [
+        "EFFECTS#particles",
+        "EFFECTS#flowfield",
+        "audio#beats"
+      ]
+    },
+    {
+      "id": "s4",
+      "type": "system",
+      "role": "text",
+      "scope": "全片",
+      "brief": "歌词逐句呈现：三句歌词按 phrases 时间淡入淡出，文字避开中心（y=0.72）。",
+      "docs": [
+        "EFFECTS#lyricLine",
+        "EFFECTS#subtitle"
+      ]
+    }
+  ]
+}

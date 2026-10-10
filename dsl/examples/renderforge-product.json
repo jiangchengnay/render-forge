@@ -1,0 +1,452 @@
+{
+  "meta": {
+    "title": "RenderForge Product",
+    "width": 1080,
+    "height": 1080,
+    "duration": 18,
+    "seed": 42
+  },
+  "palette": "deepSea",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.35,
+      "threshold": 0.72,
+      "radius": 16
+    },
+    {
+      "effect": "vignette",
+      "amount": 0.5
+    },
+    {
+      "effect": "grain",
+      "amount": 0.045,
+      "cell": 2
+    }
+  ],
+  "acts": [
+    {
+      "id": "intro",
+      "start": 0,
+      "dur": 3,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.2,
+        "inner": "#0a1830",
+        "outer": "#020610"
+      },
+      "transitionIn": {
+        "type": "fade",
+        "dur": 0.5,
+        "color": "#000"
+      },
+      "transitionOut": {
+        "type": "wipe",
+        "dur": 0.35,
+        "dir": "up",
+        "color": "#020610"
+      },
+      "tracks": [
+        {
+          "effect": "dotGrid",
+          "at": 0,
+          "dur": 3,
+          "opacity": 0.9,
+          "params": {
+            "spacing": 0.04,
+            "dotR": 0.0018,
+            "color": "rgba(90,180,255,0.4)",
+            "reveal": "radial"
+          }
+        },
+        {
+          "effect": "logoMark",
+          "at": 0.4,
+          "dur": 2.6,
+          "ease": "outBack",
+          "opacity": 1,
+          "params": {
+            "style": "cross",
+            "size": 0.07,
+            "x": 0.5,
+            "y": 0.44,
+            "color": "$accent"
+          }
+        },
+        {
+          "effect": "titleCard",
+          "at": 1,
+          "dur": 2,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "title": "Render Forge",
+            "subtitle": "程序化动画引擎",
+            "x": 0.5,
+            "y": 0.6,
+            "titleSize": 0.075,
+            "titleWeight": 800,
+            "stagger": 0.5,
+            "divider": false,
+            "subSize": 0.026,
+            "subWeight": 400
+          }
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "start": 3,
+      "dur": 4,
+      "background": {
+        "type": "gradient",
+        "angle": 135,
+        "stops": [
+          {
+            "at": 0,
+            "color": "#050f1f"
+          },
+          {
+            "at": 1,
+            "color": "#0a1530"
+          }
+        ]
+      },
+      "transitionIn": {
+        "type": "wipe",
+        "dur": 0.35,
+        "dir": "up",
+        "color": "#020610"
+      },
+      "transitionOut": {
+        "type": "iris",
+        "dur": 0.4,
+        "color": "#020610"
+      },
+      "tracks": [
+        {
+          "effect": "geoShapes",
+          "at": 0,
+          "dur": 4,
+          "opacity": 0.35,
+          "params": {
+            "count": 8,
+            "alpha": 0.3,
+            "lineWidth": 1.5
+          }
+        },
+        {
+          "effect": "browserFrame",
+          "at": 0.3,
+          "dur": 3.7,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "x": 0.1,
+            "y": 0.18,
+            "w": 0.8,
+            "h": 0.62,
+            "url": "app.renderforge.dev",
+            "lines": 4
+          }
+        },
+        {
+          "effect": "labelText",
+          "at": 1.2,
+          "dur": 2.8,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "text": "所见即所得的编辑器",
+            "x": 0.5,
+            "y": 0.88,
+            "size": 0.028,
+            "color": "$fg",
+            "weight": 500,
+            "align": "center"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "start": 7,
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1,
+        "inner": "#0a0820",
+        "outer": "#020108"
+      },
+      "transitionIn": {
+        "type": "iris",
+        "dur": 0.4,
+        "color": "#020610"
+      },
+      "transitionOut": {
+        "type": "glitch",
+        "dur": 0.35,
+        "colors": [
+          "#00e5ff",
+          "#7b5cff",
+          "#ffffff"
+        ]
+      },
+      "tracks": [
+        {
+          "effect": "terminalWindow",
+          "at": 0.2,
+          "dur": 3.8,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "x": 0.12,
+            "y": 0.18,
+            "w": 0.76,
+            "h": 0.55,
+            "title": "render-forge ~ zsh",
+            "lines": [
+              "$ npm install render-forge",
+              "  added 3 packages in 1.2s",
+              "$ render-forge build story.json",
+              "  ✓ compiled 16 effects",
+              "  ✓ rendered 480 frames",
+              "  → output.mp4"
+            ],
+            "fontSize": 0.019,
+            "promptColor": "$accent",
+            "textColor": "#d8dde8"
+          }
+        },
+        {
+          "effect": "tagCloud",
+          "at": 2,
+          "dur": 2,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "tags": [
+              "MIT",
+              "Zero-Deps",
+              "WebGL-Ready",
+              "Deterministic"
+            ],
+            "x": 0.5,
+            "y": 0.87,
+            "size": 0.02,
+            "maxWidth": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "id": "metrics",
+      "start": 11,
+      "dur": 4,
+      "background": {
+        "type": "gradient",
+        "angle": 180,
+        "stops": [
+          {
+            "at": 0,
+            "color": "#050f1f"
+          },
+          {
+            "at": 1,
+            "color": "#020810"
+          }
+        ]
+      },
+      "transitionIn": {
+        "type": "glitch",
+        "dur": 0.35,
+        "colors": [
+          "#00e5ff",
+          "#ffffff"
+        ]
+      },
+      "transitionOut": {
+        "type": "fade",
+        "dur": 0.4,
+        "color": "#020610"
+      },
+      "tracks": [
+        {
+          "effect": "counterNumber",
+          "at": 0.3,
+          "dur": 2.2,
+          "ease": "outExpo",
+          "opacity": 1,
+          "params": {
+            "from": 0,
+            "to": 60,
+            "suffix": "fps",
+            "x": 0.28,
+            "y": 0.3,
+            "size": 0.08,
+            "weight": 800,
+            "color": "$accent"
+          }
+        },
+        {
+          "effect": "counterNumber",
+          "at": 0.6,
+          "dur": 2.2,
+          "ease": "outExpo",
+          "opacity": 1,
+          "params": {
+            "from": 0,
+            "to": 16,
+            "x": 0.72,
+            "y": 0.3,
+            "size": 0.08,
+            "weight": 800,
+            "color": "$1"
+          }
+        },
+        {
+          "effect": "labelText",
+          "at": 0.3,
+          "dur": 2.2,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "text": "RUNTIME",
+            "x": 0.28,
+            "y": 0.4,
+            "size": 0.014,
+            "color": "$fg",
+            "weight": 500
+          }
+        },
+        {
+          "effect": "labelText",
+          "at": 0.6,
+          "dur": 2.2,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "text": "EFFECTS",
+            "x": 0.72,
+            "y": 0.4,
+            "size": 0.014,
+            "color": "$fg",
+            "weight": 500
+          }
+        },
+        {
+          "effect": "lineChart",
+          "at": 1.2,
+          "dur": 2.6,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "x": 0.15,
+            "y": 0.55,
+            "w": 0.7,
+            "h": 0.3,
+            "values": [
+              0.2,
+              0.35,
+              0.3,
+              0.55,
+              0.5,
+              0.75,
+              0.7,
+              0.9
+            ],
+            "color": "$accent",
+            "lineWidth": 3
+          }
+        },
+        {
+          "effect": "labelText",
+          "at": 1.5,
+          "dur": 2.3,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "text": "性能曲线 · 稳定增长",
+            "x": 0.5,
+            "y": 0.9,
+            "size": 0.022,
+            "color": "$fg",
+            "weight": 500,
+            "align": "center"
+          }
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "start": 15,
+      "dur": 3,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.2,
+        "inner": "#0a1830",
+        "outer": "#020610"
+      },
+      "transitionIn": {
+        "type": "fade",
+        "dur": 0.4,
+        "color": "#020610"
+      },
+      "tracks": [
+        {
+          "effect": "dotGrid",
+          "at": 0,
+          "dur": 3,
+          "opacity": 0.8,
+          "params": {
+            "spacing": 0.05,
+            "dotR": 0.0018,
+            "color": "rgba(90,180,255,0.35)",
+            "reveal": "radial"
+          }
+        },
+        {
+          "effect": "titleCard",
+          "at": 0.3,
+          "dur": 2.2,
+          "ease": "outCubic",
+          "opacity": 1,
+          "params": {
+            "badge": "GET STARTED",
+            "title": "npm i render-forge",
+            "subtitle": "开源 · MIT · 免费",
+            "tag": "github.com/render-forge",
+            "x": 0.5,
+            "y": 0.42,
+            "titleSize": 0.048,
+            "titleWeight": 800,
+            "stagger": 0.5,
+            "subSize": 0.022,
+            "badgeSize": 0.014,
+            "tagSize": 0.016
+          }
+        },
+        {
+          "effect": "logoMark",
+          "at": 2,
+          "dur": 0.9,
+          "ease": "outBack",
+          "opacity": 1,
+          "params": {
+            "style": "cross",
+            "size": 0.035,
+            "x": 0.5,
+            "y": 0.82,
+            "color": "$accent"
+          }
+        }
+      ]
+    }
+  ]
+}

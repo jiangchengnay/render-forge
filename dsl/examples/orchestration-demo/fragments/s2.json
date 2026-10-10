@@ -1,0 +1,65 @@
+{
+  "task_id": "s2",
+  "type": "system",
+  "tracks": [
+    {
+      "effect": "polygonRing",
+      "at": 0,
+      "dur": 8,
+      "ease": "inOutSine",
+      "opacity": 0.7,
+      "blend": "lighter",
+      "params": {
+        "count": 10,
+        "radius": 0.28,
+        "sides": 6,
+        "size": 0.05,
+        "lineWidth": 2,
+        "rotSpeed": 0.12,
+        "radiusVar": 0.15,
+        "stagger": 0.3,
+        "color": "$accent",
+        "color2": "$0"
+      },
+      "transform": {
+        "y": 0.58
+      }
+    },
+    {
+      "effect": "morphPolygon",
+      "at": 1.6,
+      "dur": 6.4,
+      "ease": "outCubic",
+      "opacity": 0.55,
+      "params": {
+        "sides": 6,
+        "radius": 0.22,
+        "cx": 0.5,
+        "cy": 0.58,
+        "rotSpeed": 0.3,
+        "fill": "$0",
+        "stroke": "$fg",
+        "lineWidth": 2,
+        "breath": 0.12
+      },
+      "motion": {
+        "keys": [
+          {
+            "t": 0,
+            "x": 0.5,
+            "y": 0.66
+          },
+          {
+            "t": 1,
+            "x": 0.5,
+            "y": 0.58
+          }
+        ],
+        "path": "linear"
+      }
+    }
+  ],
+  "meta": {
+    "worker_note": "核心视觉：多边形环随节拍呼吸，副歌放大；重心在画面偏下（y≈0.58），避开正中。"
+  }
+}

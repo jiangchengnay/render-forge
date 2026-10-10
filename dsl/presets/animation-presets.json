@@ -1,0 +1,372 @@
+{
+  "version": "1.0",
+  "note": "动画设计预设库（L1 分析层参考）。每个预设给出四层（主体/背景/衬托/装饰）的动作候选与 effect_hint。这是『参考』不是『模板套用』：分析师据此快速定位效果族，最终动作由内容决定。effect_hint 只作建议范围，执行层在范围内自由选。",
+  "layers": [
+    "主体",
+    "背景",
+    "衬托",
+    "装饰"
+  ],
+  "presets": [
+    {
+      "preset": "epic-intro-rise",
+      "description": "气势开场上升",
+      "mood": [
+        "epic",
+        "uplifting"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "从下方升起 + 放大",
+          "effect_hint": "logoMark / titleCard"
+        },
+        "背景": {
+          "motion": "径向光晕扩散",
+          "effect_hint": "gradientBlob / fbmNoise"
+        },
+        "衬托": {
+          "motion": "粒子环绕",
+          "effect_hint": "particles / flowfield"
+        },
+        "装饰": {
+          "motion": "点阵淡入",
+          "effect_hint": "dotGrid"
+        }
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "preset": "calm-breathe",
+      "description": "平静呼吸式律动",
+      "mood": [
+        "calm",
+        "gentle"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "缓慢缩放呼吸",
+          "effect_hint": "shape / logoMark"
+        },
+        "背景": {
+          "motion": "柔和渐变流动",
+          "effect_hint": "gradientBlob / fbmNoise"
+        },
+        "衬托": {
+          "motion": "缓慢漂移光点",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "细微星点闪烁",
+          "effect_hint": "dotGrid"
+        }
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 0.8
+      }
+    },
+    {
+      "preset": "energetic-beat-pop",
+      "description": "跟随鼓点的弹性弹跳",
+      "mood": [
+        "energetic",
+        "playful"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "跟随节拍弹跳 + 回弹",
+          "effect_hint": "shape / wordPop"
+        },
+        "背景": {
+          "motion": "闪光脉冲",
+          "effect_hint": "lightSweep / gradientBlob"
+        },
+        "衬托": {
+          "motion": "迸射粒子",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "波纹扩散",
+          "effect_hint": "ripples"
+        }
+      },
+      "transition": {
+        "type": "cut",
+        "duration": 0
+      }
+    },
+    {
+      "preset": "dark-descent",
+      "description": "下落与下坠的沉重感",
+      "mood": [
+        "dark",
+        "heavy"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "从上方坠落 + 拉伸",
+          "effect_hint": "shape / titleCard"
+        },
+        "背景": {
+          "motion": "暗流涌动",
+          "effect_hint": "fbmNoise / flowfield"
+        },
+        "衬托": {
+          "motion": "碎片飘落",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "模糊暗角收缩",
+          "effect_hint": "blurFocus"
+        }
+      },
+      "transition": {
+        "type": "dissolve",
+        "duration": 0.6
+      }
+    },
+    {
+      "preset": "uplifting-bloom",
+      "description": "向上绽放的释然",
+      "mood": [
+        "uplifting",
+        "warm"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "向上绽放 + 放大",
+          "effect_hint": "shape / morphPolygon"
+        },
+        "背景": {
+          "motion": "暖色光晕展开",
+          "effect_hint": "gradientBlob"
+        },
+        "衬托": {
+          "motion": "光尘上升",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "光线放射",
+          "effect_hint": "lensFlare / lightSweep"
+        }
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "preset": "fragment-shatter",
+      "description": "破碎消散",
+      "mood": [
+        "fragile",
+        "dramatic"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "裂开 + 碎片消散",
+          "effect_hint": "morphPolygon / shape"
+        },
+        "背景": {
+          "motion": "碎片化抖动",
+          "effect_hint": "gridWarp / kaleidoscope"
+        },
+        "衬托": {
+          "motion": "碎屑飞散",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "裂纹扩散",
+          "effect_hint": "strokeGrow"
+        }
+      },
+      "transition": {
+        "type": "dissolve",
+        "duration": 0.4
+      }
+    },
+    {
+      "preset": "flow-drift",
+      "description": "流体漂移的连续感",
+      "mood": [
+        "calm",
+        "dreamy"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "沿曲线漂移",
+          "effect_hint": "path / motion"
+        },
+        "背景": {
+          "motion": "流场扰动",
+          "effect_hint": "flowfield"
+        },
+        "衬托": {
+          "motion": "粒子随流",
+          "effect_hint": "particles / flowfield"
+        },
+        "装饰": {
+          "motion": "涟漪渐隐",
+          "effect_hint": "ripples"
+        }
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 0.7
+      }
+    },
+    {
+      "preset": "focus-reveal",
+      "description": "聚焦揭示（从模糊到清晰）",
+      "mood": [
+        "mysterious",
+        "revelatory"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "由模糊到清晰 + 定住",
+          "effect_hint": "blurFocus / titleCard"
+        },
+        "背景": {
+          "motion": "暗场渐亮",
+          "effect_hint": "gradientBlob"
+        },
+        "衬托": {
+          "motion": "粒子聚拢",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "取景框收拢",
+          "effect_hint": "frameRect"
+        }
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 0.6
+      }
+    },
+    {
+      "preset": "rhythm-pulse",
+      "description": "节拍驱动的脉冲节奏",
+      "mood": [
+        "energetic",
+        "driving"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "随拍脉动缩放",
+          "effect_hint": "shape / polygonRing"
+        },
+        "背景": {
+          "motion": "频谱律动",
+          "effect_hint": "spectrum"
+        },
+        "衬托": {
+          "motion": "环形脉冲扩散",
+          "effect_hint": "ripples / polygonRing"
+        },
+        "装饰": {
+          "motion": "网格脉冲",
+          "effect_hint": "dotGrid"
+        }
+      },
+      "transition": {
+        "type": "cut",
+        "duration": 0
+      }
+    },
+    {
+      "preset": "lyric-rise",
+      "description": "歌词逐句升起",
+      "mood": [
+        "narrative",
+        "gentle"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "逐句上浮 + 淡入淡出",
+          "effect_hint": "lyricLine / subtitle"
+        },
+        "背景": {
+          "motion": "柔和渐变随句微变",
+          "effect_hint": "gradientBlob"
+        },
+        "衬托": {
+          "motion": "缓慢粒子漂移",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "句末光点",
+          "effect_hint": "ripples"
+        }
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "preset": "build-up-tension",
+      "description": "积累张力（渐强）",
+      "mood": [
+        "tense",
+        "building"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "逐渐逼近 + 加速",
+          "effect_hint": "shape / frameRect"
+        },
+        "背景": {
+          "motion": "暗涌加速",
+          "effect_hint": "flowfield / fbmNoise"
+        },
+        "衬托": {
+          "motion": "粒子聚集加速",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "网格收紧",
+          "effect_hint": "gridWarp / dotGrid"
+        }
+      },
+      "transition": {
+        "type": "dissolve",
+        "duration": 0.3
+      }
+    },
+    {
+      "preset": "drop-impact",
+      "description": "Drop 爆发的冲击",
+      "mood": [
+        "epic",
+        "impact"
+      ],
+      "layers": {
+        "主体": {
+          "motion": "瞬发放大 + 抖动",
+          "effect_hint": "shape / titleCard"
+        },
+        "背景": {
+          "motion": "冲击波扩散",
+          "effect_hint": "ripples / kaleidoscope"
+        },
+        "衬托": {
+          "motion": "爆发粒子",
+          "effect_hint": "particles"
+        },
+        "装饰": {
+          "motion": "闪光扫过",
+          "effect_hint": "lightSweep / lensFlare"
+        }
+      },
+      "transition": {
+        "type": "cut",
+        "duration": 0
+      }
+    }
+  ]
+}

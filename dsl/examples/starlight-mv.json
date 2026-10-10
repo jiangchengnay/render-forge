@@ -1,0 +1,354 @@
+{
+  "meta": {
+    "title": "Starlight MV",
+    "width": 1080,
+    "height": 1080,
+    "duration": 16,
+    "seed": 88
+  },
+  "palette": "synthSunset",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.3,
+      "threshold": 0.75,
+      "radius": 14
+    },
+    {
+      "effect": "vignette",
+      "amount": 0.65
+    },
+    {
+      "effect": "grain",
+      "amount": 0.06,
+      "cell": 2
+    }
+  ],
+  "acts": [
+    {
+      "id": "verse1",
+      "start": 0,
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.6,
+        "radius": 1,
+        "inner": "#1a0824",
+        "outer": "#050109"
+      },
+      "transitionIn": {
+        "type": "fade",
+        "dur": 0.5,
+        "color": "#000"
+      },
+      "transitionOut": {
+        "type": "wipe",
+        "dur": 0.35,
+        "dir": "up",
+        "color": "#050109"
+      },
+      "tracks": [
+        {
+          "effect": "fbmNoise",
+          "at": 0,
+          "dur": 4,
+          "opacity": 0.22,
+          "params": {
+            "scale": 2,
+            "octaves": 3,
+            "warp": 0.6,
+            "speed": 0.08,
+            "colorA": "#7a2050",
+            "colorB": "#1a0824",
+            "resolution": 320,
+            "pixelSize": 3
+          }
+        },
+        {
+          "effect": "particles",
+          "at": 0,
+          "dur": 4,
+          "ease": "outCubic",
+          "opacity": 0.55,
+          "blend": "lighter",
+          "params": {
+            "count": 300,
+            "behavior": "drift",
+            "shape": "star",
+            "spawn": "random",
+            "alpha": 0.9,
+            "sizeMul": 1.6,
+            "color": "#ffe8d6"
+          }
+        },
+        {
+          "effect": "lyricLine",
+          "at": 0.4,
+          "dur": 3.4,
+          "ease": "linear",
+          "opacity": 1,
+          "params": {
+            "text": "夜色拉开帷幕",
+            "x": 0.5,
+            "y": 0.5,
+            "size": 0.085,
+            "weight": 800,
+            "mode": "fill",
+            "colorBase": "rgba(255,232,214,0.2)",
+            "colorHi": "#ffffff",
+            "colorGlow": "#ff9f45",
+            "glow": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "verse2",
+      "start": 4,
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1,
+        "inner": "#1a0a08",
+        "outer": "#050109"
+      },
+      "transitionIn": {
+        "type": "wipe",
+        "dur": 0.35,
+        "dir": "up",
+        "color": "#050109"
+      },
+      "transitionOut": {
+        "type": "iris",
+        "dur": 0.4,
+        "color": "#050109"
+      },
+      "tracks": [
+        {
+          "effect": "flowfield",
+          "at": 0,
+          "dur": 4,
+          "ease": "outCubic",
+          "opacity": 0.4,
+          "blend": "lighter",
+          "params": {
+            "count": 1200,
+            "noiseScale": 1.8,
+            "noiseSpeed": 0.12,
+            "velocity": 200,
+            "lineWidth": 0.8,
+            "alpha": 0.6,
+            "color": "#ff9f45"
+          }
+        },
+        {
+          "effect": "lissajous",
+          "at": 0.2,
+          "dur": 3.6,
+          "ease": "inOutSine",
+          "opacity": 0.3,
+          "blend": "lighter",
+          "params": {
+            "a": 3,
+            "b": 5,
+            "radius": 0.32,
+            "samples": 2000,
+            "lineWidth": 1,
+            "color": "#ff9f45",
+            "color2": "#ffd93d"
+          }
+        },
+        {
+          "effect": "lyricLine",
+          "at": 0.6,
+          "dur": 3.2,
+          "ease": "linear",
+          "opacity": 1,
+          "params": {
+            "text": "星光为你驻留",
+            "x": 0.5,
+            "y": 0.5,
+            "size": 0.085,
+            "weight": 800,
+            "mode": "scan",
+            "colorBase": "rgba(255,232,214,0.2)",
+            "colorHi": "#ffffff",
+            "colorGlow": "#ffd93d",
+            "glow": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "chorus1",
+      "start": 8,
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#1e0820",
+        "outer": "#050109"
+      },
+      "transitionIn": {
+        "type": "glitch",
+        "dur": 0.35,
+        "colors": [
+          "#ff2d95",
+          "#ff9f45",
+          "#ffffff"
+        ]
+      },
+      "transitionOut": {
+        "type": "fade",
+        "dur": 0.4,
+        "color": "#050109"
+      },
+      "tracks": [
+        {
+          "effect": "particles",
+          "at": 0.3,
+          "dur": 3.7,
+          "ease": "inCubic",
+          "opacity": 0.7,
+          "blend": "lighter",
+          "params": {
+            "count": 500,
+            "behavior": "attract",
+            "shape": "dot",
+            "spawn": "ring",
+            "alpha": 0.9,
+            "sizeMul": 1,
+            "strength": 500,
+            "color": "#ffd93d"
+          }
+        },
+        {
+          "effect": "ripples",
+          "at": 2.8,
+          "dur": 1.2,
+          "ease": "outExpo",
+          "opacity": 0.9,
+          "blend": "lighter",
+          "params": {
+            "count": 3,
+            "maxRadius": 0.7,
+            "lineWidth": 2.5,
+            "color": "#ffd93d",
+            "alpha": 1
+          }
+        },
+        {
+          "effect": "bezierText",
+          "at": 0.5,
+          "dur": 3.5,
+          "ease": "inOutCubic",
+          "opacity": 1,
+          "params": {
+            "text": "心跳藏着宇宙",
+            "points": [
+              [
+                0.15,
+                0.85
+              ],
+              [
+                0.3,
+                0.3
+              ],
+              [
+                0.7,
+                0.75
+              ],
+              [
+                0.85,
+                0.25
+              ]
+            ],
+            "size": 0.068,
+            "weight": 800,
+            "color": "#ffffff",
+            "colorPath": "rgba(255,159,69,0.35)",
+            "showPath": true,
+            "pathWidth": 1.8,
+            "samples": 240,
+            "spread": 1.6
+          }
+        }
+      ]
+    },
+    {
+      "id": "chorus2",
+      "start": 12,
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.2,
+        "inner": "#1a0a08",
+        "outer": "#050109"
+      },
+      "transitionIn": {
+        "type": "fade",
+        "dur": 0.4,
+        "color": "#050109"
+      },
+      "tracks": [
+        {
+          "effect": "flowfield",
+          "at": 0.2,
+          "dur": 3.8,
+          "opacity": 0.4,
+          "blend": "lighter",
+          "params": {
+            "count": 1200,
+            "noiseScale": 1.6,
+            "noiseSpeed": 0.1,
+            "velocity": 220,
+            "lineWidth": 0.8,
+            "alpha": 0.6,
+            "color": "#ff9f45"
+          }
+        },
+        {
+          "effect": "lyricLine",
+          "at": 0.5,
+          "dur": 3.5,
+          "ease": "linear",
+          "opacity": 1,
+          "params": {
+            "text": "此刻即永恒",
+            "x": 0.5,
+            "y": 0.5,
+            "size": 0.11,
+            "weight": 900,
+            "mode": "fill",
+            "colorBase": "rgba(255,232,214,0.15)",
+            "colorHi": "#ffffff",
+            "colorGlow": "#ff9f45",
+            "glow": true
+          }
+        },
+        {
+          "effect": "ripples",
+          "at": 3.2,
+          "dur": 0.8,
+          "ease": "outExpo",
+          "opacity": 0.9,
+          "blend": "lighter",
+          "params": {
+            "count": 2,
+            "maxRadius": 0.8,
+            "lineWidth": 3,
+            "color": "#ffe8d6",
+            "alpha": 1
+          }
+        }
+      ]
+    }
+  ]
+}

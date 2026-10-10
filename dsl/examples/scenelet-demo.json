@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "Scenelet Demo",
+    "width": 1080,
+    "height": 1080,
+    "duration": 12,
+    "seed": 7
+  },
+  "palette": "deepSea",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.4,
+      "threshold": 0.7,
+      "radius": 16
+    },
+    {
+      "effect": "vignette",
+      "amount": 0.5
+    },
+    {
+      "effect": "grain",
+      "amount": 0.05
+    }
+  ],
+  "acts": [
+    {
+      "include": "brand-intro",
+      "slots": {
+        "title": "Render Forge",
+        "subtitle": "片段库演示"
+      }
+    },
+    {
+      "include": "feature-list",
+      "slots": {
+        "items": [
+          "片段可复用",
+          "组合出成片",
+          "不必从零写",
+          "支持 slots 定制"
+        ]
+      }
+    },
+    {
+      "include": "metrics",
+      "slots": {
+        "value": 50,
+        "label": "组件数"
+      }
+    },
+    {
+      "include": "cta-outro",
+      "slots": {
+        "badge": "GET STARTED",
+        "title": "npm i render-forge",
+        "subtitle": "开源 · MIT"
+      }
+    }
+  ]
+}

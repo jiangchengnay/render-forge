@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "title": "Primitive Shapes",
+    "width": 1080,
+    "height": 1080,
+    "duration": 4,
+    "seed": 1
+  },
+  "palette": "deepSea",
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.4,
+      "threshold": 0.7
+    },
+    {
+      "effect": "vignette",
+      "amount": 0.5
+    }
+  ],
+  "acts": [
+    {
+      "id": "a1",
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "cx": 0.5,
+        "cy": 0.5,
+        "radius": 1.1,
+        "inner": "#0a1838",
+        "outer": "#020610"
+      },
+      "tracks": [
+        {
+          "effect": "shape",
+          "at": 0,
+          "dur": 4,
+          "params": {
+            "kind": "polygon",
+            "points": [
+              [
+                -0.5,
+                0.6
+              ],
+              [
+                0.5,
+                0.6
+              ],
+              [
+                0,
+                -0.7
+              ]
+            ],
+            "size": 0.22,
+            "x": 0.25,
+            "y": 0.3,
+            "rotate": 0.3,
+            "fill": "#0a3a6a",
+            "stroke": "$accent",
+            "lineWidth": 3
+          }
+        },
+        {
+          "effect": "shape",
+          "at": 0.3,
+          "dur": 3.7,
+          "params": {
+            "kind": "star",
+            "starPoints": 5,
+            "innerRadius": 0.4,
+            "size": 0.2,
+            "x": 0.5,
+            "y": 0.3,
+            "rotate": 0.5,
+            "fill": "$1",
+            "stroke": "$fg",
+            "lineWidth": 2
+          }
+        },
+        {
+          "effect": "shape",
+          "at": 0.6,
+          "dur": 3.4,
+          "params": {
+            "kind": "circle",
+            "radius": 0.11,
+            "x": 0.75,
+            "y": 0.3,
+            "fill": "$2",
+            "stroke": "$fg",
+            "lineWidth": 2
+          }
+        },
+        {
+          "effect": "shape",
+          "at": 0.9,
+          "dur": 3.1,
+          "params": {
+            "kind": "rect",
+            "w": 0.18,
+            "h": 0.18,
+            "x": 0.3,
+            "y": 0.7,
+            "rotate": 0.4,
+            "fill": "$3",
+            "stroke": "$fg",
+            "lineWidth": 2
+          }
+        },
+        {
+          "effect": "shape",
+          "at": 1.2,
+          "dur": 2.8,
+          "params": {
+            "kind": "polygon",
+            "sides": 6,
+            "size": 0.15,
+            "x": 0.7,
+            "y": 0.7,
+            "fill": "rgba(0,229,255,0.3)",
+            "stroke": "$accent",
+            "lineWidth": 3
+          }
+        }
+      ]
+    }
+  ]
+}

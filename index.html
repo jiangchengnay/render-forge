@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Render Forge — 分镜播放器</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0a0a0a; color: #e8e8e8;
+    font-family: "Inter", "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif; }
+  .app { display: flex; flex-direction: column; height: 100vh; }
+  .stage { flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 20px; min-height: 0; }
+  canvas { max-width: 100%; max-height: 100%; object-fit: contain;
+    box-shadow: 0 0 60px rgba(0,0,0,0.6); border-radius: 4px; background: #000; }
+  .bar { display: flex; align-items: center; gap: 12px; padding: 12px 20px;
+    background: #141414; border-top: 1px solid #222; }
+  .bar button { background: #222; color: #e8e8e8; border: 1px solid #333;
+    padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+  .bar button:hover { background: #2a2a2a; border-color: #444; }
+  .bar input[type=range] { flex: 1; accent-color: #00ffa3; }
+  .bar .time { font-variant-numeric: tabular-nums; font-size: 12px; color: #999;
+    min-width: 90px; text-align: right; }
+  .hint { position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.75); padding: 8px 16px; border-radius: 6px; font-size: 12px;
+    color: #ccc; pointer-events: none; opacity: 0; transition: opacity 0.4s; }
+  .hint.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="stage">
+    <canvas id="canvas"></canvas>
+  </div>
+  <div class="bar">
+    <button id="play">▶ 播放</button>
+    <button id="restart">↺ 重播</button>
+    <input type="range" id="seek" min="0" max="1000" value="0">
+    <button id="record">● 实时录制</button>
+    <button id="export">⤓ 逐帧导出</button>
+    <button id="exportMp4">⤓ 导出 MP4</button>
+    <label id="mediaLabel" style="background:#222;color:#e8e8e8;border:1px solid #333;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px;">⬆ 载入素材</label>
+    <input type="file" id="mediaFile" accept="image/*,video/*,image/svg+xml" multiple style="display:none;">
+    <span id="mediaInfo" style="font-size:11px;color:#888;"></span>
+    <label id="audioLabel" style="background:#222;color:#e8e8e8;border:1px solid #333;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px;">♪ 载入音频</label>
+    <input type="file" id="audioFile" accept="audio/*" style="display:none;">
+    <span id="audioInfo" style="font-size:11px;color:#888;"></span>
+    <span class="time" id="time">0.00 / 0.00</span>
+  </div>
+</div>
+<div class="hint" id="hint">拖入 JSON 分镜文件以载入</div>
+
+<script>
+// 全局错误捕获：任何脚本加载/运行错误都上报，不再静默
+(function () {
+  window.__rf_load_errors = [];
+  window.addEventListener("error", function (e) {
+    var info = {
+      msg: e.message || String(e.error || "unknown"),
+      src: e.filename ? e.filename.split("/").pop() : "",
+      line: e.lineno,
+    };
+    window.__rf_load_errors.push(info);
+    console.error("[RF 加载错误]", info.src + ":" + info.line, info.msg);
+    var hint = document.getElementById("hint");
+    if (hint) {
+      hint.textContent = "⚠ " + info.src + " 第 " + info.line + " 行出错";
+      hint.style.color = "#ff5d73";
+      hint.classList.add("show");
+    }
+  });
+})();
+</script>
+
+<!-- RF_SCRIPTS_START -->
+  <script src="engine/core/rand.js"></script>
+  <script src="engine/core/easing.js"></script>
+  <script src="engine/core/renderer.js"></script>
+  <script src="engine/core/webgl-postfx.js"></script>
+  <script src="engine/core/webgl-effects.js"></script>
+  <script src="engine/core/video-decode.js"></script>
+  <script src="engine/core/exporter.js"></script>
+  <script src="engine/plugin.js"></script>
+  <script src="engine/scenelet.js"></script>
+  <script src="engine/core/layout.js"></script>
+  <script src="engine/core/motion.js"></script>
+  <script src="engine/core/expression.js"></script>
+  <script src="engine/core/audio.js"></script>
+  <script src="engine/core/typography.js"></script>
+  <script src="engine/core/scene.js"></script>
+  <script src="engine/core/transition.js"></script>
+  <script src="engine/core/postfx.js"></script>
+  <script src="engine/core/runtime.js"></script>
+  <script src="engine/palettes/index.js"></script>
+  <script src="engine/effects/feedback.js"></script>
+  <script src="engine/effects/flowfield.js"></script>
+  <script src="engine/effects/kaleidoscope.js"></script>
+  <script src="engine/effects/lissajous.js"></script>
+  <script src="engine/effects/media.js"></script>
+  <script src="engine/effects/metaball.js"></script>
+  <script src="engine/effects/noise.js"></script>
+  <script src="engine/effects/particles.js"></script>
+  <script src="engine/effects/primitive.js"></script>
+  <script src="engine/effects/shapes.js"></script>
+  <script src="engine/effects/subtitle.js"></script>
+  <script src="engine/effects/text-advanced.js"></script>
+  <script src="engine/effects/text.js"></script>
+  <script src="engine/effects/vfx.js"></script>
+  <script src="engine/components/data-viz.js"></script>
+  <script src="engine/components/decor.js"></script>
+  <script src="engine/components/interactive.js"></script>
+  <script src="engine/components/label.js"></script>
+  <script src="engine/components/ui-mock.js"></script>
+  <script src="engine/templates/index.js"></script>
+  <script src="engine/templates/builtin.js"></script>
+  <script src="tools/critique.js"></script>
+  <script src="tools/gen-schema.js"></script>
+  <script src="tools/lint.js"></script>
+  <script src="tools/validate-browser.js"></script>
+  <script src="engine/recommend.js"></script>
+  <!-- RF_SCRIPTS_END -->
+<script src="demo.js"></script>
+
+<script>
+let runtime = null;
+const canvas = document.getElementById("canvas");
+const playBtn = document.getElementById("play");
+const restartBtn = document.getElementById("restart");
+const seekBar = document.getElementById("seek");
+const timeLabel = document.getElementById("time");
+const hint = document.getElementById("hint");
+
+function showHint(text, ms) {
+  hint.textContent = text;
+  hint.classList.add("show");
+  clearTimeout(showHint._t);
+  showHint._t = setTimeout(function(){ hint.classList.remove("show"); }, ms || 2200);
+}
+function fmt(t) { return t.toFixed(2); }
+
+async function loadStoryboard(sb) {
+  try {
+    // 自动加载 assets（相对分镜文件目录；这里用当前页目录）
+    if (sb && sb.assets && typeof window.RF_loadAssets === 'function') {
+      await window.RF_loadAssets(sb, '');
+    }
+    runtime = new RF.Runtime(canvas, sb, {
+      loop: false,
+      onTime: function(t) {
+        seekBar.value = Math.round((t / runtime.duration) * 1000);
+        timeLabel.textContent = fmt(t) + " / " + fmt(runtime.duration);
+      },
+      onEnd: function() { playBtn.textContent = "▶ 播放"; }
+    });
+    runtime.seek(0);
+    seekBar.value = 0;
+    timeLabel.textContent = fmt(0) + " / " + fmt(runtime.duration);
+    playBtn.textContent = "▶ 播放";
+    return true;
+  } catch (e) {
+    console.error(e);
+    showHint("载入失败：" + e.message, 4000);
+    return false;
+  }
+}
+
+playBtn.addEventListener("click", function() {
+  if (!runtime) return;
+  if (runtime.playing) {
+    runtime.pause();
+    playBtn.textContent = "▶ 播放";
+  } else {
+    const cur = (parseFloat(seekBar.value) / 1000) * runtime.duration;
+    const from = cur >= runtime.duration - 0.01 ? 0 : cur;
+    runtime.play(from);
+    playBtn.textContent = "⏸ 暂停";
+  }
+});
+
+restartBtn.addEventListener("click", function() {
+  if (!runtime) return;
+  runtime.pause();
+  runtime.seek(0);
+  seekBar.value = 0;
+  runtime.play(0);
+  playBtn.textContent = "⏸ 暂停";
+});
+
+seekBar.addEventListener("input", function() {
+  if (!runtime) return;
+  const t = (parseFloat(seekBar.value) / 1000) * runtime.duration;
+  runtime.pause();
+  runtime.seek(t);
+  playBtn.textContent = "▶ 播放";
+  timeLabel.textContent = fmt(t) + " / " + fmt(runtime.duration);
+});
+
+document.addEventListener("dragover", function(e){ e.preventDefault(); });
+document.addEventListener("drop", function(e) {
+  e.preventDefault();
+  const f = e.dataTransfer.files[0];
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = function() {
+    try {
+      const sb = JSON.parse(reader.result);
+      if (loadStoryboard(sb)) showHint("已载入：" + f.name);
+    } catch (err) {
+      showHint("JSON 解析失败：" + err.message, 4000);
+    }
+  };
+  reader.readAsText(f);
+});
+
+// —— WebM 录制（零依赖：用 MediaRecorder 直接录 canvas）——
+const recBtn = document.getElementById('record');
+let mediaRecorder = null;
+let recordedChunks = [];
+
+recBtn.addEventListener('click', async function() {
+  if (!runtime) return;
+  if (mediaRecorder && mediaRecorder.state === 'recording') {
+    mediaRecorder.stop();
+    return;
+  }
+  // 确保从 0 开始
+  runtime.pause();
+  runtime.seek(0);
+  recordedChunks = [];
+  const stream = canvas.captureStream(60);
+  const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9'
+    : (MediaRecorder.isTypeSupported('video/webm;codecs=vp8') ? 'video/webm;codecs=vp8' : 'video/webm');
+  mediaRecorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 12000000 });
+  mediaRecorder.ondataavailable = function(e) { if (e.data && e.data.size) recordedChunks.push(e.data); };
+  mediaRecorder.onstop = function() {
+    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (runtime.storyboard.meta && runtime.storyboard.meta.title || 'render') + '.webm';
+    a.click();
+    setTimeout(function() { URL.revokeObjectURL(url); }, 5000);
+    recBtn.textContent = '● 录制';
+    recBtn.style.color = '';
+    showHint('已下载 WebM');
+  };
+  mediaRecorder.start();
+  recBtn.textContent = '■ 停止';
+  recBtn.style.color = '#ff5d73';
+  showHint('录制中，到片尾自动停止');
+  runtime.play(0);
+  playBtn.textContent = '⏸ 暂停';
+  // 片尾自动停
+  const stopAt = runtime.duration;
+  const check = setInterval(function() {
+    if (!runtime.playing || runtime._startT + (performance.now() - runtime._startWall) / 1000 >= stopAt) {
+      clearInterval(check);
+      if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+    }
+  }, 100);
+});
+
+// —— 逐帧导出（captureStream + 逐帧渲染 + 真实帧间隔，精确帧率）——
+const exportBtn = document.getElementById('export');
+exportBtn.addEventListener('click', async function() {
+  if (!runtime || exportBtn.disabled) return;
+  exportBtn.disabled = true;
+  const origText = exportBtn.textContent;
+  try {
+    runtime.pause();
+    runtime.seek(0);
+    const fps = 30;
+    const frameDelay = Math.max(16, Math.round(1000 / fps));
+    const totalFrames = Math.round(runtime.duration * fps);
+    const stream = canvas.captureStream(fps);
+    const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9'
+      : (MediaRecorder.isTypeSupported('video/webm;codecs=vp8') ? 'video/webm;codecs=vp8' : 'video/webm');
+    const chunks = [];
+    const recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 16000000 });
+    recorder.ondataavailable = function(e) { if (e.data && e.data.size) chunks.push(e.data); };
+    const done = new Promise(function(resolve) { recorder.onstop = resolve; });
+    recorder.start();
+    for (let i = 0; i < totalFrames; i++) {
+      runtime.seek(i / fps);
+      await new Promise(function(r) { setTimeout(r, frameDelay); });
+      if (i % 15 === 0) exportBtn.textContent = '⤓ ' + Math.round((i / totalFrames) * 100) + '%';
+    }
+    await new Promise(function(r) { setTimeout(r, 200); });
+    recorder.stop();
+    await done;
+    const blob = new Blob(chunks, { type: 'video/webm' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (runtime.storyboard.meta && runtime.storyboard.meta.title || 'render') + '.webm';
+    a.click();
+    setTimeout(function() { URL.revokeObjectURL(url); }, 8000);
+    showHint('导出完成 · ' + totalFrames + ' 帧 · ' + (blob.size / 1024 / 1024).toFixed(1) + 'MB');
+  } catch (e) {
+    console.error(e);
+    showHint('导出失败: ' + e.message, 4000);
+  } finally {
+    exportBtn.disabled = false;
+    exportBtn.textContent = origText;
+  }
+});
+
+// —— 启动自检：验证 manifest 里每个脚本都成功加载 ——
+(function selfCheck() {
+  const list = window.RF_MANIFEST || [];
+  if (!window.RF) {
+    console.error('[RF] 引擎未加载');
+    return;
+  }
+  const expected = { effects: 40, postfx: 7, transitions: 9 };
+  const actual = {
+    effects: Object.keys(RF.effects || {}).length - 1,
+    postfx: Object.keys(RF.postfx || {}).length - 1,
+    transitions: RF.Transitions ? RF.Transitions.list().length : 0,
+  };
+  const problems = [];
+  if (actual.effects < 40) problems.push('效果数异常: ' + actual.effects + ' (期望 >=40)');
+  if (actual.postfx < 7) problems.push('后处理数异常: ' + actual.postfx);
+  if (actual.transitions < 9) problems.push('转场数异常: ' + actual.transitions);
+  if (!RF.Audio) problems.push('Audio 系统缺失');
+  if (!RF.Typography) problems.push('Typography 系统缺失');
+  if (!RF.Media) problems.push('Media 系统缺失');
+  if (!RF.Templates || RF.Templates.list().length < 4) problems.push('模板系统异常');
+  if (problems.length) {
+    console.error('[RF 自检失败]', problems);
+    const hint = document.getElementById('hint');
+    if (hint) { hint.textContent = '⚠ 自检: ' + problems.join(' / '); hint.classList.add('show'); }
+  } else {
+    console.log('[RF 自检通过] ' + list.length + ' 脚本, ' + actual.effects + ' 效果, ' + actual.postfx + ' 后处理, ' + actual.transitions + ' 转场');
+  }
+  window.__rf_selfcheck = { ok: problems.length === 0, problems, actual };
+})();
+
+// —— assets 清单：从分镜 JSON 的 assets 字段自动加载素材 ——
+async function loadAssets(sb, basePath) {
+  if (!sb || !sb.assets) return;
+  const list = Array.isArray(sb.assets) ? sb.assets : Object.keys(sb.assets).map(k => ({ id: k, src: sb.assets[k] }));
+  const results = { loaded: [], failed: [] };
+  for (const item of list) {
+    const id = item.id;
+    const src = item.src || item.path;
+    if (!id || !src) continue;
+    const url = (item.absolute ? src : (basePath || '') + src);
+    try {
+      await RF.Media.register(id, url);
+      results.loaded.push(id);
+    } catch (e) {
+      console.warn('[RF] 素材加载失败:', id, url, e.message);
+      results.failed.push({ id, src, error: e.message });
+    }
+  }
+  if (typeof window !== 'undefined') window.RF_ASSET_RESULT = results;
+  return results;
+}
+window.RF_loadAssets = loadAssets;
+
+// —— MP4 导出（MediaRecorder + H.264，无需 ffmpeg）——
+const exportMp4Btn = document.getElementById("exportMp4");
+exportMp4Btn.addEventListener("click", async function() {
+  if (!runtime || exportMp4Btn.disabled) return;
+  // 检测 mp4 支持
+  const mimeCandidates = [
+    "video/mp4;codecs=avc1.640028",
+    "video/mp4;codecs=avc1.4D401F",
+    "video/mp4;codecs=avc1.42E01E",
+    "video/mp4;codecs=avc1",
+    "video/mp4"
+  ];
+  let mime = null;
+  for (const m of mimeCandidates) {
+    if (MediaRecorder.isTypeSupported(m)) { mime = m; break; }
+  }
+  if (!mime) {
+    showHint("浏览器不支持 MP4 录制，请用「逐帧导出」出 WebM", 4000);
+    return;
+  }
+  exportMp4Btn.disabled = true;
+  const origText = exportMp4Btn.textContent;
+  try {
+    runtime.pause();
+    runtime.seek(0);
+    const fps = 30;
+    const frameDelay = Math.max(16, Math.round(1000 / fps));
+    const totalFrames = Math.round(runtime.duration * fps);
+    const stream = canvas.captureStream(fps);
+    // 若有音轨，加入
+    if (window.__audioEl && window.__audioEl.captureStream) {
+      try {
+        const aStream = window.__audioEl.captureStream();
+        aStream.getAudioTracks().forEach(function(t) { stream.addTrack(t); });
+      } catch (e) {}
+    }
+    const chunks = [];
+    const recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 16000000 });
+    recorder.ondataavailable = function(e) { if (e.data && e.data.size) chunks.push(e.data); };
+    const done = new Promise(function(resolve) { recorder.onstop = resolve; });
+    recorder.start();
+    if (window.__audioEl) { window.__audioEl.currentTime = 0; window.__audioEl.play().catch(function(){}); }
+    for (let i = 0; i < totalFrames; i++) {
+      runtime.seek(i / fps);
+      await new Promise(function(r) { setTimeout(r, frameDelay); });
+      if (i % 15 === 0) exportMp4Btn.textContent = "⤓ " + Math.round((i / totalFrames) * 100) + "%";
+    }
+    await new Promise(function(r) { setTimeout(r, 200); });
+    recorder.stop();
+    if (window.__audioEl) window.__audioEl.pause();
+    await done;
+    const blob = new Blob(chunks, { type: "video/mp4" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = (runtime.storyboard.meta && runtime.storyboard.meta.title || "render") + ".mp4";
+    a.click();
+    setTimeout(function() { URL.revokeObjectURL(url); }, 8000);
+    showHint("MP4 导出完成 · " + (blob.size / 1024 / 1024).toFixed(1) + "MB");
+  } catch (e) {
+    console.error(e);
+    showHint("MP4 导出失败: " + e.message, 4000);
+  } finally {
+    exportMp4Btn.disabled = false;
+    exportMp4Btn.textContent = origText;
+  }
+});
+
+(function boot() {
+  const params = new URLSearchParams(location.search);
+  const autoPlay = params.get("auto") === "1";
+  const DEMO = window.RF_DEMO || {};
+  if (loadStoryboard(DEMO) && autoPlay) setTimeout(function(){ playBtn.click(); }, 100);
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "generatedAt": "2026-10-11T00:00:00.000Z",
+    "source": "build-l0-input"
+  },
+  "user_request": "用《晨星》这首歌做一个 8 秒的短 PV，表达「黑夜中重新找回自己」的重生感，叙事要线性、克制。",
+  "song": {
+    "title": "晨星",
+    "artist": "虚构乐队"
+  },
+  "audio_meta": {
+    "file": "chenxing.mp3"
+  },
+  "lyrics": [
+    {
+      "index": 1,
+      "text": "我曾在夜里迷路"
+    },
+    {
+      "index": 2,
+      "text": "星光微弱却不肯熄灭"
+    },
+    {
+      "index": 3,
+      "text": "跌进深谷又慢慢爬起"
+    },
+    {
+      "index": 4,
+      "text": "终于看见自己的光"
+    }
+  ],
+  "user_pasted": "",
+  "search_queries": [
+    "晨星 虚构乐队 创作背景",
+    "晨星 虚构乐队 歌词含义",
+    "晨星 虚构乐队 解析",
+    "晨星 虚构乐队 创作意图 访谈",
+    "晨星 虚构乐队 歌词 解读"
+  ],
+  "search_note": "框架不自己搜：以上为搜索指令（查询词），实际执行联网搜索的是平台。搜索后把结果填入 song_context 字段，并把实际用过的词记入 search_queries_used。",
+  "placeholders": {
+    "song_context": {
+      "factual_background": "",
+      "cultural_roots": "",
+      "known_interpretations": [],
+      "search_queries_used": []
+    },
+    "lyrics_scan": {
+      "summary": "",
+      "overall_tone": ""
+    },
+    "user_intent": {
+      "stated": "",
+      "implied": "",
+      "pasted": "",
+      "narrative_style": ""
+    }
+  }
+}

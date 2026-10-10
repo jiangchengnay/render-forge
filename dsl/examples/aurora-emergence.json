@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "title": "Aurora Emergence",
+    "width": 1080,
+    "height": 1080,
+    "duration": 8,
+    "seed": 20261010
+  },
+  "palette": "auroraGreen",
+  "background": {
+    "type": "radial",
+    "cx": 0.5,
+    "cy": 0.55,
+    "radius": 0.85,
+    "inner": "#0a1a12",
+    "outer": "$bg"
+  },
+  "tracks": [
+    {
+      "effect": "fbmNoise",
+      "at": 0,
+      "dur": 8,
+      "ease": "inOutSine",
+      "opacity": 0.55,
+      "params": {
+        "scale": 2.2,
+        "octaves": 5,
+        "warp": 0.9,
+        "speed": 0.22,
+        "bands": 0,
+        "alpha": 0.7,
+        "colorA": "$1",
+        "colorB": "$bg",
+        "step": 10
+      }
+    },
+    {
+      "effect": "gridWarp",
+      "at": 0.4,
+      "dur": 7.2,
+      "ease": "inOutCubic",
+      "opacity": 0.85,
+      "blend": "lighter",
+      "params": {
+        "cols": 32,
+        "rows": 32,
+        "dot": 1.6,
+        "noiseAmp": 0.06,
+        "noiseScale": 1.8,
+        "speed": 0.35,
+        "alpha": 0.9,
+        "color": "$0"
+      }
+    },
+    {
+      "effect": "particles",
+      "at": 1.2,
+      "dur": 6.8,
+      "ease": "outCubic",
+      "blend": "lighter",
+      "opacity": 0.9,
+      "params": {
+        "count": 900,
+        "behavior": "vortex",
+        "shape": "dot",
+        "spawn": "ring",
+        "alpha": 0.85,
+        "composite": "lighter",
+        "sizeMul": 1.1,
+        "strength": 260
+      }
+    },
+    {
+      "effect": "polygonRing",
+      "at": 2.6,
+      "dur": 5.4,
+      "ease": "outBack",
+      "opacity": 0.9,
+      "params": {
+        "count": 16,
+        "radius": 0.34,
+        "sides": 6,
+        "size": 0.028,
+        "lineWidth": 1.8,
+        "rotSpeed": 0.28,
+        "radiusVar": 0.08,
+        "stagger": 0.45,
+        "color": "$0",
+        "color2": "$2"
+      }
+    },
+    {
+      "effect": "ripples",
+      "at": 3.4,
+      "dur": 4.6,
+      "ease": "outCubic",
+      "opacity": 0.7,
+      "blend": "lighter",
+      "params": {
+        "count": 5,
+        "maxRadius": 0.55,
+        "lineWidth": 1.5,
+        "color": "$3",
+        "alpha": 0.75
+      }
+    },
+    {
+      "effect": "morphPolygon",
+      "at": 4.8,
+      "dur": 3.2,
+      "ease": "outExpo",
+      "opacity": 0.85,
+      "blend": "lighter",
+      "params": {
+        "sides": 6,
+        "radius": 0.12,
+        "rotSpeed": 0.6,
+        "fill": "$accent",
+        "stroke": "$fg",
+        "lineWidth": 2,
+        "breath": 0.15
+      }
+    },
+    {
+      "effect": "blurFocus",
+      "at": 5.2,
+      "dur": 2.8,
+      "ease": "outExpo",
+      "opacity": 1,
+      "params": {
+        "text": "EMERGENCE",
+        "size": 0.072,
+        "weight": 700,
+        "color": "$fg",
+        "x": 0.5,
+        "y": 0.85,
+        "align": "center",
+        "maxBlur": 24,
+        "scaleFrom": 1.15
+      }
+    }
+  ],
+  "post": [
+    { "effect": "bloom", "amount": 0.55, "threshold": 0.6, "radius": 22 },
+    { "effect": "vignette", "amount": 0.4 },
+    { "effect": "grain", "amount": 0.07, "cell": 2 }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "template": "product-launch",
+  "slots": {
+    "title": "Render Forge",
+    "brand": "Render Forge",
+    "tagline": "让普通 AI 也能做出 Opus 级动画",
+    "features": [
+      "确定性引擎，同 seed 可复现",
+      "45 种组件 + 9 种转场",
+      "节拍对齐 + 中文排版",
+      "反模式检测自动纠偏"
+    ],
+    "productCaption": "所见即所得的编辑器",
+    "screenshotUrl": "app.renderforge.dev",
+    "ctaBadge": "GET STARTED",
+    "ctaTitle": "npm i render-forge",
+    "ctaSubtitle": "开源 · MIT · 永久免费",
+    "ctaTag": "github.com/render-forge",
+    "palette": "deepSea",
+    "featuresTitle": "核心特性"
+  }
+}
