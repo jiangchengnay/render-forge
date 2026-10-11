@@ -51,6 +51,7 @@ const TOOLS = [
   { name: "rf_assemble", description: "L4：组装（任务清单 + 片段目录 → 完整分镜 JSON）", inputSchema: { type: "object", properties: { plan: { type: "string" }, fragments: { type: "string", description: "片段目录" }, output: { type: "string" } }, required: ["plan", "fragments"] } },
   { name: "rf_doctor", description: "环境自检：诊断为什么跑不起来（Node/puppeteer/浏览器/快照/文档/测试）", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "rf_gen_channels", description: "从音频 dossier 自动生成视觉强度曲线（intensity/bassEnergy/beatPulse/buildDrop）——把节奏审美锁进引擎", inputSchema: { type: "object", properties: { dossier: { type: "string" }, output: { type: "string" } }, required: ["dossier"] } },
+  { name: "rf_diagnose", description: "批评归因：把像素指标报告转成「归属层 + 具体参数修改建议」", inputSchema: { type: "object", properties: { report: { type: "string" }, storyboard: { type: "string" }, output: { type: "string" } }, required: ["report"] } },
 ];
 
 function runArgs(args, opts) {
@@ -198,6 +199,12 @@ async function handleTool(name, args) {
     }
 
     case "rf_doctor": return (await runArgs(["node", "tools/doctor.js"])).output;
+    case "rf_diagnose": {
+      const a = ["node", "tools/diagnose.js", safeRead(args.report)];
+      if (args.storyboard) a.push("--storyboard=" + safeRead(args.storyboard));
+      if (args.output) a.push("--out=" + safePath(args.output));
+      return (await runArgs(a)).output;
+    }
     case "rf_gen_channels": {
       const a = ["node", "tools/gen-channels.js", "--dossier=" + safeRead(args.dossier)];
       if (args.output) a.push("--out=" + safePath(args.output));

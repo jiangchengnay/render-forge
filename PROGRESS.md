@@ -1358,13 +1358,10 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-75：P0-1 切片——从音频自动生成视觉强度曲线（gen-channels）
-- 新增 tools/gen-channels.js：从 dossier 的 sections/bands/beats 自动生成 4 条 channels：
-  - intensity（段落 energy → 视觉强度）
-  - bassEnergy（各段低音均值）
-  - beatPulse（每 beat 脉冲）
-  - buildDrop（能量 low→high 跳变 = drop 点）
-- 把"节奏→视觉强度"这条审美规则锁进引擎：AI 不用自己算强度曲线。
-- 实测：从 analysis-demo 生成 4 频道，bind 驱动画面出片正常。
-- MCP 加 rf_gen_channels（第 20 工具）+ 2 测试（137 全过）+ 文档。
-- 意义：ARCH-CRITIQUE P0-1 的第一块（节奏模板引擎化）。
+### iter-76：P0-3 框架侧切片——批评归因器 diagnose.js
+- 新增 tools/diagnose.js：把像素指标报告 → 问题类型 → **归属层（L0-L3）** → **具体参数修改建议**。
+- 修复 WORKFLOW.md「归因表无代码实现」——现在有代码。
+- 关键：从"像素统计"升级为"可执行归因"（每条含 param + change）。
+- 空帧过滤（t=0 开场全 0 帧不误报"过暗"）；全片性问题自动升级为结构层。
+- MCP 加 rf_diagnose（第 21 工具）+ 2 测试（139 全过）。
+- 意义：ARCH-CRITIQUE P0-3 的框架侧（不依赖外部视觉模型的归因部分）。

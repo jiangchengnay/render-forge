@@ -813,6 +813,26 @@ test('gen-channels: 确定性', () => {
   assert.deepStrictEqual(gc.generateChannels(d), gc.generateChannels(d));
 });
 
+test('diagnose: 像素指标 → 归属层 + 参数建议（iter-76）', () => {
+  const dg = require('./diagnose.js');
+  const report = { duration: 4, frames: [
+    { t: 0, metrics: { avgLum: 0, contrast: 0, edgeDensity: 0, colorCount: 1, dominantRatio: 1 }, issues: [] },
+    { t: 2, metrics: { avgLum: 8, contrast: 5, edgeDensity: 2, colorCount: 50, dominantRatio: 0.5 }, issues: [] }
+  ], lintWarnings: [], runtimeErrors: [] };
+  const d = dg.diagnose(report);
+  assert.strictEqual(d.attribution.dominant, 'L3', '主导应为 L3');
+  assert.ok(d.summary['too-dark'] >= 1, '应检出过暗');
+  assert.ok(d.perFrameIssues.every(i => i.t !== 0), '空帧(t=0)应被过滤');
+  assert.ok(d.actionables.length > 0 && d.actionables[0].change, '应有可执行建议');
+});
+test('diagnose: 全片性问题升级为结构问题', () => {
+  const dg = require('./diagnose.js');
+  const frames = [];
+  for (let i = 0; i < 4; i++) frames.push({ t: i, metrics: { avgLum: 10, contrast: 5, edgeDensity: 5, colorCount: 300, dominantRatio: 0.5 }, issues: [] });
+  const d = dg.diagnose({ duration: 4, frames, lintWarnings: [], runtimeErrors: [] });
+  assert.ok(d.structuralProblems.length > 0, '跨 50% 帧的问题应升级为结构问题');
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);
