@@ -764,6 +764,29 @@ test('export: 支持 assets 与 subtitles 加载（iter-37/38 回归）', () => 
   assert.ok(src.indexOf('loadStoryboardResources') >= 0, 'export 应调用统一资源入口');
 });
 
+test('channels: evalChannel 线性插值（iter-73 属性频道）', () => {
+  const RFm = loadModule('engine/core/motion.js', {}).Motion;
+  const ch = { keys: [{ t: 0, value: 0.2 }, { t: 4, value: 0.8 }], path: 'linear' };
+  assert.strictEqual(Math.round(RFm.evalChannel(ch, 1.5) * 1000) / 1000, 0.425);
+  assert.strictEqual(RFm.evalChannel(ch, -1), 0.2, '超左端 clamp');
+  assert.strictEqual(RFm.evalChannel(ch, 99), 0.8, '超右端 clamp');
+});
+test('channels: evalChannel 确定性', () => {
+  const RFm = loadModule('engine/core/motion.js', {}).Motion;
+  const ch = { keys: [{ t: 0, value: 0 }, { t: 2, value: 1 }, { t: 4, value: 0.5 }] };
+  assert.strictEqual(RFm.evalChannel(ch, 1.7), RFm.evalChannel(ch, 1.7));
+});
+test('validate: bind 引用不存在的 channel 报错（iter-73）', () => {
+  const sb = { meta: { duration: 4 }, acts: [{ id: 'a', dur: 4, tracks: [{ effect: 'morphPolygon', at: 0, dur: 4, bind: { x: 'nope' } }] }] };
+  const errs = v.validate(sb, [], {}, {});
+  assert.ok(errs.some(e => e.level === 'error' && e.where && e.where.indexOf('bind') >= 0), 'bind 坏引用应报 error');
+});
+test('validate: channels 合法时不报错（iter-73）', () => {
+  const sb = { meta: { duration: 4 }, channels: { x: { keys: [{ t: 0, value: 0.2 }, { t: 4, value: 0.8 }], path: 'linear' } }, acts: [{ id: 'a', dur: 4, tracks: [{ effect: 'morphPolygon', at: 0, dur: 4, bind: { x: 'x' } }] }] };
+  const errs = v.validate(sb, ['morphPolygon'], {}, {}).filter(e => e.level === 'error');
+  assert.strictEqual(errs.length, 0, '合法 channels 不该报 error');
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);

@@ -27,7 +27,7 @@ npm run serve    # 访问 http://localhost:5173
 | 维度 | 数量/内容 |
 |---|---|
 | 效果/组件 | 58（+ 插件系统，可无限扩展） |
-| 单元测试 | 130 个全通过 |
+| 单元测试 | 134 个全通过 |
 | 后处理 | 7（bloom 走 WebGL2） |
 | 转场 | 9 |
 | 配色 | 13 套 |
@@ -145,7 +145,7 @@ npm run serve                # 本地服务
 - `dsl/CONTEXT-GUIDE.md` / `dsl/ANALYSIS-GUIDE.md` / `dsl/ORCHESTRATION-GUIDE.md` — L0 语境叙事 / L1 分析层 / L2-L4 编排使用指南
 - `ARCHITECTURE.md` / `WORKFLOW.md` — 五层架构 / 完整工作流
 - `PROGRESS.md` — 跨会话记忆（含四份诊断报告对照）
-- `dsl/examples/` — 20 个示例
+- `dsl/examples/` — 21 个示例
 
 ## 浏览器要求
 

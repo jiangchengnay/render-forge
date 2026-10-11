@@ -99,5 +99,37 @@
     };
   }
 
-  RF.Motion = { evaluate, sampleKeys, catmullRom };
+  // —— 属性频道：storyboard 级、绝对秒的关键帧轨道（可跨幕）——
+  // channel: { keys:[{t秒, value}], path:"linear|catmullRom", ease?, loop?, loopCount? }
+  // 返回 channel 在绝对时刻 t（秒）的值；无 keys 返回 null。
+  function evalChannel(channel, t) {
+    if (!channel || !Array.isArray(channel.keys) || !channel.keys.length) return null;
+    const keys = channel.keys;
+    if (keys.length === 1) return keys[0].value != null ? keys[0].value : null;
+    const t0 = keys[0].t, tN = keys[keys.length - 1].t;
+    let u;
+    if (channel.loop && tN > t0) {
+      const span = tN - t0;
+      u = t0 + ((((t - t0) % span) + span) % span) * (channel.loopCount || 1);
+      if (channel.loopCount) u = t0 + ((((t - t0) % (span / channel.loopCount)) + (span / channel.loopCount)) % (span / channel.loopCount));
+    } else {
+      u = Math.max(t0, Math.min(tN, t));
+    }
+    let i = 0;
+    while (i < keys.length - 2 && keys[i + 1].t <= u) i++;
+    const k1 = keys[i], k2 = keys[i + 1];
+    const segT = k2.t - k1.t;
+    let local = segT > 0 ? (u - k1.t) / segT : 0;
+    local = Math.max(0, Math.min(1, local));
+    if (channel.ease) local = RF.Easing.resolve(channel.ease)(local);
+    const v1 = k1.value != null ? k1.value : 0;
+    const v2 = k2.value != null ? k2.value : v1;
+    if (channel.path === "linear") return v1 + (v2 - v1) * local;
+    const k0 = keys[Math.max(0, i - 1)], k3 = keys[Math.min(keys.length - 1, i + 2)];
+    const v0 = k0.value != null ? k0.value : v1;
+    const v3 = k3.value != null ? k3.value : v2;
+    return catmullRom(v0, v1, v2, v3, local);
+  }
+
+  RF.Motion = { evaluate, sampleKeys, catmullRom, evalChannel };
 })(window.RF = window.RF || {});

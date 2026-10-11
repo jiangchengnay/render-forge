@@ -96,6 +96,10 @@
       this.palette = RF.getPalette(sb.palette || "neonDusk");
       this.rng = new RF.Rng(meta.seed != null ? meta.seed : (meta.title || "rf"));
 
+      // —— 属性频道（storyboard 级，绝对秒关键帧，可跨幕）——
+      // channels: { name: { keys:[{t,value}], path?, ease?, loop?, loopCount? } }
+      this._channels = (sb && sb.channels && typeof sb.channels === "object") ? sb.channels : null;
+
       this._initActStates();
       this._initActBuffers(W, H);
       this._currentT = 0;
@@ -363,7 +367,7 @@
       ctx.restore();
     }
 
-    _resolveTransform(st, local, act, W, H, localP, easedP) {
+    _resolveTransform(st, local, act, W, H, localP, easedP, globalT) {
       const tr = st.clip.transform || null;
       const mo = st.clip.motion || null;
       const gt = st.clip.groupTransform || null;
@@ -401,6 +405,18 @@
           else if (m.rotate != null) out.rotate = m.rotate;
         }
       }
+      // —— bind：把 clip 属性绑定到 storyboard 级 channel（绝对秒）——
+      // bind: { x:"chName", y:"chName", scale:"chName", rotate:"chName", opacity:"chName" }
+      if (st.clip.bind && this._channels && RF.Motion && globalT != null) {
+        if (!out) out = { x: 0.5, y: 0.5, scale: 1, rotate: 0, opacity: 1 };
+        Object.keys(st.clip.bind).forEach((prop) => {
+          const chName = st.clip.bind[prop];
+          const ch = this._channels[chName];
+          if (!ch) return;
+          const v = RF.Motion.evalChannel(ch, globalT);
+          if (v != null) out[prop] = v;
+        });
+      }
       return out;
     }
 
@@ -414,7 +430,7 @@
         ctx.save();
         ctx.globalCompositeOperation = st.clip.blend || "source-over";
         ctx.globalAlpha = st.clip.opacity != null ? st.clip.opacity : 1;
-        const tr = this._resolveTransform(st, local, act, W, H, p, easedP);
+        const tr = this._resolveTransform(st, local, act, W, H, p, easedP, globalT);
         if (tr) {
           ctx.translate(tr.x * W, tr.y * H);
           ctx.rotate(tr.rotate || 0);
@@ -439,7 +455,7 @@
       const ease = RF.Easing.resolve(st.clip.ease);
       const easedP = ease(p);
 
-      const tr = this._resolveTransform(st, local, act, W, H, p, easedP);
+      const tr = this._resolveTransform(st, local, act, W, H, p, easedP, globalT);
       if (tr) {
         ctx.translate(tr.x * W, tr.y * H);
         ctx.rotate(tr.rotate || 0);

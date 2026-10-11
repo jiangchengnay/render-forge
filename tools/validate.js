@@ -74,6 +74,29 @@ function validate(sb, effectNames, effectMeta, lists) {
   if (sb.palette && PALETTES.indexOf(sb.palette) < 0)
     push("warn", "palette", "未知调色板 '" + sb.palette + "'，将回落到 neonDusk。可用: " + PALETTES.join(", "));
 
+  // channels（属性频道，storyboard 级，绝对秒关键帧）
+  if (sb.channels != null) {
+    if (typeof sb.channels !== "object" || Array.isArray(sb.channels)) {
+      push("error", "channels", "channels 必须是对象（{ name: {keys:[...]} }）");
+    } else {
+      Object.keys(sb.channels).forEach((cn) => {
+        const ch = sb.channels[cn];
+        if (!ch || !Array.isArray(ch.keys) || !ch.keys.length) {
+          push("error", "channels." + cn, "channel 必须有非空 keys 数组"); return;
+        }
+        let prevT = -Infinity;
+        ch.keys.forEach((k, ki) => {
+          if (typeof k.t !== "number") push("error", "channels." + cn + ".keys[" + ki + "].t", "关键帧 t 必须是数字（绝对秒）");
+          else if (k.t < prevT) push("error", "channels." + cn + ".keys[" + ki + "].t", "关键帧 t 必须非递减");
+          else prevT = k.t;
+          if (k.value == null || typeof k.value !== "number") push("warn", "channels." + cn + ".keys[" + ki + "].value", "关键帧 value 建议为数字");
+        });
+        if (ch.path != null && ["linear", "catmullRom"].indexOf(ch.path) < 0)
+          push("error", "channels." + cn + ".path", "未知 path '" + ch.path + "'。可用: linear, catmullRom");
+      });
+    }
+  }
+
   // post
   const POSTFX = lists.postfx || ["bloom","vignette","grain","chroma","scanlines","glitch","tint"];
   if (sb.post != null && !Array.isArray(sb.post)) {
@@ -180,8 +203,16 @@ function validate(sb, effectNames, effectMeta, lists) {
   };
 
   // 校验每个 clip
+  const chNames = (sb.channels && typeof sb.channels === "object" && !Array.isArray(sb.channels)) ? Object.keys(sb.channels) : [];
   clips.forEach(({ clip, where, actDur }) => {
     validateNode(clip, where);
+    // bind 引用完整性：clip.bind 的每个值必须是已声明的 channel
+    if (clip.bind && typeof clip.bind === "object") {
+      Object.keys(clip.bind).forEach((prop) => {
+        const cn = clip.bind[prop];
+        if (chNames.indexOf(cn) < 0) push("error", where + ".bind." + prop, "引用了不存在的 channel '" + cn + "'");
+      });
+    }
     // act 边界检查：clip 应在所属幕时长内（at < actDur 且 at+dur 不过分超出）
     if (actDur != null && typeof clip.at === "number") {
       if (clip.at >= actDur) push("warn", where + ".at", "at(" + clip.at + ") 已超出所属幕时长(" + actDur + ")，该 clip 不会出现");

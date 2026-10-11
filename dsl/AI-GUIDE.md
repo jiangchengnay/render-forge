@@ -145,6 +145,29 @@ kind: `polygon` / `star`（starPoints+innerRadius）/ `circle`（radius）/ `rec
 
 t 为 clip 进度 0-1。rotateFollow: true 时朝运动切线方向。
 
+### 属性频道 channels（连续编舞）
+
+storyboard 级、**绝对秒**的关键帧轨道，一个 channel 可跨幕驱动多个 clip（这是"连续编舞"的核心）。
+
+```json
+{
+  "channels": {
+    "riseY": { "keys": [{ "t": 0, "value": 0.85 }, { "t": 4, "value": 0.45 }], "path": "catmullRom" },
+    "spin":  { "keys": [{ "t": 0, "value": 0 }, { "t": 8, "value": 6.28 }], "path": "linear" }
+  },
+  "acts": [
+    { "id": "a1", "dur": 4, "tracks": [
+      { "effect": "morphPolygon", "at": 0, "dur": 4, "bind": { "y": "riseY", "rotate": "spin" } }
+    ] }
+  ]
+}
+```
+
+- `channels.<名>`：`{ keys:[{t:秒, value}], path:"linear|catmullRom", ease?, loop? }`
+- clip 用 `bind: { x/y/scale/rotate/opacity: "channel名" }` 绑定到 channel。
+- **与 motion 的区别**：motion.keys 的 t 是**clip 进度 0-1**（单段补间）；channels 的 t 是**全局秒**（可跨幕，连续）。
+- 用途：让同一组件的运动跨越幕边界连续（真正编舞），而非"每幕各动各的"。
+
 ### 分组容器 group
 
 ```json
