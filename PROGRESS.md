@@ -1358,9 +1358,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-77：P0-1 构图规则切片——compose.js
-- 新增 tools/compose.js：按**三分法/安全区/视觉焦点**检查分镜元素位置，给构图建议。
-- 4 条规则：no-text-at-center（文字忌居中）、safe-area（忌贴边）、rule-of-thirds（对齐三分线）、too-scattered（焦点过多）。
-- 把"构图审美"锁进引擎：AI 不用懂构图，引擎给出具体位置建议。
-- MCP 加 rf_compose（第 22 工具）+ 3 测试（142 全过）。
-- 意义：ARCH-CRITIQUE P0-1 的空间审美切片（配合 iter-75 的节奏审美）。
+### iter-78：P0-3 视觉模型侧接通（框架不碰 LLM，留接口）
+- diagnose.js 支持 --vision=report.json：可选合并 vision.js 的语义批评。
+- vision.js 早已存在（OpenAI 兼容，环境变量 RF_VISION_URL/KEY/MODEL）——本框架不绑厂商，接口已留。
+- 合并逻辑：vision 的 issues（构图/色彩/层次→L2、理解性→L1）并入归因；suggestions 并入可执行项。
+- 实测：mock vision 报告正确合并（semanticCritique + 层级分布）。
+- 意义：P0-3 闭环——diagnose（框架归因）+ vision（语义）+ patch（修改），三件套齐。

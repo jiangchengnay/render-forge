@@ -13,11 +13,12 @@ const path = require("path");
 
 function parseArgs(argv) {
   const a = argv || process.argv.slice(2);
-  const out = { report: a[0], storyboard: null, out: null };
+  const out = { report: a[0], storyboard: null, vision: null, out: null };
   a.slice(1).forEach((s) => {
     const m = s.match(/^--([\w-]+)(?:=(.+))?$/);
     if (!m) return;
     if (m[1] === "storyboard") out.storyboard = m[2];
+    else if (m[1] === "vision") out.vision = m[2];
     else if (m[1] === "out") out.out = m[2];
   });
   return out;
@@ -51,7 +52,7 @@ const RULES = [
 ];
 
 // —— 从 report + storyboard 推断更高级归因（结构/理解层）——
-function diagnose(report, storyboard) {
+function diagnose(report, storyboard, visionReport) {
   const frames = (report && report.frames) || [];
   const duration = (report && report.duration) || 0;
   const issues = [];      // 逐帧问题（带归属层 + 建议）
@@ -85,6 +86,25 @@ function diagnose(report, storyboard) {
   if (report && Array.isArray(report.runtimeErrors) && report.runtimeErrors.length)
     understanding.push({ level: "L0/L1", note: "存在运行时错误，先确保语义/映射无误：" + report.runtimeErrors.slice(0, 3).join("; ") });
 
+  // —— 视觉模型（可选）：合并语义级批评（判断构图/色彩/节奏/文字/层次）——
+  const semantic = [];
+  const vp = visionReport && visionReport.parsed ? visionReport.parsed : (visionReport && visionReport.issues ? visionReport : null);
+  if (vp) {
+    if (typeof vp.score === "number") semantic.push({ kind: "score", value: vp.score, note: "视觉模型评分 " + vp.score + "/10" });
+    (vp.issues || []).forEach((it) => {
+      // type → 归属层：构图/色彩/层次 → L2（结构）或 L3；文字/节奏理解性 → L1
+      const type = it.type || "";
+      let level = "L3";
+      if (/层次|色彩/.test(type)) level = "L2";
+      if (/理解|意义|隐喻|情绪基调/.test(type)) level = "L1";
+      semantic.push({ kind: "issue", type: type, level: level, severity: it.severity || "medium", desc: it.desc || "" });
+      levels[level] = (levels[level] || 0) + 1;
+    });
+    (vp.suggestions || []).forEach((s) => {
+      semantic.push({ kind: "suggestion", target: s.target || "", action: s.action || "" });
+    });
+  }
+
   // —— 汇总归属 ——
   const dominantLevel = Object.keys(levels).sort((a, b) => levels[b] - levels[a])[0] || "L3";
 
@@ -94,6 +114,7 @@ function diagnose(report, storyboard) {
     summary: summary,
     structuralProblems: structural,
     understandingHints: understanding,
+    semanticCritique: semantic,
     attribution: {
       levels: levels,
       dominant: dominantLevel,
@@ -116,7 +137,8 @@ function main() {
   if (!fs.existsSync(rp)) { console.error("报告不存在: " + rp); process.exit(1); }
   const report = JSON.parse(fs.readFileSync(rp, "utf8"));
   const storyboard = args.storyboard && fs.existsSync(path.resolve(args.storyboard)) ? JSON.parse(fs.readFileSync(path.resolve(args.storyboard), "utf8")) : null;
-  const diag = diagnose(report, storyboard);
+  const visionReport = args.vision && fs.existsSync(path.resolve(args.vision)) ? JSON.parse(fs.readFileSync(path.resolve(args.vision), "utf8")) : null;
+  const diag = diagnose(report, storyboard, visionReport);
   const json = JSON.stringify(diag, null, 2);
   if (args.out) {
     fs.mkdirSync(path.dirname(path.resolve(args.out)), { recursive: true });
