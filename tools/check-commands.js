@@ -22,3 +22,13 @@ let missing = 0;
 });
 if (missing) { console.log("\n" + missing + " 个文档命令无效"); process.exit(1); }
 console.log("✓ 文档提到的所有工具都存在 (" + seen.size + " 个)");
+
+// 额外：EFFECTS.md 是否含全部效果（防 stale）
+const ef = path.join(ROOT, "dsl", "EFFECTS.md");
+if (fs.existsSync(ef)) {
+  const names = JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "_effect-names.json"), "utf8"));
+  const eff = fs.readFileSync(ef, "utf8");
+  const miss = names.filter((n) => eff.indexOf(n) < 0);
+  if (miss.length) { console.log("✗ EFFECTS.md 缺 " + miss.length + " 个效果: " + miss.join(", ")); process.exit(1); }
+  console.log("✓ EFFECTS.md 含全部 " + names.length + " 个效果");
+}

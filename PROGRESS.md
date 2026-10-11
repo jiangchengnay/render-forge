@@ -1243,3 +1243,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - "MCP（8 工具）"→"MCP（18 工具：基础8+编排10）"。
 - 补充「多 Agent 编排」段落（五层流水线 + Cuckoo 接入）。
 - 目录导航补 USAGE/ARCHITECTURE/WORKFLOW。
+
+
+### iter-11：EFFECTS.md 补齐 6 个 vfx 效果 + 完整性检查
+- 问题：EFFECTS.md 手工维护，缺 shake/waveform/lensFlare/lightSweep/textMask/spectrum 6 个新效果。
+- 修复：补 vfx 分类；在 check-commands.js 加"EFFECTS.md 是否含全部效果"检查，防再 stale。
+- 结果：check-commands 通过（文档命令 + EFFECTS 完整性双检）。

@@ -114,3 +114,14 @@
 | `phoneFrame` | 手机框。 |
 | `cardStack` | 卡片堆叠（展示多张截图）。 |
 
+## vfx
+
+| 效果 | 说明 |
+|---|---|
+| `shake` | 画面整体震屏/抖动，支持频率、幅度、衰减。 |
+| `waveform` | 音频波形/频谱条（用 RF.Audio 数据）。 |
+| `lensFlare` | 镜头光晕：中心光源 + 光斑链 + anamorphic streak。 |
+| `lightSweep` | 一条高光带扫过画面。 |
+| `textMask` | 用文字作为遮罩挖空（露出下层内容）。 |
+| `spectrum` | 频域频谱条（真实 FFT 分频段）。 |
+
