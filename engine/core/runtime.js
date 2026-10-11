@@ -366,7 +366,24 @@
     _resolveTransform(st, local, act, W, H, localP, easedP) {
       const tr = st.clip.transform || null;
       const mo = st.clip.motion || null;
+      const gt = st.clip.groupTransform || null;
+      // groupTransform 按 clip 进度做两点插值（xFrom→xTo, scaleFrom→scaleTo, rotateFrom→rotateTo）
+      const gtEase = gt && gt.ease ? RF.Easing.resolve(gt.ease) : null;
+      const gtP = gt ? (gtEase ? gtEase(localP) : easedP) : 0;
+      const lerpGT = (a, b, def) => {
+        const from = a != null ? a : def;
+        const to = b != null ? b : from;
+        return from + (to - from) * gtP;
+      };
       let out = null;
+      if (gt) {
+        out = { x: 0.5, y: 0.5, scale: 1, rotate: 0, opacity: 1 };
+        if (gt.xFrom != null || gt.xTo != null) out.x = lerpGT(gt.xFrom, gt.xTo, 0.5);
+        if (gt.yFrom != null || gt.yTo != null) out.y = lerpGT(gt.yFrom, gt.yTo, 0.5);
+        if (gt.scaleFrom != null || gt.scaleTo != null) out.scale = lerpGT(gt.scaleFrom, gt.scaleTo, 1);
+        if (gt.rotateFrom != null || gt.rotateTo != null) out.rotate = lerpGT(gt.rotateFrom, gt.rotateTo, 0);
+        if (gt.opacityFrom != null || gt.opacityTo != null) out.opacity = lerpGT(gt.opacityFrom, gt.opacityTo, 1);
+      }
       if (tr) {
         out = { x: tr.x != null ? tr.x : 0.5, y: tr.y != null ? tr.y : 0.5,
           scale: tr.scale != null ? tr.scale : 1, rotate: tr.rotate || 0,

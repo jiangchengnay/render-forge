@@ -1348,8 +1348,10 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-42：index.html 预览也支持字幕
-- 问题：iter-41 统一了 export/critique 的资源加载，但 index.html 预览仍只用旧的 RF_loadAssets（仅 assets，无字幕）。
-- 修复：index.html 改用统一入口 loadStoryboardResources（assets + 字幕），保留旧入口兜底。
-- 验证：页面加载无错误，RF.Media.loadStoryboardResources 可用。
-- 意义：至此"预览/批评/导出"三者真正统一，同一分镜三者渲染一致。
+
+### iter-45：修复 groupTransform 完全失效（重大缺陷）
+- 问题：groupTransform（同 group 名 clip 共享变换）只在 scene.js 被写入，runtime._resolveTransform 从不读取 → 写了完全无效。
+- 影响：AI-GUIDE、SCHEMA-BRIEF、showcase-advanced 示例都教这个写法，用户/AI 用了没任何效果（静默失败）。
+- 实测：有/无 groupTransform 差异像素 0% → 修复后 18%。
+- 修复：_resolveTransform 新增 groupTransform 两点插值（xFrom→xTo / scaleFrom→scaleTo / rotateFrom→rotateTo / opacity）。
+- 意义：这是"文档广泛使用但实现缺失"的严重缺陷，现已修复。
