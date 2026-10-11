@@ -1331,3 +1331,10 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 新增 tools/bench.js：测 seek 渲染速度，防性能回归。
 - 基线（flagship 1080p）：7.59 ms/帧，131 fps 等效；5min@30fps 纯渲染约 1.1 分钟。
 - npm run bench 可跑。
+
+
+### iter-28：全效果 smoke test（固化为 tools/smoke.js）
+- 新增 tools/smoke.js：对全部 58 效果做最小渲染 smoke test，抓"某效果会崩"。
+- 结果：58/58 通过（57 渲染 + video 需真视频跳过），0 崩溃。
+- 已接入 npm run smoke + npm run verify。
+- 意义：这是"效果不崩"的可复现保证。
