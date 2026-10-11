@@ -15,10 +15,10 @@ const path = require("path");
 const lib = require("./orchestrate-lib.js");
 
 function main() {
-  const args = lib.parseArgs(process.argv.slice(2), { value: ["report", "constitution", "out"] });
+  const args = lib.parseArgs(process.argv.slice(2), { value: ["report", "constitution", "dossier", "out"] });
   const reportPath = args.report;
   if (!reportPath) {
-    console.error("用法: node tools/build-plan-input.js --report=report.json [--constitution=constitution.json] [--out=plan-input.json]");
+    console.error("用法: node tools/build-plan-input.js --report=report.json [--constitution=constitution.json] [--dossier=dossier.json] [--out=plan-input.json]");
     process.exit(1);
   }
   if (!fs.existsSync(path.resolve(reportPath))) {
@@ -35,11 +35,22 @@ function main() {
     else console.error("[警告] 创作宪法不存在，留空: " + cp);
   }
 
+  // 可选 dossier：analyze.js 产出，含真实 beats/onsets/phrases，用于补全 timeline
+  let dossier = null;
+  let dossierRef = "";
+  if (args.dossier) {
+    const dp = path.resolve(args.dossier);
+    if (fs.existsSync(dp)) { dossier = lib.readJson(dp); dossierRef = path.basename(dp); }
+    else console.error("[警告] dossier 不存在，忽略: " + dp);
+  }
+
   const pkg = lib.buildPlanInput({
     report: report,
     constitution: constitution,
+    dossier: dossier,
     reportRef: path.basename(reportPath),
     constitutionRef: constitutionRef,
+    dossierRef: dossierRef,
   });
 
   const json = JSON.stringify(pkg, null, 2);
@@ -47,9 +58,12 @@ function main() {
     const out = lib.writeJson(args.out, pkg);
     console.log("=== Planner 输入包已生成 ===");
     console.log("文件: " + out);
-    console.log("时间锚点: sections=" + pkg.timeline.sections.length +
+    console.log("时间锚点: beats=" + pkg.timeline.beats.length +
+      " onsets=" + pkg.timeline.onsets.length +
       " phrases=" + pkg.timeline.phrases.length +
-      " focus=" + pkg.timeline.focus_curve.length);
+      " sections=" + pkg.timeline.sections.length +
+      " focus=" + pkg.timeline.focus_curve.length +
+      " (来源: " + pkg.meta.timeline_source + ")");
     console.log("可用: 调色板 " + pkg.palette_names.length + " / 效果 " + pkg.effect_names.length +
       " / 转场 " + pkg.transition_names.length + " / 后处理 " + pkg.postfx_names.length);
     console.log("体积: " + Math.round(json.length / 1024) + " KB");

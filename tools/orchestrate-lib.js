@@ -99,7 +99,11 @@ function sliceForRole(role, timeline) {
   const fKeys = rule ? rule.focus : null;
   const timeline_slice = {};
   tKeys.forEach((k) => {
-    if (timeline[k] != null) timeline_slice[k] = timeline[k];
+    const v = timeline[k];
+    // 跳过缺失或空数组：空切片会误导 Worker（以为有锚点却拿到 []）。
+    if (v == null) return;
+    if (Array.isArray(v) && v.length === 0) return;
+    timeline_slice[k] = v;
   });
   let focus_slice = [];
   if (Array.isArray(timeline.focus_curve)) {
@@ -170,12 +174,14 @@ function buildPlanInput(opts) {
   const constitution = opts.constitution != null ? opts.constitution : {};
   const lists = opts.lists || loadLists();
   const effectNames = opts.effectNames || loadEffectNames();
-  const timeline = extractTimeline(report);
+  const timeline = extractTimeline(report, opts.dossier || null);
   return {
     meta: {
       generatedAt: new Date().toISOString(),
       reportRef: opts.reportRef || "",
       constitutionRef: opts.constitutionRef || "",
+      dossierRef: opts.dossierRef || "",
+      timeline_source: opts.dossier ? "dossier+report" : "report",
     },
     report: report,
     constitution: constitution,
@@ -187,19 +193,41 @@ function buildPlanInput(opts) {
   };
 }
 
-// 从解读报告抽取全片时间轴锚点（Planner 切片的原料）
-function extractTimeline(report) {
+// 从解读报告 + （可选）dossier 抽取全片时间轴锚点（Planner 切片的原料）。
+// 优先用 dossier.audio 的真实锚点（analyze.js 算出的 beats/onsets/phrases）；
+// report 本身不含逐拍数据，缺 dossier 时才降级：phrases 从 report.lyrics 抽，
+// beats 从 report.music.key_moments 兜底（语义不完全等价，仅作降级）。
+function extractTimeline(report, dossier) {
   const tl = { beats: [], onsets: [], phrases: [], sections: [], focus_curve: [] };
-  if (!report) return tl;
-  const m = report.music || {};
+  const audio = dossier && dossier.audio ? dossier.audio : null;
+  // beats / onsets：report 无此类数据，用 dossier（音频检测）。
+  if (audio) {
+    if (Array.isArray(audio.beats)) tl.beats = audio.beats.slice();
+    if (Array.isArray(audio.onsets)) tl.onsets = audio.onsets.slice();
+  }
+  const m = (report && report.music) || {};
+  // sections：优先 report.music.sections_mapped（L1 分析师映射后的语义段落，带 mood），
+  // 缺失时降级用 dossier.sections（音频自动检测的原始段落，只有 energy）。
   (m.sections_mapped || []).forEach((s) => {
-    if (s && s.start != null && s.end != null) tl.sections.push({ start: s.start, end: s.end, type: s.type || "" });
+    if (s && s.start != null && s.end != null) {
+      tl.sections.push({ start: s.start, end: s.end, type: s.type || "", mood: s.mood || "" });
+    }
   });
-  (m.key_moments || []).forEach((k) => { if (k && typeof k.t === "number") tl.beats.push(k.t); });
-  (report.lyrics || []).forEach((l) => {
+  if (!tl.sections.length && audio && Array.isArray(audio.sections)) {
+    tl.sections = audio.sections.map((s) => ({ start: s.start, end: s.end, type: s.type || "" }));
+  }
+  // phrases：优先 report.lyrics 的时间戳（分析师判断的句子时间），缺失时用 dossier.phrases（VAD 检测）。
+  (report ? report.lyrics : [] || []).forEach((l) => {
     if (l && l.start != null && l.end != null) tl.phrases.push({ start: l.start, end: l.end });
   });
-  const fc = (report.layers && report.layers.focus_curve) || [];
+  if (!tl.phrases.length && audio && Array.isArray(audio.phrases)) {
+    tl.phrases = audio.phrases.map((p) => ({ start: p.start, end: p.end }));
+  }
+  // beats 兜底：report.music.key_moments（语义不完全等价，仅降级）。
+  if (!tl.beats.length) {
+    (m.key_moments || []).forEach((k) => { if (k && typeof k.t === "number") tl.beats.push(k.t); });
+  }
+  const fc = (report && report.layers && report.layers.focus_curve) || [];
   tl.focus_curve = fc.map((f) => ({ t: f.t, focus: f.focus, reason: f.reason }));
   return tl;
 }

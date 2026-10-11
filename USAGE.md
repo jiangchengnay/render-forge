@@ -144,8 +144,9 @@ npm run export -- x.json out.mp4 --audio=bgm.mp3 --fps=30
 **步骤**：
 
 1. ```bash
-   node tools/build-plan-input.js --report=report.json --constitution=constitution.json --out=plan-input.json
+   node tools/build-plan-input.js --report=report.json --constitution=constitution.json --dossier=dossier.json --out=plan-input.json
    ```
+   > 传 `--dossier` 时，`timeline` 会用 analyze.js 算出的真实 beats/onsets/phrases 补全（report 本身不含逐拍数据）；不传则降级——beats 从 key_moments 兜底、phrases 从歌词时间戳兜底。
 
 2. `prompts/planner.md` 读 plan-input → `plan.json`（任务清单）
 
@@ -262,7 +263,7 @@ npm run mcp
 | **L0** 宪法校验 | `node tools/validate-constitution.js constitution.json` |
 | **L1** 分析 | `node tools/analyze.js --audio=... --out=dossier.json` |
 | **L1** 报告校验 | `node tools/validate-interpretation.js report.json` |
-| **L2** 计划输入 | `node tools/build-plan-input.js --report=... --out=...` |
+| **L2** 计划输入 | `node tools/build-plan-input.js --report=... --constitution=... [--dossier=...] --out=...` |
 | **L2** 计划校验 | `node tools/validate-plan.js plan.json` |
 | **L3** 任务输入 | `node tools/assign-task.js --plan=... --task=s1 --out=...` |
 | **L3** 片段校验 | `node tools/validate-fragment.js frag.json --plan=plan.json` |
@@ -289,7 +290,7 @@ node tools/analyze.js --audio=song.mp3 --lyrics=lyrics.txt --constitution=consti
 node tools/validate-interpretation.js report.json
 
 # L2 决策
-node tools/build-plan-input.js --report=report.json --constitution=constitution.json --out=plan-input.json
+node tools/build-plan-input.js --report=report.json --constitution=constitution.json --dossier=dossier.json --out=plan-input.json
 #   → planner → plan.json
 node tools/validate-plan.js plan.json
 

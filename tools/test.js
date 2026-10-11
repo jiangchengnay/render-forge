@@ -515,6 +515,48 @@ test('splice assemble 成多幕', () => {
   assert.strictEqual(sb.acts.length, 2);
   assert.strictEqual(sb.acts[0].dur, 4);
 });
+test('extractTimeline 无 dossier 降级（key_moments→beats, lyrics→phrases）', () => {
+  const tl = ol.extractTimeline(demoReport);
+  assert.ok(tl.beats.length >= 1, '应至少从 key_moments 兜底一个 beat');
+  assert.strictEqual(tl.phrases.length, 0, 'demoReport.lyrics 无时间戳，phrases 应为空');
+});
+test('extractTimeline 用 dossier 补真实 beats/onsets/phrases', () => {
+  const dossier = {
+    audio: {
+      beats: [0, 0.5, 1, 1.5], onsets: [1.97, 3.97], sections: [{start:0,end:4,type:'intro'}],
+      phrases: [{start:0,end:2},{start:3.97,end:7.97}],
+    },
+  };
+  const tl = ol.extractTimeline(demoReport, dossier);
+  assert.deepStrictEqual(tl.beats, [0, 0.5, 1, 1.5]);
+  assert.deepStrictEqual(tl.onsets, [1.97, 3.97]);
+  assert.strictEqual(tl.phrases.length, 2, 'report.lyrics 无时间戳，用 dossier.phrases');
+  // sections 优先用 report.music.sections_mapped（语义段落带 mood），非 dossier
+  assert.strictEqual(tl.sections.length, 2, 'demoReport.music.sections_mapped 有 2 段');
+  assert.strictEqual(tl.sections[0].mood, '叙述', 'sections 应来自 report（带 mood），而非 dossier');
+});
+test('extractTimeline sections 无 report.mapped 时降级用 dossier.sections', () => {
+  const rep = { music: {}, lyrics: [], layers: { focus_curve: [] } };
+  const dossier = { audio: { sections: [{start:0,end:4,type:'intro'}] } };
+  const tl = ol.extractTimeline(rep, dossier);
+  assert.strictEqual(tl.sections.length, 1);
+  assert.strictEqual(tl.sections[0].type, 'intro');
+});
+test('buildPlanInput 带 dossier 时 timeline 用真实锚点', () => {
+  const dossier = { audio: { beats: [0,1,2,3], onsets: [1], sections: [{start:0,end:4,type:'x'}], phrases: [{start:0,end:2}] } };
+  const pkg = ol.buildPlanInput({ report: demoReport, constitution: {}, dossier });
+  assert.strictEqual(pkg.timeline.beats.length, 4);
+  assert.strictEqual(pkg.meta.timeline_source, 'dossier+report');
+  assert.strictEqual(pkg.meta.dossierRef !== undefined, true);
+});
+test('sliceForRole 空数组跳过（不返回误导性空切片）', () => {
+  const tl = { beats: [], onsets: [], phrases: [{start:0,end:2}], sections: [{start:0,end:4}], focus_curve: [] };
+  const text = ol.sliceForRole('text', tl);
+  assert.deepStrictEqual(Object.keys(text.timeline_slice), ['phrases'], 'phrases 有数据应保留');
+  assert.strictEqual(text.timeline_slice.phrases.length, 1);
+  const bg = ol.sliceForRole('background', tl);
+  assert.strictEqual(bg.timeline_slice.beats, undefined, '空 beats 不应出现在切片里');
+});
 
 console.log('\n[L2-L4 端到端]');
 test('demo plan+fragments → assemble → validate 通过', () => {
