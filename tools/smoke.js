@@ -67,5 +67,21 @@ const { puppeteerLaunchOptions } = require('./find-browser');
   });
   console.log('');
   console.log('smoke test: ' + (results.length - bad) + '/' + results.length + ' 通过，' + bad + ' 个有问题');
+  // 静态检查：所有 count 循环应有边界保护
+  try {
+    const fs2 = require('fs');
+    let risky = [];
+    ['engine/effects', 'engine/components'].forEach((dir) => {
+      const dp = path.join(root, dir);
+      if (!fs2.existsSync(dp)) return;
+      fs2.readdirSync(dp).filter((f) => f.endsWith('.js')).forEach((f) => {
+        fs2.readFileSync(path.join(dp, f), 'utf8').split('\n').forEach((l, i) => {
+          if (/const count\s*=\s*params\.count/.test(l) && !/Math\.min|clamp/.test(l)) risky.push(dir + '/' + f + ':' + (i + 1));
+        });
+      });
+    });
+    if (risky.length) { bad++; console.log('✗ count 无边界保护: ' + risky.join(', ')); }
+    else console.log('✓ 所有 count 有边界保护');
+  } catch (e) {}
   process.exit(bad ? 1 : 0);
 })().catch((e) => { console.error(e); process.exit(1); });
