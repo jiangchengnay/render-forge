@@ -110,3 +110,22 @@ try {
   if (lbad) { console.log("\n" + lbad + " 处文档死链"); process.exit(1); }
   console.log("✓ 文档文件引用无死链 (" + lchecked + " 处)");
 } catch (e) {}
+
+// 额外：.cuckoo/agents/*.md 引用的文件必须存在
+try {
+  const adir = path.join(ROOT, ".cuckoo", "agents");
+  if (fs.existsSync(adir)) {
+    const reA = /(prompts\/[a-z0-9-]+\.md|dsl\/[A-Za-z0-9-]+\.md|dsl\/schemas\/[a-z-]+\.schema\.md|tools\/[a-z0-9-]+\.js)/g;
+    let abad = 0, achecked = 0;
+    fs.readdirSync(adir).filter((f) => f.endsWith(".md")).forEach((f) => {
+      const t = fs.readFileSync(path.join(adir, f), "utf8");
+      let m; const seen = new Set();
+      while ((m = reA.exec(t)) !== null) {
+        if (seen.has(m[1])) continue; seen.add(m[1]); achecked++;
+        if (!fs.existsSync(path.join(ROOT, m[1]))) { abad++; console.log("✗ agents/" + f + " 引用不存在: " + m[1]); }
+      }
+    });
+    if (abad) { console.log("\n" + abad + " 处 agents 死链"); process.exit(1); }
+    console.log("✓ agents 引用的文件都存在 (" + achecked + " 处)");
+  }
+} catch (e) {}

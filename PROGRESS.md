@@ -1352,8 +1352,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-48：验证节拍识别 + dossier 结构
-- 生成 120BPM 测试音频，analyze.js 识别 tempo=120、16 拍（8s×120/60 精确）。
-- 节拍间隔 0.5s（前 4 拍 0.48/0.98/1.48/1.98，误差 <0.02s）。
-- dossier audio 字段完整：duration/tempo/beats/onsets/sections/bands_summary/phrases/interludes。
-- 结论：音频分析（节拍/分频段/VAD）真实精确。
+
+### iter-49：校验 AI-GUIDE 示例（13 个 json 块，完整分镜 2 个均通过）
+### iter-50：agents 引用完整性检查固化
+- check-commands.js 新增".cuckoo/agents/*.md 引用的文件必须存在"检查（22 处 0 缺失）。
+- AI-GUIDE 里的完整分镜示例均通过 validate（AI 照抄不会出错）。
