@@ -1215,3 +1215,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 新增 tools/check-commands.js：校验文档提到的 node tools/*.js 是否真实存在（防误导）。
 - USAGE.md 补上 npm run e2e / check-docs 两个有价值但漏列的条目。
 - 结果：文档提到的 12 个工具全部存在。
+
+
+### iter-6：示例库出片抽查
+- 抽查 flagship / starlight-mv / music-bands / motion-keyframes 等多个示例，均能正常出片。
+- 结论：示例库健康，无"示例存在但渲染坏"的情况。
