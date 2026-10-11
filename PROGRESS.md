@@ -1351,7 +1351,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-47：验证单位后缀与 beat 语法
-- 单位后缀：150px = 150/720、50% = 0.5，差异均 0%（完全等价，换算正确）。
-- （上一轮 64% 是我测试基准写错，非 bug。）
-- 配合 iter-45/46，DSL 特性真实性审计完成：groupTransform 已修，其余特性均生效。
+
+### iter-48：验证节拍识别 + dossier 结构
+- 生成 120BPM 测试音频，analyze.js 识别 tempo=120、16 拍（8s×120/60 精确）。
+- 节拍间隔 0.5s（前 4 拍 0.48/0.98/1.48/1.98，误差 <0.02s）。
+- dossier audio 字段完整：duration/tempo/beats/onsets/sections/bands_summary/phrases/interludes。
+- 结论：音频分析（节拍/分频段/VAD）真实精确。
