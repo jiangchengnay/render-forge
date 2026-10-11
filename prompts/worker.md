@@ -34,7 +34,7 @@
 4. **参考 docs 指定的效果**：\`task.docs\` 里 \`EFFECTS#<name>\` 是建议效果族，优先在其中选；也可在效果清单里选更合适的。
 5. **效果名/参数名真实**：只能用引擎真实存在的效果名（见输入包 \`docs\` 与 \`tools/_effect-names.json\`）与真实参数名（见 \`tools/_effect-meta.json\`）。**不得编造**。
 6. **时间对齐**：\`at\` / \`dur\` 落在你 task 的 scope / timeline_slice 范围内；多个 clip 在片内合理分布，别全堆一处或整片空白。
-   - \`at\` 建议用**数字（秒）**；若用 \`"beat:N"\` / \`"phrase:N"\` 需确实施加。
+   - \`at\` 建议用**数字（秒）**；若用 \`"beat:N"\` / \`"phrase:N"\` 需确保该锚点真实存在（见 timeline_slice）。
 7. **配色统一**：用调色板占位符（\`$0\` \`$accent\` \`$fg\` \`$bg\`）或与全局 palette 协调的色；不引入突兀色。
 8. **只用 clip 支持的结构**：effect / at / dur / ease / opacity / blend / params / transform / motion / group。不认识的结构别写。
 

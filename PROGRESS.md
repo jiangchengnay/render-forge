@@ -1340,6 +1340,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-33：smoke test 增强（加内容非空检查）
-- smoke.js 从"只验不崩"升级为"也验真画了内容"（抓"不报错但画布空白"的效果）。
-- 结果：58/58 通过，全部有非零内容。
+
+### iter-35：prompt 质量审查
+- 12 个 prompt 结构完整（角色/输入/输出齐全）。
+- 修 worker.md 笔误："需确实施加" → "需确保该锚点真实存在（见 timeline_slice）"。
