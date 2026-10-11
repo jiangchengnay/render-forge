@@ -1338,7 +1338,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-31：环境自检工具 doctor.js
-- 新增 tools/doctor.js：一键诊断"为什么跑不起来"（Node/puppeteer/浏览器/快照/文档/测试）。
-- 结果：8 项全绿。
-- npm run doctor 可跑。
+
+### iter-32：MCP 加 rf_doctor 工具
+- MCP server 新增第 19 个工具 rf_doctor，让 Cuckoo 的 AI 能自查环境。
+- 工具总数 18 → 19。
