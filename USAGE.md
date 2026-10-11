@@ -213,7 +213,7 @@ npm run mcp
 ```
 在支持 MCP 的平台配置里加：
 ```json
-{ "mcpServers": { "render-forge": { "command": "node", "args": ["E:/奇思妙想/render-forge/tools/mcp-server.js"] } } }
+{ "mcpServers": { "render-forge": { "command": "node", "args": ["<project-dir>/tools/mcp-server.js"] } } }
 ```
 平台即可自动调用生成/校验/批评/渲染工具。
 

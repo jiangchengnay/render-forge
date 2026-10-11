@@ -13,7 +13,7 @@
   "mcpServers": {
     "render-forge": {
       "command": "node",
-      "args": ["E:/奇思妙想/render-forge/tools/mcp-server.js"]
+      "args": ["<project-dir>/tools/mcp-server.js"]
     }
   }
 }
@@ -76,7 +76,7 @@ AI 判断任务匹配时，会 `read` 这个 SKILL.md 加载使用知识（两�
 ## 五、验证接入是否正常
 
 ```bash
-cd E:/奇思妙想/render-forge
+cd <project-dir>
 node tools/check-commands.js   # 文档命令一致性
 npm run verify                 # 全验证（docs + commands + test + e2e）
 ```
