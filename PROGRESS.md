@@ -1339,6 +1339,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-32：MCP 加 rf_doctor 工具
-- MCP server 新增第 19 个工具 rf_doctor，让 Cuckoo 的 AI 能自查环境。
-- 工具总数 18 → 19。
+
+### iter-33：smoke test 增强（加内容非空检查）
+- smoke.js 从"只验不崩"升级为"也验真画了内容"（抓"不报错但画布空白"的效果）。
+- 结果：58/58 通过，全部有非零内容。

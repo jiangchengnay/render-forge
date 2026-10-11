@@ -40,7 +40,16 @@ const { puppeteerLaunchOptions } = require('./find-browser');
         rt.seek(0.5);
         rt.seek(1);
         const errs = rt.errors.slice();
-        out.push({ name, errors: errs });
+        // 检查是否真画了内容（非纯黑）
+        let contentPct = 0;
+        try {
+          const cv = document.getElementById('canvas');
+          const img = cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data;
+          let nb = 0, total = 0;
+          for (let i = 0; i < img.length; i += 4 * 97) { total++; if (img[i] > 12 || img[i+1] > 12 || img[i+2] > 12) nb++; }
+          contentPct = Math.round(nb / total * 100);
+        } catch (e) {}
+        out.push({ name, errors: errs, contentPct });
       } catch (e) {
         out.push({ name, threw: e.message });
       }
@@ -53,7 +62,8 @@ const { puppeteerLaunchOptions } = require('./find-browser');
     if (r.skipped) { console.log('⊘ ' + r.name + ' (跳过：需真视频)'); return; }
     if (r.threw) { bad++; console.log('✗ ' + r.name + ' 抛异常: ' + r.threw); return; }
     if (r.errors && r.errors.length) { bad++; console.log('✗ ' + r.name + ' runtime错误: ' + JSON.stringify(r.errors)); return; }
-    console.log('✓ ' + r.name);
+    if (r.contentPct === 0) { bad++; console.log('✗ ' + r.name + ' 渲染为空白（可能参数未生效）'); return; }
+    console.log('✓ ' + r.name + '  (' + r.contentPct + '%)');
   });
   console.log('');
   console.log('smoke test: ' + (results.length - bad) + '/' + results.length + ' 通过，' + bad + ' 个有问题');
