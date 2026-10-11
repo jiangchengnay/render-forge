@@ -88,7 +88,7 @@ async function main() {
 
   console.log("加载分镜 + 页内编码" + (audioUrl ? "（含音轨）" : "") + "...");
   const result = await page.evaluate(async (opts) => {
-    const { storyboard, fps, container, bitrate, audioUrl, fit } = opts;
+    const { storyboard, fps, container, bitrate, audioUrl, fit, assetsBase } = opts;
     const canvas = document.getElementById("canvas");
     if (window.__rf_runtime) window.__rf_runtime.pause();
     let sbd = storyboard;
@@ -108,6 +108,12 @@ async function main() {
         else targetDuration = ad;
       } catch (e) { console.log("[RF Export] fit: " + e.message); }
     }
+    // 加载分镜 assets 清单（图片/视频/svg/字体）
+    if (sbd.assets && sbd.assets.length && RF.Media && RF.Media.loadStoryboardAssets) {
+      const ar = await RF.Media.loadStoryboardAssets(sbd.assets, assetsBase);
+      if (ar.errors.length) console.log("[RF Export] assets 警告: " + ar.errors.join("; "));
+      console.log("[RF Export] assets 已加载 " + ar.loaded + "/" + sbd.assets.length);
+    }
     window.__rf_runtime = new RF.Runtime(canvas, sbd, {});
     const r = await RF.Exporter.exportVideo({
       runtime: window.__rf_runtime,
@@ -118,7 +124,7 @@ async function main() {
     return { bytes: r.bytes, frames: r.frames, container: r.container, codec: r.codec,
       totalMs: r.totalMs, msPerFrame: r.msPerFrame, audio: r.audio,
       data: Array.from(new Uint8Array(r.buffer)) };
-  }, { storyboard: sb, fps: args.fps, container: args.container, bitrate: args.bitrate, audioUrl: audioUrl, fit: args.fit });
+  }, { storyboard: sb, fps: args.fps, container: args.container, bitrate: args.bitrate, audioUrl: audioUrl, fit: args.fit, assetsBase: "http://127.0.0.1:" + port + "/" + path.dirname(path.relative(root, path.resolve(args.input))).replace(/\\/g, "/") + "/" });
 
   await browser.close();
   server.close();

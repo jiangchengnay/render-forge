@@ -719,6 +719,13 @@ test('media.register 对内联 SVG 字符串走 SVG 注册（iter-20 修复）',
   assert.strictEqual(isInlineSvg('https://x.com/a.svg'), false);
 });
 
+test('media.loadStoryboardAssets 导出存在（iter-37）', () => {
+  // 通过加载 engine/effects/media.js 验证导出（需 DOM，此处只验证 RF.Media 接口在源码中声明）
+  const src = fs.readFileSync(path.join(__dirname, '..', 'engine', 'effects', 'media.js'), 'utf8');
+  assert.ok(src.indexOf('loadStoryboardAssets') >= 0, 'media.js 应导出 loadStoryboardAssets');
+  assert.ok(src.indexOf('RF.Media = {') >= 0 && src.indexOf('loadStoryboardAssets,') >= 0, 'RF.Media 应含 loadStoryboardAssets');
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);

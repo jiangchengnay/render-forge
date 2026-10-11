@@ -101,6 +101,48 @@
   function get(id) { return IMAGES[id] || VIDEOS[id] || SVGS[id] || null; }
   function list() { return { images: Object.keys(IMAGES), videos: Object.keys(VIDEOS), svgs: Object.keys(SVGS) }; }
 
+  // —— 加载分镜 assets 清单 ——
+  // storyboard.assets = [{ id, src, type? }, ...]，src 为相对分镜的路径或 URL。
+  // 根据扩展名/type 自动路由到 registerImage / registerVideo / registerSVG。
+  // 返回 Promise，resolve 已加载数量；单个失败不阻断（记入 errors）。
+  async function loadStoryboardAssets(assets, baseUrl) {
+    const arr = Array.isArray(assets) ? assets : [];
+    const results = { loaded: 0, errors: [] };
+    const base = baseUrl || (typeof location !== "undefined" ? location.href : "");
+    for (const a of arr) {
+      if (!a || !a.id || !a.src) { results.errors.push("asset 缺 id 或 src"); continue; }
+      try {
+        let src = a.src;
+        // 相对路径 → 绝对（相对分镜/base）
+        if (typeof src === "string" && !/^(https?:|data:|blob:|file:)/i.test(src) && base) {
+          try { src = new URL(src, base).href; } catch (e) {}
+        }
+        const t = a.type || "";
+        if (t === "video" || /\.(mp4|webm|mov|m4v)($|\?)/i.test(a.src)) {
+          // 视频：预解码（若可用）以获得确定性
+          if (RF.VideoDecode && RF.VideoDecode.available && RF.VideoDecode.loadAndDecode) {
+            try { await RF.VideoDecode.loadAndDecode(a.id, src); }
+            catch (e) { await registerVideo(a.id, src); }
+          } else {
+            await registerVideo(a.id, src);
+          }
+        } else if (t === "svg" || /\.svg($|\?)/i.test(a.src)) {
+          await registerSVG(a.id, src);
+        } else if (t === "font") {
+          if (RF.Typography && RF.Typography.loadFont) {
+            await RF.Typography.loadFont(a.family || a.id, src, a);
+          }
+        } else {
+          await registerImage(a.id, src);
+        }
+        results.loaded++;
+      } catch (e) {
+        results.errors.push("asset '" + a.id + "' 加载失败: " + e.message);
+      }
+    }
+    return results;
+  }
+
   // —— 通用变换/适配计算 ——
   // 把素材按 fit 模式放到目标区域内，返回 { dx, dy, dw, dh }
   function fitSize(srcW, srcH, boxW, boxH, fit) {
@@ -306,6 +348,7 @@
 
   RF.Media = {
     register, registerImage, registerVideo, registerSVG,
+    loadStoryboardAssets,
     get, list, fitSize,
     _images: IMAGES, _videos: VIDEOS, _svgs: SVGS,
   };

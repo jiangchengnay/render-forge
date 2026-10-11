@@ -1342,7 +1342,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-36：文档死链检查
-- 新增检查：文档里引用的 tools/dsl/engine/prompts/*.js|md 必须存在（79 处引用无死链）。
-- 固化为 check-commands.js 的一部分（修正了正则词边界，避免 .json 被误判为 .js）。
-- 修 worker.md 笔误（iter-35）。
+
+### iter-37：实现缺失的 assets 打包功能（真实重大缺陷）
+- 问题：README 宣传"素材与分镜一起打包"（assets 字段），但 engine 完全没实现——写了会被静默忽略。
+- 修复：media.js 新增 loadStoryboardAssets（图片/svg/视频/字体自动路由 + 相对路径解析 + 视频预解码）；export-webcodecs.js 创建 Runtime 前自动加载。
+- 验证：实测"assets 已加载 1/1"，出片正常；补测试。
+- 意义：这是"文档承诺≠实现"的重大 gap，现已补齐。

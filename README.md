@@ -76,6 +76,8 @@ npm run serve    # 访问 http://localhost:5173
 
 素材与分镜一起打包 = 完整工程。视频会逐帧预解码（确定性）。
 
+> `assets` 由 `RF.Media.loadStoryboardAssets` 加载，导出时自动处理（图片/svg/视频/字体）。
+
 ## 导出
 
 | 方式 | 依赖 | 输出 |
