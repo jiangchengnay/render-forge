@@ -253,6 +253,7 @@ npm run mcp
 | 生成/更新脚本清单 | `npm run gen-manifest` |
 | 单元测试 | `npm run test` |
 | 文档数字校验 | `npm run check-docs` |
+| **端到端验证** | `npm run e2e`（L0→L4 全链 11 步，可加 -- --render 出片） |
 | 校验分镜 | `npm run validate -- x.json` |
 | 批评 | `npm run critique -- x.json` |
 | **导出 mp4** | `npm run export -- x.json out.mp4 [--audio=bgm.mp3]` |

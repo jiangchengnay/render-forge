@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+// tools/check-commands.js —— 校验文档里提到的 node tools/*.js 是否真实存在。
+// 防止文档提到不存在的工具（误导用户/AI）。用法：node tools/check-commands.js
+const fs = require("fs");
+const path = require("path");
+const ROOT = path.resolve(__dirname, "..");
+const tools = new Set(fs.readdirSync(path.join(ROOT, "tools")).filter((f) => f.endsWith(".js")));
+const docs = ["README.md", "USAGE.md", "ARCHITECTURE.md", "WORKFLOW.md",
+  "dsl/AI-GUIDE.md", "dsl/CONTEXT-GUIDE.md", "dsl/ANALYSIS-GUIDE.md", "dsl/ORCHESTRATION-GUIDE.md"];
+const seen = new Map();
+docs.forEach((d) => {
+  const p = path.join(ROOT, d);
+  if (!fs.existsSync(p)) return;
+  const t = fs.readFileSync(p, "utf8");
+  const re = /node\s+tools\/([a-z0-9-]+\.js)/gi;
+  let m;
+  while ((m = re.exec(t)) !== null) { const f = m[1]; if (!seen.has(f)) seen.set(f, []); seen.get(f).push(d); }
+});
+let missing = 0;
+[...seen.keys()].sort().forEach((f) => {
+  if (!tools.has(f)) { missing++; console.log("✗ 文档提到不存在的工具: tools/" + f + "  ← " + [...new Set(seen.get(f))].join(", ")); }
+});
+if (missing) { console.log("\n" + missing + " 个文档命令无效"); process.exit(1); }
+console.log("✓ 文档提到的所有工具都存在 (" + seen.size + " 个)");

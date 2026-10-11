@@ -1209,3 +1209,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 覆盖：L0 宪法校验 + 冲突分支、L1 dossier + 报告、L2 计划输入 + 计划、L3 任务输入 + 片段、L4 组装 + 最终分镜、渲染出片。
 - 结果：11 步全通过，出 4093KB 合法 mp4。
 - 意义：这是「整条编排链能连」的可复现回归测试。npm run e2e 可跑。
+
+
+### iter-5：文档命令一致性检查 + 补漏
+- 新增 tools/check-commands.js：校验文档提到的 node tools/*.js 是否真实存在（防误导）。
+- USAGE.md 补上 npm run e2e / check-docs 两个有价值但漏列的条目。
+- 结果：文档提到的 12 个工具全部存在。
