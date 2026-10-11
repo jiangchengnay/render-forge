@@ -1358,9 +1358,11 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-78：P0-3 视觉模型侧接通（框架不碰 LLM，留接口）
-- diagnose.js 支持 --vision=report.json：可选合并 vision.js 的语义批评。
-- vision.js 早已存在（OpenAI 兼容，环境变量 RF_VISION_URL/KEY/MODEL）——本框架不绑厂商，接口已留。
-- 合并逻辑：vision 的 issues（构图/色彩/层次→L2、理解性→L1）并入归因；suggestions 并入可执行项。
-- 实测：mock vision 报告正确合并（semanticCritique + 层级分布）。
-- 意义：P0-3 闭环——diagnose（框架归因）+ vision（语义）+ patch（修改），三件套齐。
+### iter-79：P2 计划文档 + 开源合规
+- 新增 ROADMAP.md：P1（明确不做，因偏离"给 AI 的引擎"定位）/ P2（待定，三个子项评估）/ P3。
+- 开源合规：
+  - 协议确认为 MIT（已应用，最合适）。
+  - 新增 THIRD-PARTY-NOTICES.md（puppeteer Apache-2.0；mp4-muxer/webm-muxer = Vanilagy MIT）。
+  - 给 vendor 两个 muxer 加版权头（MIT 要求保留声明）。
+  - README 加许可/致谢/贡献章节；新增 CONTRIBUTING.md。
+- 无协议变更；补的是"第三方归属"这一真实合规缺口。

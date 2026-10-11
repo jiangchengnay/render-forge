@@ -1,3 +1,10 @@
+/*!
+ * webm-muxer — WebM muxer for WebCodecs
+ * Copyright (c) Vanilagy
+ * Licensed under the MIT License.
+ * https://github.com/Vanilagy/webm-muxer
+ * Vendored by Render Forge (MIT). Original license below applies to this file.
+ */
 var __accessCheck = (obj, member, msg) => {
   if (!member.has(obj))
     throw TypeError("Cannot " + msg);

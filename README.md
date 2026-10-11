@@ -153,4 +153,14 @@ Chrome / Edge / Brave / Vivaldi / Opera 等 Chromium 内核（自动探测）。
 
 ## 许可
 
-MIT
+MIT（见 LICENSE）。
+
+## 致谢与第三方
+
+- 打包的 muxer（mp4-muxer / webm-muxer）来自 [Vanilagy](https://github.com/Vanilagy)，MIT 许可。
+- 依赖 puppeteer（Apache-2.0）。
+- 详见 THIRD-PARTY-NOTICES.md。
+
+## 参与贡献
+
+见 CONTRIBUTING.md。
