@@ -348,7 +348,7 @@
       const cy = (params.y != null ? params.y : 0.5) * H;
       const cardW = (params.w != null ? params.w : 0.42) * W;
       const cardH = (params.h != null ? params.h : 0.5) * H;
-      const count = params.count != null ? params.count : 3;
+      const count = Math.max(0, Math.min(100, Math.floor(params.count != null ? params.count : 3)));
       const colors = params.colors || pal.colors;
 
       ctx.save();

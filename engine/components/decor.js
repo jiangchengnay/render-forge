@@ -10,7 +10,7 @@
   RF.effects.register("geoShapes", {
     meta: {"category":"decor","desc":"几何形状散布（圆/方/三角/六边形）。","params":{"count":{"type":"number","default":12},"alpha":{"type":"number","default":0.25},"lineWidth":{"type":"number","default":1.5},"stagger":{"type":"number","default":0.6},"stroke":{"type":"boolean","default":true},"fill":{"type":"boolean","default":false},"float":{"type":"boolean","default":true}}},
     init(ctx, params, env) {
-      const count = params.count != null ? params.count : 12;
+      const count = Math.max(0, Math.min(500, Math.floor(params.count != null ? params.count : 12)));
       const rng = env.rng;
       const shapes = [];
       for (let i = 0; i < count; i++) {
@@ -134,7 +134,7 @@
   RF.effects.register("gradientBlob", {
     meta: {"category":"decor","desc":"渐变光斑（大色块氛围）。","params":{"count":{"type":"number","default":3},"alpha":{"type":"number","default":0.35},"mode":{"type":"string","default":"screen","desc":"合成模式"}}},
     init(ctx, params, env) {
-      const count = params.count != null ? params.count : 3;
+      const count = Math.max(0, Math.min(100, Math.floor(params.count != null ? params.count : 3)));
       const rng = env.rng;
       const blobs = [];
       for (let i = 0; i < count; i++) {

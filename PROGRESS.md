@@ -1358,6 +1358,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-58：补齐 shapes.js 的 count 边界保护
-- polygonRing（≤500）、ripples（≤500）也加 clamp。
-- 全面复查：所有 count 循环现有边界保护。
+### iter-59：补齐 decor/ui-mock 的 count 边界保护
+- decor.js（geoShapes ≤500、gradientBlob ≤100）、ui-mock.js（cardStack ≤100）加 clamp。
+- 全面终查：所有 count 循环现有边界保护。
+- 至此：8 处 count 保护全部就位。
