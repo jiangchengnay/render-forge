@@ -1226,3 +1226,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 新增 npm run verify = check-docs + check-commands + test + e2e 一键跑。
 - 全示例校验：17 个示例 0 失败。
 - 结果：所有验证一键通过。
+
+
+### iter-8：render-forge Skill（接入 Cuckoo 第三块）
+- 新增 .cuckoo/skills/render-forge/SKILL.md：教 Cuckoo 的 AI 一读即懂如何使用 render-forge（两种路线+关键命令）。
+- 至此接入三块齐备：MCP（工具）+ Agents（多 AI 分工）+ Skill（使用知识）。
