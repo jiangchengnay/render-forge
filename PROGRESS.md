@@ -1355,9 +1355,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-52~54：素材效果示例 + 收尾核查
-- iter-52：doctor/smoke/e2e 全绿确认；USAGE 走查所需文件齐全。
-- iter-54：新增 dsl/examples/effects-media.json（image + svg + imageMask 用真实素材文件 assets/logo.png + star.svg）。
-  - 效果示例覆盖率 53/58 → 56/58（仅剩 video/waveform 需真视频/音频，示例难自带）。
-  - 实测：assets 加载 2 个、校验通过、出片 240 帧。
-  - 意义：素材类效果（之前无任何示例）现在有可照抄的参考。
+
+### iter-55：video 效果健壮性
+- video 效果引用不存在素材时不崩（runtime.errors 为空，安全跳过）。
+- 快照已刷新（58 效果）。
