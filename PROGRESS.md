@@ -1353,7 +1353,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-49：校验 AI-GUIDE 示例（13 个 json 块，完整分镜 2 个均通过）
-### iter-50：agents 引用完整性检查固化
-- check-commands.js 新增".cuckoo/agents/*.md 引用的文件必须存在"检查（22 处 0 缺失）。
-- AI-GUIDE 里的完整分镜示例均通过 validate（AI 照抄不会出错）。
+
+### iter-51：schema-校验器映射核查
+- 6 个 schema（conflict/creative-constitution/fragment/interpretation/storyboard/task-plan）全部有对应校验器，无"schema 无校验器"的漏洞。
+- conflict 由 validate-constitution 统一校验（合理）。
