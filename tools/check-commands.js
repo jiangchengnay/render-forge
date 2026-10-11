@@ -32,3 +32,16 @@ if (fs.existsSync(ef)) {
   if (miss.length) { console.log("✗ EFFECTS.md 缺 " + miss.length + " 个效果: " + miss.join(", ")); process.exit(1); }
   console.log("✓ EFFECTS.md 含全部 " + names.length + " 个效果");
 }
+
+// 额外：prompts/*.md 里提到的 tools/*.js 也必须存在
+const pdir = path.join(ROOT, "prompts");
+if (fs.existsSync(pdir)) {
+  let pbad = 0;
+  fs.readdirSync(pdir).filter((f) => f.endsWith(".md")).forEach((f) => {
+    const t = fs.readFileSync(path.join(pdir, f), "utf8");
+    const re2 = /tools\/([a-z0-9-]+\.js)/gi; let m2;
+    while ((m2 = re2.exec(t)) !== null) { if (!tools.has(m2[1])) { pbad++; console.log("✗ prompts/" + f + " 引用不存在的: tools/" + m2[1]); } }
+  });
+  if (pbad) { console.log("\n" + pbad + " 处 prompts 无效引用"); process.exit(1); }
+  console.log("✓ prompts 提到的工具全部存在");
+}
