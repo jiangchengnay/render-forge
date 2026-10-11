@@ -726,6 +726,14 @@ test('media.loadStoryboardAssets 导出存在（iter-37）', () => {
   assert.ok(src.indexOf('RF.Media = {') >= 0 && src.indexOf('loadStoryboardAssets,') >= 0, 'RF.Media 应含 loadStoryboardAssets');
 });
 
+
+
+test('media.loadStoryboardResources 统一入口存在（iter-41）', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'engine', 'effects', 'media.js'), 'utf8');
+  assert.ok(src.indexOf('loadStoryboardResources') >= 0, 'media.js 应含 loadStoryboardResources');
+  assert.ok(src.indexOf('loadStoryboardResources,') >= 0, 'RF.Media 应导出它');
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);

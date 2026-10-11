@@ -55,11 +55,17 @@ async function main() {
   await page.setViewport({ width: 1080, height: 1080 });
   await page.goto(htmlPath, { waitUntil: "networkidle0" });
 
-  // 注入 storyboard
-  await page.evaluate((s) => {
+  // 注入 storyboard（先加载 assets/字幕，与导出保持一致）
+  const sbDir = path.dirname(path.resolve(args.input)).replace(/\\/g, "/");
+  const assetsBase = "file://" + sbDir + "/";
+  await page.evaluate(async (opts) => {
     const canvas = document.getElementById("canvas");
+    const { s, base } = opts;
+    if (s && (s.assets || s.subtitles) && RF.Media && RF.Media.loadStoryboardResources) {
+      try { await RF.Media.loadStoryboardResources(s, base); } catch (e) { console.warn("[critique] 资源加载失败:", e.message); }
+    }
     window.__rf_runtime = new RF.Runtime(canvas, s, {});
-  }, sb);
+  }, { s: sb, base: assetsBase });
 
   // 调用浏览器内的批评工具
   const report = await page.evaluate(async (frames) => {

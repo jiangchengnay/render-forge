@@ -108,26 +108,14 @@ async function main() {
         else targetDuration = ad;
       } catch (e) { console.log("[RF Export] fit: " + e.message); }
     }
-    // 加载分镜 assets 清单（图片/视频/svg/字体）
-    if (sbd.assets && sbd.assets.length && RF.Media && RF.Media.loadStoryboardAssets) {
-      const ar = await RF.Media.loadStoryboardAssets(sbd.assets, assetsBase);
-      if (ar.errors.length) console.log("[RF Export] assets 警告: " + ar.errors.join("; "));
-      console.log("[RF Export] assets 已加载 " + ar.loaded + "/" + sbd.assets.length);
-    }
-    // 加载 SRT 字幕清单（subtitles: [{id, src}]）
-    if (sbd.subtitles && sbd.subtitles.length && RF.Subtitles) {
-      let sLoaded = 0;
-      for (const s of sbd.subtitles) {
-        if (!s || !s.id || !s.src) continue;
-        try {
-          let u = s.src;
-          if (!/^(https?:|data:|blob:)/i.test(u) && assetsBase) { try { u = new URL(u, assetsBase).href; } catch (e) {} }
-          const txt = await (await fetch(u)).text();
-          RF.Subtitles.load(s.id, txt);
-          sLoaded++;
-        } catch (e) { console.log("[RF Export] 字幕 '" + s.id + "' 加载失败: " + e.message); }
+    // 加载分镜外部资源（assets + subtitles，与预览/批评共用同一入口）
+    if ((sbd.assets || sbd.subtitles) && RF.Media && RF.Media.loadStoryboardResources) {
+      const res = await RF.Media.loadStoryboardResources(sbd, assetsBase);
+      if (res.assets) {
+        if (res.assets.errors.length) console.log("[RF Export] assets 警告: " + res.assets.errors.join("; "));
+        console.log("[RF Export] assets 已加载 " + res.assets.loaded);
       }
-      console.log("[RF Export] 字幕已加载 " + sLoaded + "/" + sbd.subtitles.length);
+      if (sbd.subtitles) console.log("[RF Export] 字幕已加载 " + res.subtitles.loaded + "/" + sbd.subtitles.length);
     }
     window.__rf_runtime = new RF.Runtime(canvas, sbd, {});
     const r = await RF.Exporter.exportVideo({

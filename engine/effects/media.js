@@ -106,7 +106,9 @@
   // 根据扩展名/type 自动路由到 registerImage / registerVideo / registerSVG。
   // 返回 Promise，resolve 已加载数量；单个失败不阻断（记入 errors）。
   async function loadStoryboardAssets(assets, baseUrl) {
-    const arr = Array.isArray(assets) ? assets : [];
+    // 支持数组 [{id,src}] 或对象简写 { id: src }
+    const arr = Array.isArray(assets) ? assets
+      : (assets && typeof assets === "object" ? Object.keys(assets).map(function (k) { return { id: k, src: assets[k] }; }) : []);
     const results = { loaded: 0, errors: [] };
     const base = baseUrl || (typeof location !== "undefined" ? location.href : "");
     for (const a of arr) {
@@ -346,9 +348,29 @@
     },
   });
 
+  // —— 统一入口：加载分镜的全部外部资源（assets + subtitles）——
+  // 供浏览器预览、批评、导出共用，保证三者渲染一致。
+  async function loadStoryboardResources(sb, baseUrl) {
+    const out = { assets: null, subtitles: { loaded: 0, errors: [] } };
+    if (sb && sb.assets) out.assets = await loadStoryboardAssets(sb.assets, baseUrl);
+    if (sb && Array.isArray(sb.subtitles) && RF.Subtitles) {
+      for (const s of sb.subtitles) {
+        if (!s || !s.id || !s.src) continue;
+        try {
+          let u = s.src;
+          if (typeof u === "string" && !/^(https?:|data:|blob:|file:)/i.test(u) && baseUrl) { try { u = new URL(u, baseUrl).href; } catch (e) {} }
+          const txt = await (await fetch(u)).text();
+          RF.Subtitles.load(s.id, txt);
+          out.subtitles.loaded++;
+        } catch (e) { out.subtitles.errors.push("字幕 '" + s.id + "': " + e.message); }
+      }
+    }
+    return out;
+  }
+
   RF.Media = {
     register, registerImage, registerVideo, registerSVG,
-    loadStoryboardAssets,
+    loadStoryboardAssets, loadStoryboardResources,
     get, list, fitSize,
     _images: IMAGES, _videos: VIDEOS, _svgs: SVGS,
   };

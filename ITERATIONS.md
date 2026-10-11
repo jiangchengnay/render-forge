@@ -44,7 +44,7 @@
 
 ## 验证方式（每代都跑）
 - `npm run verify` = check-docs + check-commands + test + e2e
-- 最终状态：**123 测试全过、e2e 14 步全过、18 示例 0 失败、git 干净**。
+- 最终状态：**124 测试全过、e2e 14 步全过、18 示例 0 失败、git 干净**。
 
 ## 如何继续
 - 查看每代详情：`git log --oneline` + `git show <hash>`

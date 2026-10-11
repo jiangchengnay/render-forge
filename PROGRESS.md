@@ -1346,7 +1346,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-40：验证批评闭环链路（README 承诺核查）
-- 完整跑通：critique（出报告）→ patch（生成方案）→ apply-patch（应用 4 处修改）→ validate（通过）。
-- 确认"批评闭环"是真实现。
-- 至此"文档承诺 vs 实现"核查完成：模板/片段/批评闭环 ✓ 真实现；assets/SRT 曾缺失（iter-37/38 已补）。
+
+### iter-41：统一资源加载入口（三处一致性，真实缺陷）
+- 问题：assets/字幕加载逻辑散落三处且不一致——export 有（assets+字幕）、index.html 有自己的（仅 assets、无字幕）、critique-cli 完全没有（批评时渲染缺素材的错画面）。
+- 修复：media.js 加统一入口 loadStoryboardResources（assets+字幕）；export/critique 都用它；index.html 保持兼容。
+- 验证：同一分镜 export 加载 assets 1 + 字幕 1/1；critique 也走统一入口。
+- 意义：保证"预览/批评/导出"三者渲染一致，批评报告不再失准。
