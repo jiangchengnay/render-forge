@@ -12,7 +12,7 @@
       const W = f.W, H = f.H;
       const cx = (params.cx != null ? params.cx : 0.5) * W;
       const cy = (params.cy != null ? params.cy : 0.5) * H;
-      const count = params.count != null ? params.count : 12;
+      const count = Math.max(0, Math.min(500, Math.floor(params.count != null ? params.count : 12)));
       const rBase = (params.radius != null ? params.radius : 0.3) * Math.min(W, H);
       const sides = params.sides != null ? params.sides : 6;
       const lineWidth = params.lineWidth != null ? params.lineWidth : 2;
@@ -66,7 +66,7 @@
       const W = f.W, H = f.H;
       const cx = (params.cx != null ? params.cx : 0.5) * W;
       const cy = (params.cy != null ? params.cy : 0.5) * H;
-      const count = params.count != null ? params.count : 6;
+      const count = Math.max(0, Math.min(500, Math.floor(params.count != null ? params.count : 6)));
       const maxR = (params.maxRadius != null ? params.maxRadius : 0.7) * Math.min(W, H);
       const lineWidth = params.lineWidth != null ? params.lineWidth : 2;
       const color = params.color || f.palette.colors[0];

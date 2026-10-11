@@ -1358,8 +1358,6 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-57：修复 count 无边界保护（真实健壮性缺陷）
-- 问题：particles/flowfield/metaball/vfx 的 count 循环无上限，count:1e6 会卡死浏览器（fuzzing 实测 >55s 无响应）。
-- 修复：5 处 count 加 clamp（particles/flowfield ≤5000，metaball ≤200，vfx ≤2000）。
-- 验证：count:1e6 从卡死 >55s → 76ms 完成，0 崩溃。
-- 意义：用户/AI 写错超大 count 不再卡死；这是 fuzzing 挖出的真实健壮性问题。
+### iter-58：补齐 shapes.js 的 count 边界保护
+- polygonRing（≤500）、ripples（≤500）也加 clamp。
+- 全面复查：所有 count 循环现有边界保护。
