@@ -1,7 +1,10 @@
 node_modules/
 output/
-.cuckoo/
 *.log
+# .cuckoo：保留 agents/skills（随仓库走），忽略临时产物
+.cuckoo/tool-results/
+.cuckoo/*.json
+.cuckoo/rules/
 package-lock.json
 # 中间产物
 output/*.b64.txt

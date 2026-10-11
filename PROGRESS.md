@@ -1231,3 +1231,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 ### iter-8：render-forge Skill（接入 Cuckoo 第三块）
 - 新增 .cuckoo/skills/render-forge/SKILL.md：教 Cuckoo 的 AI 一读即懂如何使用 render-forge（两种路线+关键命令）。
 - 至此接入三块齐备：MCP（工具）+ Agents（多 AI 分工）+ Skill（使用知识）。
+
+
+### iter-9：修正 .gitignore（保留 agents/skills）
+- 问题：.gitignore 原排除整个 .cuckoo/，导致 agents 和 skills 不被 git 追踪（应随仓库走、团队共享）。
+- 修复：改为只忽略 .cuckoo/tool-results/ 和临时 json，保留 agents/skills/rules。
+- 结果：12 个 agents + 1 个 skill 已纳入追踪。
