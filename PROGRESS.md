@@ -1358,7 +1358,6 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-59：补齐 decor/ui-mock 的 count 边界保护
-- decor.js（geoShapes ≤500、gradientBlob ≤100）、ui-mock.js（cardStack ≤100）加 clamp。
-- 全面终查：所有 count 循环现有边界保护。
-- 至此：8 处 count 保护全部就位。
+### iter-61：规模测试
+- 20 幕（5ms）、50 clip（4ms）、4K 分辨率（111ms）、1000 字文字（30ms）——全部稳定，0 错误。
+- 结论：引擎在大规模场景下健壮。
