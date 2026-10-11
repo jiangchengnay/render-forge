@@ -12,6 +12,13 @@
  * https://github.com/Vanilagy/mp4-muxer
  * Vendored by Render Forge (MIT). Original license below applies to this file.
  */
+/*!
+ * mp4-muxer — MP4 muxer for WebCodecs
+ * Copyright (c) Vanilagy
+ * Licensed under the MIT License.
+ * https://github.com/Vanilagy/mp4-muxer
+ * Vendored by Render Forge (MIT). Original license below applies to this file.
+ */
 var __accessCheck = (obj, member, msg) => {
   if (!member.has(obj))
     throw TypeError("Cannot " + msg);
