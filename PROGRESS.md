@@ -1356,6 +1356,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-55：video 效果健壮性
-- video 效果引用不存在素材时不崩（runtime.errors 为空，安全跳过）。
-- 快照已刷新（58 效果）。
+
+### iter-56：示例时长一致性检查
+- 16/17 示例的 meta.duration 与 acts 实际时长一致。
+- 唯一"不符"是 scenelet-demo（include 形式，展开前无 dur）——检查脚本误报，非缺陷。
+- 结论：示例时长健康。
