@@ -1358,6 +1358,6 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-65：全验证 + HEALTH.md 更新（收尾）
-- 完整 verify 链全绿：docs/commands/test/smoke/e2e/doctor/bench。
-- HEALTH.md 更新到最新（含 65 代累计修复的 14 类缺陷）。
+### iter-67：状态型效果 seek 确定性验证（核心承诺）
+- particles/flowfield/feedback（最容易不确定的 stateful 效果）两次 seek 到同一时刻，像素差异均 0%。
+- 验证了项目核心承诺"确定性"（同 seed 同结果、seek 可复现）真实成立。
