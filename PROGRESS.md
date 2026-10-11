@@ -1265,3 +1265,11 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 ### iter-15：e2e 补失败路径 + 组装断言（子代理建议）
 - 采纳子代理建议：e2e 新增 4 步失败路径验证（非法分镜/非法计划报错、resolve-conflict 有冲突分支、组装片段数匹配）。
 - 意义：从"只验成功路径"到"也验失败路径"，回归更可靠。
+
+
+### iter-16：更多示例出片抽样
+- aurora-emergence / cn-typography / showcase-advanced / group-nested 均正常出片。
+
+### iter-17：vfx 6 效果真实渲染验证
+- 构造含 shake/spectrum/waveform/lensFlare/lightSweep/textMask 全 6 效果的分镜，校验通过、出片正常（180帧）、无 runtime 报错。
+- 确认新效果不是空壳。
