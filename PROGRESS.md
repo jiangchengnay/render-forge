@@ -1358,7 +1358,6 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-64：加 clip 超出 act 边界检查
-- clip.at 超出所属幕时长 → warn（该 clip 不会出现）。
-- clip.at+dur 超出幕时长 → warn（尾部被裁）。
-- （AI 常写 dur 过长/at 超出，之前静默不报。）
+### iter-65：全验证 + HEALTH.md 更新（收尾）
+- 完整 verify 链全绿：docs/commands/test/smoke/e2e/doctor/bench。
+- HEALTH.md 更新到最新（含 65 代累计修复的 14 类缺陷）。
