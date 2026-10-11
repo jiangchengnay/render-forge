@@ -1187,3 +1187,12 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 最主要：L0 语境与叙事层的确切位置（独立前置 / 分析层子步骤 / 需求理解阶段）——待完整工作流列出后再定。
 
+
+
+## 2026-10-11 自动迭代 · 第 1 代
+
+### iter-1：L2 时间轴锚点补全（子代理）
+- 问题：build-plan-input 从 report 抽 timeline 时，report 不含逐拍数据，导致 beats/onsets 为空，Planner 拿不到真实锚点。
+- 修复：新增 --dossier 参数，用 analyze.js 产出的真实 beats/onsets/phrases 补全 timeline；无 dossier 时降级（key_moments→beats、歌词时间戳→phrases）。
+- 附带：sliceForRole 跳过空数组切片（避免误导 Worker）。
+- 验收：118 测试全过、check-docs 通过、出片正常。

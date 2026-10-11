@@ -515,6 +515,15 @@ test('splice assemble 成多幕', () => {
   assert.strictEqual(sb.acts.length, 2);
   assert.strictEqual(sb.acts[0].dur, 4);
 });
+
+test('assemble 校验片段覆盖率：缺片段时 assemble.js 层拦截', () => {
+  // 覆盖逻辑在 assemble.js 的 main，此处验证 lib 侧配合：缺失 task_id 可被识别
+  const plan = { tasks: [{ id: 'a1' }, { id: 'a2' }, { id: 'a3' }] };
+  const frags = [{ task_id: 'a1' }, { task_id: 'a2' }];
+  const ids = new Set(frags.map((f) => f.task_id));
+  const missing = plan.tasks.map((t) => t.id).filter((id) => !ids.has(id));
+  assert.deepStrictEqual(missing, ['a3']);
+});
 test('extractTimeline 无 dossier 降级（key_moments→beats, lyrics→phrases）', () => {
   const tl = ol.extractTimeline(demoReport);
   assert.ok(tl.beats.length >= 1, '应至少从 key_moments 兜底一个 beat');

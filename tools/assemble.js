@@ -50,6 +50,19 @@ function main() {
   });
   if (bad) { console.error("\n" + bad + " 个片段校验失败，组装中止。"); process.exit(1); }
 
+  // 覆盖率检查：plan 的每个 task 都必须有对应片段（否则产出残缺分镜而无感知）
+  const fragIds = new Set(fragments.map((f) => f && f.task_id).filter(Boolean));
+  const planTaskIds = (plan.tasks || []).map((t) => t.id);
+  const missing = planTaskIds.filter((id) => !fragIds.has(id));
+  if (missing.length) {
+    console.error("\n[组装失败] plan 有 " + planTaskIds.length + " 个任务，但缺少 " + missing.length + " 个片段:");
+    missing.forEach((id) => console.error("  - " + id));
+    console.error("（每个 task 都应有对应片段；缺片段会产出残缺分镜。用 --allow-missing 可跳过此检查）");
+    const allowMissing = process.argv.indexOf("--allow-missing") >= 0;
+    if (!allowMissing) process.exit(1);
+    console.error("（已指定 --allow-missing，继续组装）");
+  }
+
   const sb = lib.assemble(plan, fragments);
   const json = JSON.stringify(sb, null, 2);
 
