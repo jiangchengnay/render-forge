@@ -1273,3 +1273,13 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 ### iter-17：vfx 6 效果真实渲染验证
 - 构造含 shake/spectrum/waveform/lensFlare/lightSweep/textMask 全 6 效果的分镜，校验通过、出片正常（180帧）、无 runtime 报错。
 - 确认新效果不是空壳。
+
+
+### iter-18：代码审计
+- engine 无 TODO/调试残留，console.warn/error 均为合理错误处理。项目干净。
+
+### iter-19：效果画廊示例 + 覆盖率检查
+- 问题：58 效果中 28 个从未在任何示例出现（用户/AI 看不到它们）。
+- 修复：新增 dsl/examples/effects-gallery.json（6 幕，覆盖 kaleidoscope/metaball/feedback/shake/lensFlare/barChart/pieChart 等 23 个），覆盖率 30/58 → 53/58。
+- 附带：check-commands.js 加"效果示例覆盖率"信息性检查。
+- 剩 5 个未覆盖：image/video/svg/imageMask（需外部素材）+ waveform（无音频兜底）。

@@ -45,3 +45,22 @@ if (fs.existsSync(pdir)) {
   if (pbad) { console.log("\n" + pbad + " 处 prompts 无效引用"); process.exit(1); }
   console.log("✓ prompts 提到的工具全部存在");
 }
+
+// 额外：效果示例覆盖率（信息性提示，不 fail）
+try {
+  const names2 = JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "_effect-names.json"), "utf8"));
+  const used = new Set();
+  const edir = path.join(ROOT, "dsl", "examples");
+  const scan = (dir) => {
+    fs.readdirSync(dir).forEach((f) => {
+      const p = path.join(dir, f);
+      if (fs.statSync(p).isDirectory()) { scan(p); return; }
+      if (!f.endsWith(".json")) return;
+      const t = fs.readFileSync(p, "utf8");
+      names2.forEach((n) => { if (t.indexOf('"' + n + '"') >= 0) used.add(n); });
+    });
+  };
+  scan(edir);
+  const unused = names2.filter((n) => !used.has(n));
+  console.log("ℹ 效果示例覆盖率: " + used.size + "/" + names2.length + (unused.length ? "（未覆盖: " + unused.join(", ") + "）" : ""));
+} catch (e) {}
