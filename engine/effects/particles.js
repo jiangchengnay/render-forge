@@ -81,7 +81,7 @@
     stateful: true,
 
     init(ctx, params, env) {
-      const count = params.count != null ? params.count : 500;
+      const count = Math.max(0, Math.min(5000, Math.floor(params.count != null ? params.count : 500)));
       const rng = env.rng;
       const W = env.width, H = env.height;
       const spawn = params.spawn || "random";

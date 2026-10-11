@@ -50,7 +50,7 @@
       const cy = (params.y != null ? params.y : 0.7) * H;
       const totalW = (params.w != null ? params.w : 0.7) * W;
       const maxH = (params.h != null ? params.h : 0.2) * H;
-      const count = params.count != null ? params.count : 48;
+      const count = Math.max(1, Math.min(2000, Math.floor(params.count != null ? params.count : 48)));
       const gap = params.gap != null ? params.gap : 0.3;
       const mode = params.mode || 'bars';
       const dir = params.dir || 'vertical';
@@ -257,7 +257,7 @@
       const cy = (params.y != null ? params.y : 0.75) * H;
       const totalW = (params.w != null ? params.w : 0.7) * W;
       const maxH = (params.h != null ? params.h : 0.25) * H;
-      const count = params.count != null ? params.count : 32;
+      const count = Math.max(1, Math.min(2000, Math.floor(params.count != null ? params.count : 32)));
       const gap = params.gap != null ? params.gap : 0.2;
       const c1 = params.color || f.palette.accent;
       const c2 = params.color2 || f.palette.colors[1] || c1;

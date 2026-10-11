@@ -7,7 +7,7 @@
     stateful: true,
     init(ctx, params, env) {
       const W = env.width, H = env.height;
-      const count = params.count != null ? params.count : 2000;
+      const count = Math.max(0, Math.min(5000, Math.floor(params.count != null ? params.count : 2000)));
       const simplex = RF.makeSimplex(params.seed != null ? params.seed : env.rng.seed);
       const rng = env.rng.fork("flowfield-init");
       const ps = [];

@@ -6,7 +6,7 @@
     meta: {"category":"math","desc":"融合球（blur+contrast 模拟）。","params":{"count":{"type":"number","default":6},"blur":{"type":"number","default":30},"alpha":{"type":"number","default":0.85}}},
     init(ctx, params, env) {
       const W = env.width, H = env.height;
-      const count = params.count != null ? params.count : 6;
+      const count = Math.max(0, Math.min(200, Math.floor(params.count != null ? params.count : 6)));
       const rng = env.rng;
       const balls = [];
       for (let i = 0; i < count; i++) {

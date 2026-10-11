@@ -1357,7 +1357,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-56：示例时长一致性检查
-- 16/17 示例的 meta.duration 与 acts 实际时长一致。
-- 唯一"不符"是 scenelet-demo（include 形式，展开前无 dur）——检查脚本误报，非缺陷。
-- 结论：示例时长健康。
+
+### iter-57：修复 count 无边界保护（真实健壮性缺陷）
+- 问题：particles/flowfield/metaball/vfx 的 count 循环无上限，count:1e6 会卡死浏览器（fuzzing 实测 >55s 无响应）。
+- 修复：5 处 count 加 clamp（particles/flowfield ≤5000，metaball ≤200，vfx ≤2000）。
+- 验证：count:1e6 从卡死 >55s → 76ms 完成，0 崩溃。
+- 意义：用户/AI 写错超大 count 不再卡死；这是 fuzzing 挖出的真实健壮性问题。
