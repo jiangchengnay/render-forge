@@ -1320,3 +1320,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - bug2：number 参数 range:[0,1] 被当枚举做 indexOf，导致 0.5 误报"不在允许范围"——已区分区间与枚举。
 - 验证：flagship 校验从"6 警告"降到"0 警告"；全示例 0 失败；补 2 测试，122 全过。
 - 附带：刷新引擎快照消除"过期"提示。
+
+
+### iter-26：验证 check-docs 防线有效性
+- 造错测试：把 README 单元测试数改成 999 → check-docs 正确报错（exit 1）；改回 → 通过。
+- 确认 check-docs 真能抓单元测试数不一致，不是空跑。
