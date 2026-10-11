@@ -1202,3 +1202,10 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 通过 JSON-RPC 实测 rf_validate_plan / rf_assign_task / rf_validate_constitution 三个新工具，均正常返回。
 - 确认已安装版 Cuckoo 可通过 MCP 调用 render-forge 的五层编排工具。
 - 无代码改动（纯验证）。
+
+
+### iter-4：端到端集成验证脚本（tools/e2e.js）
+- 新增 tools/e2e.js：把 L0→L4 工具链串成 11 步可复现验证（含出片），验证各层产物能被下一步接受。
+- 覆盖：L0 宪法校验 + 冲突分支、L1 dossier + 报告、L2 计划输入 + 计划、L3 任务输入 + 片段、L4 组装 + 最终分镜、渲染出片。
+- 结果：11 步全通过，出 4093KB 合法 mp4。
+- 意义：这是「整条编排链能连」的可复现回归测试。npm run e2e 可跑。
