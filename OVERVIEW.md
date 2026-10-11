@@ -86,7 +86,7 @@ L4 组装        → 完整分镜 → 渲染
 | 选效果 | dsl/EFFECTS.md |
 | 用模板 | dsl/TEMPLATE-SLOTS.md |
 | 看示例 | dsl/examples/ |
-| 了解历史 | PROGRESS.md |
+| 了解历史 | ROADMAP.md |
 | 完整使用总纲 | USAGE.md |
 | 架构设计 | ARCHITECTURE.md |
 | 工作流 | WORKFLOW.md |

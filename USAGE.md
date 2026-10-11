@@ -340,7 +340,7 @@ node tools/export-webcodecs.js storyboard.json out.mp4 --fps=30 --audio=song.mp3
 | dsl/ORCHESTRATION-GUIDE.md | L2-L4 用法 |
 | dsl/EFFECTS.md | 58 效果速查 |
 | dsl/SCHEMA-BRIEF.md | DSL 速览 |
-| PROGRESS.md | 项目记忆、历史决策、淘汰方案留档 |
+| ROADMAP.md | 阶段计划（P1/P2/P3） |
 
 ---
 
