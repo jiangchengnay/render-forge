@@ -1337,6 +1337,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 新增 tools/smoke.js：对全部 58 效果做最小渲染 smoke test，抓"某效果会崩"。
 
 
-### iter-30：项目健康总览 HEALTH.md
-- 新增 HEALTH.md：一眼看全项目状态（核心指标 + 验证状态 + 架构 + 接入 + 边界 + 命令）。
-- 作为本轮长迭代的收尾交付。
+
+### iter-31：环境自检工具 doctor.js
+- 新增 tools/doctor.js：一键诊断"为什么跑不起来"（Node/puppeteer/浏览器/快照/文档/测试）。
+- 结果：8 项全绿。
+- npm run doctor 可跑。

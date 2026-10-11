@@ -28,6 +28,7 @@
     "check-commands": "node tools/check-commands.js",
     "bench": "node tools/bench.js",
     "smoke": "node tools/smoke.js",
+    "doctor": "node tools/doctor.js",
     "verify": "node tools/check-docs.js && node tools/check-commands.js && node tools/test.js && node tools/smoke.js && node tools/e2e.js"
   },
   "keywords": [
