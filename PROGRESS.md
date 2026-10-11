@@ -1358,6 +1358,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-67：状态型效果 seek 确定性验证（核心承诺）
-- particles/flowfield/feedback（最容易不确定的 stateful 效果）两次 seek 到同一时刻，像素差异均 0%。
-- 验证了项目核心承诺"确定性"（同 seed 同结果、seek 可复现）真实成立。
+### iter-68：MCP server 健壮性加固
+- 问题：缺必填参数时暴露底层 Node 堆栈（不友好）。
+- 修复：handleTool 加通用必填参数校验（16 个工具），缺参数返回友好错误。
+- 验证：未知工具/非法路径→友好错误；缺参数→"缺少必填参数 input"。

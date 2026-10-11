@@ -87,7 +87,23 @@ function safeRead(p) {
   return path.resolve(p || "");
 }
 
+// 每个工具的必填参数（缺则给友好错误，避免暴露底层堆栈）
+const REQUIRED = {
+  rf_generate: ["template", "output"], rf_validate: ["input"], rf_critique: ["input"],
+  rf_recommend: ["intent"], rf_apply_patch: ["storyboard", "proposal"], rf_render: ["input", "output"],
+  rf_l0_input: ["request"], rf_resolve_conflict: ["conflict"], rf_validate_constitution: ["input"],
+  rf_analyze: ["audio"], rf_validate_interpretation: ["input"], rf_build_plan_input: ["report"],
+  rf_validate_plan: ["input"], rf_assign_task: ["plan", "task"], rf_validate_fragment: ["input"],
+  rf_assemble: ["plan", "fragments"],
+};
+
 async function handleTool(name, args) {
+  args = args || {};
+  const req = REQUIRED[name];
+  if (req) {
+    const missing = req.filter((k) => args[k] == null || args[k] === "");
+    if (missing.length) return "参数错误：缺少必填参数 " + missing.join(", ") + "（工具 " + name + "）";
+  }
   switch (name) {
     case "rf_list": {
       const names = JSON.parse(fs.readFileSync(path.join(ROOT, "tools/_effect-names.json"), "utf8"));
