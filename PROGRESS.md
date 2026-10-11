@@ -1358,7 +1358,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-70：转场 + 后处理真实性验证（最后一块系统性核查）
-- 9 转场（seek 1.75s，转场进行中 vs cut 基准）：fade 100%、wipe 50%、zoomFade 86%、iris 15%、slide 61%、glitch 100%、blocks 43%、shapeMask 15% —— 全部真生效。
-- 7 后处理（vs 无 post）：bloom 34%、vignette 45%、grain 76%、chroma 27%、scanlines 50%、glitch 1%、tint 100% —— 全部真生效。
-- 至此：58 效果 + 9 转场 + 7 后处理 + DSL 特性 + 五层架构，全部系统性验证完毕。
+### iter-71：为关键修复补回归测试
+- 补 6 个回归测试：groupTransform（iter-45）、loadStoryboardResources（iter-41）、assets+subtitles 加载（iter-37/38）、acts/tracks/post 非数组（iter-62/63）。
+- 测试从 124 增至 129（含修正：problem 用 where 字段非 path）。
+- 意义：本次会话的关键修复现在有回归保护，未来改动若破坏会立刻被抓。

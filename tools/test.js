@@ -734,6 +734,36 @@ test('media.loadStoryboardResources 统一入口存在（iter-41）', () => {
   assert.ok(src.indexOf('loadStoryboardResources,') >= 0, 'RF.Media 应导出它');
 });
 
+test('validate: acts 非数组报错（iter-62 回归）', () => {
+  const sb = { meta: { duration: 2 }, acts: '不是数组' };
+  const errs = v.validate(sb, [], {}, {});
+  assert.ok(errs.some(e => e.where === 'acts' && e.level === 'error'), 'acts 非数组应报 error');
+});
+test('validate: tracks 非数组报错（iter-62 回归）', () => {
+  const sb = { meta: { duration: 2 }, acts: [{ id: 'a', dur: 2, tracks: '不是数组' }] };
+  const errs = v.validate(sb, [], {}, {});
+  assert.ok(errs.some(e => e.where.indexOf('tracks') >= 0 && e.level === 'error'), 'tracks 非数组应报 error');
+});
+test('validate: post 非数组报错（iter-63 回归）', () => {
+  const sb = { meta: { duration: 2 }, post: '不是数组', acts: [] };
+  const errs = v.validate(sb, [], {}, {});
+  assert.ok(errs.some(e => e.where === 'post' && e.level === 'error'), 'post 非数组应报 error');
+});
+test('runtime: groupTransform 被读取（iter-45 回归）', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'engine', 'core', 'runtime.js'), 'utf8');
+  assert.ok(src.indexOf('groupTransform') >= 0, 'runtime.js 应读取 groupTransform（iter-45 修复）');
+  assert.ok(/gt\.xFrom|groupTransform/.test(src), '应含 groupTransform 插值逻辑');
+});
+test('media: loadStoryboardResources 统一入口（iter-41 回归）', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'engine', 'effects', 'media.js'), 'utf8');
+  assert.ok(src.indexOf('loadStoryboardResources') >= 0, 'media.js 应含统一资源入口');
+  assert.ok(src.indexOf('subtitles') >= 0, '应处理 subtitles');
+});
+test('export: 支持 assets 与 subtitles 加载（iter-37/38 回归）', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'tools', 'export-webcodecs.js'), 'utf8');
+  assert.ok(src.indexOf('loadStoryboardResources') >= 0, 'export 应调用统一资源入口');
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);
