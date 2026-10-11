@@ -1296,3 +1296,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 问题：iter-20 加的 SVG 测试被追加到 test.js 的汇总统计**之后**，执行了但不计入总数、失败也不报告。
 - 修复：移到汇总之前。测试数 119 → 120（正确计入）。
 - 意义：暴露了"加测试要放在汇总前"的约束，否则形同虚设。
+
+
+### iter-22：文档数字同步
+- README/ITERATIONS 同步到 120 测试 / 18 示例 / e2e 14 步。
+- 确认 buildSearchQueries 返回 {queries, note} 对象（非数组），功能正常。
