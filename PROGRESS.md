@@ -1220,3 +1220,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 ### iter-6：示例库出片抽查
 - 抽查 flagship / starlight-mv / music-bands / motion-keyframes 等多个示例，均能正常出片。
 - 结论：示例库健康，无"示例存在但渲染坏"的情况。
+
+
+### iter-7：一键全验证 npm run verify
+- 新增 npm run verify = check-docs + check-commands + test + e2e 一键跑。
+- 全示例校验：17 个示例 0 失败。
+- 结果：所有验证一键通过。
