@@ -1358,6 +1358,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-61：规模测试
-- 20 幕（5ms）、50 clip（4ms）、4K 分辨率（111ms）、1000 字文字（30ms）——全部稳定，0 错误。
-- 结论：引擎在大规模场景下健壮。
+### iter-62：修复 acts/tracks 类型漏检（真实缺陷）
+- 问题：validate.js 用 if(Array.isArray(sb.acts)) 判断，acts 非数组时静默跳过——而运行时会崩。
+- 修复：acts 存在但非数组 → error；tracks 非数组 → error；幕非对象 → error。
+- 验证：acts='字符串' 和 tracks='字符串' 现在正确报错。

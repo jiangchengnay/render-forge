@@ -90,8 +90,12 @@ function validate(sb, effectNames, effectMeta, lists) {
     if (!Array.isArray(arr)) return;
     arr.forEach((c, i) => clips.push({ clip: c, where: where + "[" + i + "]" }));
   };
-  if (Array.isArray(sb.acts)) {
+  if (sb.acts != null && !Array.isArray(sb.acts)) {
+    push("error", "acts", "acts 必须是数组（当前 " + typeof sb.acts + "）");
+  } else if (Array.isArray(sb.acts)) {
     sb.acts.forEach((a, ai) => {
+      if (!a || typeof a !== "object") { push("error", "acts[" + ai + "]", "幕必须是对象"); return; }
+      if (a.tracks != null && !Array.isArray(a.tracks)) push("error", "acts[" + ai + "].tracks", "tracks 必须是数组");
       collect(a.tracks, "acts[" + ai + "].tracks");
       if (a.camera && typeof a.camera !== "object") push("warn", "acts[" + ai + "].camera", "camera 应为对象");
     });
