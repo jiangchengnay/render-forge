@@ -27,7 +27,7 @@ npm run serve    # 访问 http://localhost:5173
 | 维度 | 数量/内容 |
 |---|---|
 | 效果/组件 | 58（+ 插件系统，可无限扩展） |
-| 单元测试 | 122 个全通过 |
+| 单元测试 | 123 个全通过 |
 | 后处理 | 7（bloom 走 WebGL2） |
 | 转场 | 9 |
 | 配色 | 13 套 |
@@ -77,6 +77,12 @@ npm run serve    # 访问 http://localhost:5173
 素材与分镜一起打包 = 完整工程。视频会逐帧预解码（确定性）。
 
 > `assets` 由 `RF.Media.loadStoryboardAssets` 加载，导出时自动处理（图片/svg/视频/字体）。
+
+字幕用 `subtitles` 清单声明，导出时自动加载 SRT：
+```json
+{ "subtitles": [{ "id": "s1", "src": "./sub.srt" }],
+  "acts": [{ "tracks": [{ "effect": "subtitle", "params": { "src": "s1" } }] }] }
+```
 
 ## 导出
 

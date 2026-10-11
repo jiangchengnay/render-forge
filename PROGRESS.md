@@ -1343,8 +1343,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-37：实现缺失的 assets 打包功能（真实重大缺陷）
-- 问题：README 宣传"素材与分镜一起打包"（assets 字段），但 engine 完全没实现——写了会被静默忽略。
-- 修复：media.js 新增 loadStoryboardAssets（图片/svg/视频/字体自动路由 + 相对路径解析 + 视频预解码）；export-webcodecs.js 创建 Runtime 前自动加载。
-- 验证：实测"assets 已加载 1/1"，出片正常；补测试。
-- 意义：这是"文档承诺≠实现"的重大 gap，现已补齐。
+
+### iter-38：实现缺失的 SRT 字幕加载（真实缺陷）
+- 问题：README 宣传"SRT 字幕"，subtitle 效果需先 RF.Subtitles.load(id, text)，但分镜 JSON 无机制加载 SRT → 静默失败。
+- 修复：export-webcodecs.js 支持分镜 subtitles:[{id,src}] 清单，导出前自动 fetch + load。
+- 验证：实测"字幕已加载 1/1"，出片正常。
+- README 补充用法。

@@ -114,6 +114,21 @@ async function main() {
       if (ar.errors.length) console.log("[RF Export] assets 警告: " + ar.errors.join("; "));
       console.log("[RF Export] assets 已加载 " + ar.loaded + "/" + sbd.assets.length);
     }
+    // 加载 SRT 字幕清单（subtitles: [{id, src}]）
+    if (sbd.subtitles && sbd.subtitles.length && RF.Subtitles) {
+      let sLoaded = 0;
+      for (const s of sbd.subtitles) {
+        if (!s || !s.id || !s.src) continue;
+        try {
+          let u = s.src;
+          if (!/^(https?:|data:|blob:)/i.test(u) && assetsBase) { try { u = new URL(u, assetsBase).href; } catch (e) {} }
+          const txt = await (await fetch(u)).text();
+          RF.Subtitles.load(s.id, txt);
+          sLoaded++;
+        } catch (e) { console.log("[RF Export] 字幕 '" + s.id + "' 加载失败: " + e.message); }
+      }
+      console.log("[RF Export] 字幕已加载 " + sLoaded + "/" + sbd.subtitles.length);
+    }
     window.__rf_runtime = new RF.Runtime(canvas, sbd, {});
     const r = await RF.Exporter.exportVideo({
       runtime: window.__rf_runtime,
