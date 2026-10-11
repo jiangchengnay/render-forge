@@ -88,9 +88,9 @@ function validate(sb, effectNames, effectMeta, lists) {
 
   // 收集所有 clip
   const clips = [];
-  const collect = (arr, where) => {
+  const collect = (arr, where, actDur) => {
     if (!Array.isArray(arr)) return;
-    arr.forEach((c, i) => clips.push({ clip: c, where: where + "[" + i + "]" }));
+    arr.forEach((c, i) => clips.push({ clip: c, where: where + "[" + i + "]", actDur: actDur }));
   };
   if (sb.acts != null && !Array.isArray(sb.acts)) {
     push("error", "acts", "acts 必须是数组（当前 " + typeof sb.acts + "）");
@@ -98,7 +98,7 @@ function validate(sb, effectNames, effectMeta, lists) {
     sb.acts.forEach((a, ai) => {
       if (!a || typeof a !== "object") { push("error", "acts[" + ai + "]", "幕必须是对象"); return; }
       if (a.tracks != null && !Array.isArray(a.tracks)) push("error", "acts[" + ai + "].tracks", "tracks 必须是数组");
-      collect(a.tracks, "acts[" + ai + "].tracks");
+      collect(a.tracks, "acts[" + ai + "].tracks", a.dur);
       if (a.camera && typeof a.camera !== "object") push("warn", "acts[" + ai + "].camera", "camera 应为对象");
     });
   }
@@ -180,8 +180,14 @@ function validate(sb, effectNames, effectMeta, lists) {
   };
 
   // 校验每个 clip
-  clips.forEach(({ clip, where }) => {
+  clips.forEach(({ clip, where, actDur }) => {
     validateNode(clip, where);
+    // act 边界检查：clip 应在所属幕时长内（at < actDur 且 at+dur 不过分超出）
+    if (actDur != null && typeof clip.at === "number") {
+      if (clip.at >= actDur) push("warn", where + ".at", "at(" + clip.at + ") 已超出所属幕时长(" + actDur + ")，该 clip 不会出现");
+      else if (typeof clip.dur === "number" && clip.at + clip.dur > actDur + 0.05)
+        push("warn", where + ".dur", "at+dur(" + (clip.at + clip.dur).toFixed(2) + ") 超出幕时长(" + actDur + ")，尾部会被裁掉");
+    }
     if (clip.type === "group") return;  // group 容器不需要 effect
     if (!clip.effect) { push("error", where, "缺少 effect"); return; }
     if (effectNames && effectNames.indexOf(clip.effect) < 0) {

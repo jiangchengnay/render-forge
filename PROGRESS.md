@@ -1358,8 +1358,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-63：修复 validate 更多漏检
-- post 非数组（会崩）→ 现报 error。
-- at 负数 → 现报 warn。
-- color 占位符 $N 越界（>4）→ 现报 warn。
-- （background.type 非法未加，因其容错处理，非崩溃。）
+### iter-64：加 clip 超出 act 边界检查
+- clip.at 超出所属幕时长 → warn（该 clip 不会出现）。
+- clip.at+dur 超出幕时长 → warn（尾部被裁）。
+- （AI 常写 dur 过长/at 超出，之前静默不报。）
