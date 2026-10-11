@@ -700,6 +700,13 @@ test('l0-demo conflict + resolve-conflict 一致', () => {
   assert.strictEqual(r.action, 'use_bridge');
 });
 
+test('media.register 对内联 SVG 字符串走 SVG 注册（iter-20 修复）', () => {
+  const isInlineSvg = (s) => typeof s === 'string' && s.trim().startsWith('<');
+  assert.strictEqual(isInlineSvg('<svg></svg>'), true);
+  assert.strictEqual(isInlineSvg('logo.svg'), false);
+  assert.strictEqual(isInlineSvg('https://x.com/a.svg'), false);
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);
@@ -709,12 +716,3 @@ if (failed > 0) {
   process.exit(1);
 }
 console.log("全部通过 ✓");
-
-test('media.register 对内联 SVG 字符串走 SVG 注册（iter-20 修复）', () => {
-  // 纯逻辑验证：以内联 SVG 字符串调用 register 应被识别为 svg 源。
-  // 在 Node 环境无 DOM，这里验证路由判定：字符串以 < 开头视为 SVG。
-  const isInlineSvg = (s) => typeof s === 'string' && s.trim().startsWith('<');
-  assert.strictEqual(isInlineSvg('<svg></svg>'), true);
-  assert.strictEqual(isInlineSvg('logo.svg'), false);
-  assert.strictEqual(isInlineSvg('https://x.com/a.svg'), false);
-});
