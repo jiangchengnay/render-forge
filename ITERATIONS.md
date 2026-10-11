@@ -26,6 +26,10 @@
 | iter-11 | EFFECTS.md 补 6 个 vfx 效果 + 完整性检查 | 防效果表 stale |
 | iter-12 | agents 补 bash 工具 | **关键**：否则 agent 无法命令行自检 |
 | iter-13 | Cuckoo 接入指南 | 讲清三块接入用法 |
+| iter-14 | 迭代日志 ITERATIONS.md + check-commands 扩展 prompts 检查 | 存档 + 防 prompt 引用失效 |
+| iter-15 | e2e 补失败路径 + 组装断言 | 从只验成功到也验失败 |
+| iter-16 | 更多示例出片抽样 | 确认示例健康 |
+| iter-17 | vfx 6 效果真实渲染验证 | 确认新效果非空壳 |
 
 ## 关键修正（这几代里最重要的）
 1. **iter-12**：agents 没 bash → 无法跑 `node tools/xxx` 自检 → 已补。这是 agent 能真正干活的前提。
