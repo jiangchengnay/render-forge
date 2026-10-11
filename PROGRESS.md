@@ -1255,3 +1255,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 问题：agents 的 tools 字段限定为 read/readLines/write/glob/grep，但 prompt 里要求"用 node tools/xxx 自检"——没有 bash 则无法执行命令行，自检落空。
 - 修复：12 个 agents 的 tools 字段统一加 bash。
 - 意义：这是接入 Cuckoo 后 agent 能真正干活的关键（否则只能读写文件，不能跑校验/组装/渲染）。
+
+
+### iter-13：Cuckoo 接入指南
+- 新增 CUCKOO-INTEGRATION.md：讲清 MCP（18 工具）+ Agents（12 个）+ Skill（1 个）三块接入的用法与验证。
+- 意义：让用户/AI 知道整套东西怎么在 Cuckoo 里用起来。
