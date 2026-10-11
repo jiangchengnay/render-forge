@@ -140,8 +140,14 @@ function fmt(t) { return t.toFixed(2); }
 
 async function loadStoryboard(sb) {
   try {
-    // 自动加载 assets（相对分镜文件目录；这里用当前页目录）
-    if (sb && sb.assets && typeof window.RF_loadAssets === 'function') {
+    // 自动加载外部资源（assets + subtitles，统一入口；相对当前页目录）
+    if (sb && (sb.assets || sb.subtitles) && RF.Media && RF.Media.loadStoryboardResources) {
+      try {
+        const res = await RF.Media.loadStoryboardResources(sb, window.location.href);
+        if (res.subtitles && res.subtitles.loaded) console.log('[RF] 字幕已加载 ' + res.subtitles.loaded);
+        if (res.assets && res.assets.errors.length) console.warn('[RF] assets 警告:', res.assets.errors);
+      } catch (e) { console.warn('[RF] 资源加载失败:', e.message); }
+    } else if (sb && sb.assets && typeof window.RF_loadAssets === 'function') {
       await window.RF_loadAssets(sb, '');
     }
     runtime = new RF.Runtime(canvas, sb, {

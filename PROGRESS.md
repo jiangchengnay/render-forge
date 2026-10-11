@@ -1347,8 +1347,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-41：统一资源加载入口（三处一致性，真实缺陷）
-- 问题：assets/字幕加载逻辑散落三处且不一致——export 有（assets+字幕）、index.html 有自己的（仅 assets、无字幕）、critique-cli 完全没有（批评时渲染缺素材的错画面）。
-- 修复：media.js 加统一入口 loadStoryboardResources（assets+字幕）；export/critique 都用它；index.html 保持兼容。
-- 验证：同一分镜 export 加载 assets 1 + 字幕 1/1；critique 也走统一入口。
-- 意义：保证"预览/批评/导出"三者渲染一致，批评报告不再失准。
+
+### iter-42：index.html 预览也支持字幕
+- 问题：iter-41 统一了 export/critique 的资源加载，但 index.html 预览仍只用旧的 RF_loadAssets（仅 assets，无字幕）。
+- 修复：index.html 改用统一入口 loadStoryboardResources（assets + 字幕），保留旧入口兜底。
+- 验证：页面加载无错误，RF.Media.loadStoryboardResources 可用。
+- 意义：至此"预览/批评/导出"三者真正统一，同一分镜三者渲染一致。
