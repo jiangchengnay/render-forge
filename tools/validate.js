@@ -76,7 +76,9 @@ function validate(sb, effectNames, effectMeta, lists) {
 
   // post
   const POSTFX = lists.postfx || ["bloom","vignette","grain","chroma","scanlines","glitch","tint"];
-  if (Array.isArray(sb.post)) {
+  if (sb.post != null && !Array.isArray(sb.post)) {
+    push("error", "post", "post 必须是数组（当前 " + typeof sb.post + "）");
+  } else if (Array.isArray(sb.post)) {
     sb.post.forEach((p, i) => {
       if (!p.effect) push("error", "post[" + i + "]", "缺少 effect");
       else if (POSTFX.indexOf(p.effect) < 0)
@@ -189,7 +191,7 @@ function validate(sb, effectNames, effectMeta, lists) {
     // at 可以是数字、beat:xxx 字符串、{beat,offset} 对象
     if (clip.at != null) {
       const at = clip.at;
-      if (typeof at === "number") { /* ok */ }
+      if (typeof at === "number") { if (at < 0) push("warn", where + ".at", "at 为负数（" + at + "）"); }
       else if (typeof at === "string" && /^(beat:[\d.]+([+-][\d.]+)?|phrase:\d+|interlude:\d+|section:[a-z]+(:\d+)?)$/.test(at)) { /* ok */ }
       else if (typeof at === "object" && typeof at.beat === "number") { /* ok */ }
       else push("error", where + ".at", "at 格式非法（应为数字 / 'beat:N' / {beat:N,offset}）");
@@ -208,6 +210,11 @@ function validate(sb, effectNames, effectMeta, lists) {
           const v = clip.params[k];
           // 颜色占位符（$0/$accent/hex/rgba）允许字符串
           const isColorParam = /color/i.test(k);
+          // $N 占位符越界检查（palette 通常 5 色）
+          if (typeof v === "string" && /^\$\d+$/.test(v)) {
+            const idx = parseInt(v.slice(1), 10);
+            if (idx > 4) push("warn", where + ".params." + k, "$" + idx + " 可能越界（调色板通常 $0-$4）");
+          }
           const isColorValue = typeof v === "string" && (/^\$/.test(v) || /^#/.test(v) || /^rgba?\(/.test(v));
           // 表达式（以 = 开头，动态求值）对任何类型都合法，跳过静态类型检查
           const isExprValue = typeof v === "string" && v.length > 1 && v[0] === "=";
