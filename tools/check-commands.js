@@ -64,3 +64,25 @@ try {
   const unused = names2.filter((n) => !used.has(n));
   console.log("ℹ 效果示例覆盖率: " + used.size + "/" + names2.length + (unused.length ? "（未覆盖: " + unused.join(", ") + "）" : ""));
 } catch (e) {}
+
+// 额外：示例里的 effect 名必须都在效果清单里
+try {
+  const names3 = new Set(JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "_effect-names.json"), "utf8")));
+  const postfx3 = new Set(JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "_postfx-names.json"), "utf8")));
+  let exbad = 0;
+  const exscan = (dir) => {
+    fs.readdirSync(dir).forEach((f) => {
+      const p = path.join(dir, f);
+      if (fs.statSync(p).isDirectory()) { exscan(p); return; }
+      if (!f.endsWith(".json")) return;
+      const t = fs.readFileSync(p, "utf8");
+      const re3 = /"effect"\s*:\s*"([^"]+)"/g; let m3;
+      while ((m3 = re3.exec(t)) !== null) {
+        if (!names3.has(m3[1]) && !postfx3.has(m3[1])) { exbad++; console.log("✗ " + p + " 引用未知效果: " + m3[1]); }
+      }
+    });
+  };
+  exscan(path.join(ROOT, "dsl", "examples"));
+  if (exbad) { console.log("\n" + exbad + " 处示例引用未知效果"); process.exit(1); }
+  console.log("✓ 示例的效果名全部有效");
+} catch (e) {}

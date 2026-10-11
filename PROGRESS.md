@@ -1335,6 +1335,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 ### iter-28：全效果 smoke test（固化为 tools/smoke.js）
 - 新增 tools/smoke.js：对全部 58 效果做最小渲染 smoke test，抓"某效果会崩"。
-- 结果：58/58 通过（57 渲染 + video 需真视频跳过），0 崩溃。
-- 已接入 npm run smoke + npm run verify。
-- 意义：这是"效果不崩"的可复现保证。
+
+### iter-29：示例效果名有效性检查固化
+- check-commands.js 新增"示例里引用的 effect 名必须有效"检查。
+- 结果：所有示例的效果名全部有效。
