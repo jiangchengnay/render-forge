@@ -1344,8 +1344,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-38：实现缺失的 SRT 字幕加载（真实缺陷）
-- 问题：README 宣传"SRT 字幕"，subtitle 效果需先 RF.Subtitles.load(id, text)，但分镜 JSON 无机制加载 SRT → 静默失败。
-- 修复：export-webcodecs.js 支持分镜 subtitles:[{id,src}] 清单，导出前自动 fetch + load。
-- 验证：实测"字幕已加载 1/1"，出片正常。
-- README 补充用法。
+
+### iter-39：验证模板 + 片段库（README 承诺核查）
+- 模板（template-product）出片 420 帧；片段库（scenelet-demo）出片 360 帧，均正常。
+- 确认"模板 slots""片段库 include"是真实现，非空承诺。
+- （延续 iter-37/38 的"文档承诺 vs 实现"核查线，这两个通过。）
