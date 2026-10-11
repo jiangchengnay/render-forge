@@ -1307,3 +1307,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 确认 engine/core/video-decode.js（RF.VideoDecode）已实现：seek + createImageBitmap 逐帧预解码。
 - media.js 的 video 效果已用 asset.frames（预解码帧），index.html 已加载。
 - 早期诊断的 P0 缺陷（视频素材逐帧导出错帧/黑帧）已解决。
+
+
+### iter-24：MCP 全工具链路验证
+- 通过 JSON-RPC 实测 13 个可参数化 MCP 工具（list/schema/recommend + 各层 validate + l0_input/analyze/build_plan_input/assign_task/assemble），全部成功返回。
+- 其余 5 个（generate/critique/apply_patch/render/resolve_conflict）需文件/渲染，此前已单独验证。
+- 结论：MCP 18 工具链路全通，Cuckoo 接入完整。
