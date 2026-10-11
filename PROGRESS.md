@@ -1301,3 +1301,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 ### iter-22：文档数字同步
 - README/ITERATIONS 同步到 120 测试 / 18 示例 / e2e 14 步。
 - 确认 buildSearchQueries 返回 {queries, note} 对象（非数组），功能正常。
+
+
+### iter-23：视频逐帧解码确认
+- 确认 engine/core/video-decode.js（RF.VideoDecode）已实现：seek + createImageBitmap 逐帧预解码。
+- media.js 的 video 效果已用 asset.frames（预解码帧），index.html 已加载。
+- 早期诊断的 P0 缺陷（视频素材逐帧导出错帧/黑帧）已解决。
