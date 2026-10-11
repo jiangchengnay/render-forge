@@ -1341,6 +1341,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-35：prompt 质量审查
-- 12 个 prompt 结构完整（角色/输入/输出齐全）。
-- 修 worker.md 笔误："需确实施加" → "需确保该锚点真实存在（见 timeline_slice）"。
+
+### iter-36：文档死链检查
+- 新增检查：文档里引用的 tools/dsl/engine/prompts/*.js|md 必须存在（79 处引用无死链）。
+- 固化为 check-commands.js 的一部分（修正了正则词边界，避免 .json 被误判为 .js）。
+- 修 worker.md 笔误（iter-35）。

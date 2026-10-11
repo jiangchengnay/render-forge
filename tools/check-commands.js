@@ -86,3 +86,27 @@ try {
   if (exbad) { console.log("\n" + exbad + " 处示例引用未知效果"); process.exit(1); }
   console.log("✓ 示例的效果名全部有效");
 } catch (e) {}
+
+// 额外：文档里的文件引用（tools/dsl/engine/prompts/*.js|md）必须存在
+try {
+  const mds = ["README.md", "USAGE.md", "ARCHITECTURE.md", "WORKFLOW.md", "OVERVIEW.md", "HEALTH.md",
+    "CUCKOO-INTEGRATION.md", "ITERATIONS.md", "dsl/AI-GUIDE.md", "dsl/CONTEXT-GUIDE.md",
+    "dsl/ANALYSIS-GUIDE.md", "dsl/ORCHESTRATION-GUIDE.md", "dsl/SCHEMA-BRIEF.md", "dsl/EFFECTS.md"];
+  const reL = /(?:^|[\s(\`])((?:tools|dsl|engine|prompts|vendor)\/[a-zA-Z0-9_\-./]+\.(?:js|md|mjs))(?![a-zA-Z0-9])/g;
+  let lbad = 0, lchecked = 0;
+  mds.forEach((md) => {
+    const p = path.join(ROOT, md);
+    if (!fs.existsSync(p)) return;
+    const t = fs.readFileSync(p, "utf8");
+    let m; const seen = new Set();
+    while ((m = reL.exec(t)) !== null) {
+      const ref = m[1];
+      if (seen.has(ref)) continue; seen.add(ref);
+      if (ref.indexOf("xxx") >= 0) continue;
+      lchecked++;
+      if (!fs.existsSync(path.join(ROOT, ref))) { lbad++; console.log("✗ " + md + " 引用不存在: " + ref); }
+    }
+  });
+  if (lbad) { console.log("\n" + lbad + " 处文档死链"); process.exit(1); }
+  console.log("✓ 文档文件引用无死链 (" + lchecked + " 处)");
+} catch (e) {}
