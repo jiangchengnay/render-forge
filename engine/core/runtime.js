@@ -266,6 +266,15 @@
         };
       }
 
+      // 属性频道：表达式可写 "=ch.riseY" 引用 channel 在当前全局时刻的值
+      const ch = {};
+      if (this._channels) {
+        Object.keys(this._channels).forEach((cn) => {
+          const v = RF.Motion ? RF.Motion.evalChannel(this._channels[cn], globalT) : null;
+          ch[cn] = v != null ? v : 0;
+        });
+      }
+
       return {
         t: globalT,
         local: actLocal,
@@ -277,6 +286,7 @@
         TAU: Math.PI * 2,
         clips: clips,
         audio: audioScope,
+        ch: ch,
       };
     }
 

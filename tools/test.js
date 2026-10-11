@@ -787,6 +787,14 @@ test('validate: channels 合法时不报错（iter-73）', () => {
   assert.strictEqual(errs.length, 0, '合法 channels 不该报 error');
 });
 
+test('expression: ch.<channel> 引用（iter-74 属性频道）', () => {
+  const ef = loadModule('engine/core/expression.js', {}).Expression;
+  const scope = { t: 1, ch: { riseY: 0.42 } };
+  assert.strictEqual(ef.evalExpr('=ch.riseY', scope), 0.42);
+  assert.strictEqual(ef.evalExpr('=ch.riseY * 2', scope), 0.84);
+  assert.strictEqual(ef.evalExpr('=ch.missing', scope), 0, '未知 channel 返回 0');
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);

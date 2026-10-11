@@ -166,6 +166,10 @@ storyboard 级、**绝对秒**的关键帧轨道，一个 channel 可跨幕驱�
 - `channels.<名>`：`{ keys:[{t:秒, value}], path:"linear|catmullRom", ease?, loop? }`
 - clip 用 `bind: { x/y/scale/rotate/opacity: "channel名" }` 绑定到 channel。
 - **与 motion 的区别**：motion.keys 的 t 是**clip 进度 0-1**（单段补间）；channels 的 t 是**全局秒**（可跨幕，连续）。
+
+**两种用法**：
+1. **bind 绑定**：`bind:{ x:"ch名" }` —— 绑定 transform 的 x/y/scale/rotate/opacity（最简单）。
+2. **表达式引用**：任意参数写 `"=ch.ch名"` —— 可驱动**任何参数**（radius/color 值/count…），如 `{ "radius": "=ch.pulse" }`。
 - 用途：让同一组件的运动跨越幕边界连续（真正编舞），而非"每幕各动各的"。
 
 ### 分组容器 group

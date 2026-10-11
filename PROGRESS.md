@@ -1358,12 +1358,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-73：实现 P0-2「属性频道 channels」（架构级，连续编舞的地基）
-- 新增 storyboard 级 channels：绝对秒关键帧轨道，clip 用 bind 绑定，**可跨幕连续驱动组件**。
-- motion.js 加 evalChannel（线性/Catmull-Rom + 端点 clamp + loop）。
-- runtime load 解析 channels；_resolveTransform 应用 bind（全局秒）。
-- 校验器：channels 结构/keys 非递减/path 枚举 + bind 引用完整性。
-- 实测：channel 在 t=0/3/6 值精确 0.1/0.5/0.9；跨幕图形质心 120→600（连续右移）。
-- 示例 channels-choreography.json（8s，一个 channel 跨 2 幕驱动）。
-- 4 个测试（evalChannel 插值/确定性 + bind 校验），134 全过。
-- 意义：这是 ARCH-CRITIQUE P0-2 的核心——让"连续编舞"从"做不到"变"能做到"（绝对秒属性轨道 vs 旧 clip 进度补间）。
+### iter-74：channels 可被表达式引用（=ch.名）
+- expression.js 的 resolveRef 加 ch.<name> 分支；runtime _buildScope 把 channels 当前值放入 scope.ch。
+- 效果：channel 现在能驱动**任意参数**（不只 transform），如 "=ch.pulse" 驱动 radius/count 等。
+- 实测：=ch.pulse 驱动 morphPolygon.radius 生效（t=2 像素 198576）。
+- 补测试（135 全过）+ AI-GUIDE 文档。
+- 意义：配合 iter-73，channels 现在是完整的"绝对秒属性轨道"——bind 绑 transform + 表达式绑任意参数，跨幕连续。

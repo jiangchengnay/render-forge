@@ -175,6 +175,11 @@
       if (typeof v === 'function') return v;
       return v != null ? v : 0;
     }
+    // ch.<channelName>（属性频道，storyboard 级）
+    if (ap[0] === 'ch' && scope.ch) {
+      const v = scope.ch[ap[1]];
+      return v != null ? v : 0;
+    }
     // clips.<actId>.<trackIndex>.<field>
     const parts = path.split('.');
     if (parts[0] === 'clips' && scope.clips) {
