@@ -1196,3 +1196,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 修复：新增 --dossier 参数，用 analyze.js 产出的真实 beats/onsets/phrases 补全 timeline；无 dossier 时降级（key_moments→beats、歌词时间戳→phrases）。
 - 附带：sliceForRole 跳过空数组切片（避免误导 Worker）。
 - 验收：118 测试全过、check-docs 通过、出片正常。
+
+
+### iter-3：MCP 编排工具协议验证
+- 通过 JSON-RPC 实测 rf_validate_plan / rf_assign_task / rf_validate_constitution 三个新工具，均正常返回。
+- 确认已安装版 Cuckoo 可通过 MCP 调用 render-forge 的五层编排工具。
+- 无代码改动（纯验证）。
