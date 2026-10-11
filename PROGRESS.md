@@ -1260,3 +1260,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 ### iter-13：Cuckoo 接入指南
 - 新增 CUCKOO-INTEGRATION.md：讲清 MCP（18 工具）+ Agents（12 个）+ Skill（1 个）三块接入的用法与验证。
 - 意义：让用户/AI 知道整套东西怎么在 Cuckoo 里用起来。
+
+
+### iter-15：e2e 补失败路径 + 组装断言（子代理建议）
+- 采纳子代理建议：e2e 新增 4 步失败路径验证（非法分镜/非法计划报错、resolve-conflict 有冲突分支、组装片段数匹配）。
+- 意义：从"只验成功路径"到"也验失败路径"，回归更可靠。
