@@ -5,7 +5,7 @@ description: 用 render-forge 做程序化渲染动画（产品片/音乐PV/数�
 
 # Render Forge 使用技能
 
-Render Forge 是「AI 只输出 JSON 分镜 → 确定性引擎渲染 → 导出 mp4」的程序化动画框架，项目位于 E:\奇思妙想\render-forge。
+Render Forge 是「AI 只输出 JSON 分镜 → 确定性引擎渲染 → 导出 mp4」的程序化动画框架，项目位于 <project-dir>。
 
 ## 两种用法
 

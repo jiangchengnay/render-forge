@@ -4,7 +4,7 @@
 > 供醒来后快速了解"这些代都干了什么"。
 
 ## 基础设施（迭代前）
-- **MCP 接入**：已挂到已安装版 Cuckoo（`C:\Users\Admin\.cuckoo\mcp.json`），18 工具。
+- **MCP 接入**：已挂到已安装版 Cuckoo（`~/.cuckoo\mcp.json`），18 工具。
 - **12 个 Agents**：`.cuckoo/agents/rf-*.md`（五层分工）。
 - **Skill**：`.cuckoo/skills/render-forge/SKILL.md`。
 - **Git 仓库**：已初始化。

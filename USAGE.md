@@ -23,7 +23,7 @@
 ## 1. 环境准备（一次性）
 
 ```bash
-cd E:\奇思妙想\render-forge
+cd <project-dir>
 npm install            # 装 puppeteer（唯一依赖）
 npm run find-browser   # 确认探测到 Chrome/Edge
 ```

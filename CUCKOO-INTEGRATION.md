@@ -7,7 +7,7 @@
 
 ## 一、MCP（工具）——已挂到已安装版
 
-配置位置：`C:\Users\Admin\.cuckoo\mcp.json`
+配置位置：`~/.cuckoo\mcp.json`
 ```json
 {
   "mcpServers": {
@@ -35,7 +35,7 @@
 
 ## 二、Agents（多 AI 分工）——12 个已就位
 
-位置：`E:\奇思妙想\render-forge\.cuckoo\agents\`
+位置：`<project-dir>\.cuckoo\agents\`
 
 | Agent | 角色（对应五层） |
 |---|---|
@@ -55,7 +55,7 @@
 
 ## 三、Skill（使用知识）——1 个已就位
 
-位置：`E:\奇思妙想\render-forge\.cuckoo\skills\render-forge\SKILL.md`
+位置：`<project-dir>\.cuckoo\skills\render-forge\SKILL.md`
 
 AI 判断任务匹配时，会 `read` 这个 SKILL.md 加载使用知识（两种路线 + 关键命令）。
 
