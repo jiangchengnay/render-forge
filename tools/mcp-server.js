@@ -213,6 +213,11 @@ async function handleTool(name, args) {
       if (args.output) a.push("--out=" + safePath(args.output));
       return (await runArgs(a)).output;
     }
+    case "rf_gen_channels": {
+      const a = ["node", "tools/gen-channels.js", "--dossier=" + safeRead(args.dossier)];
+      if (args.output) a.push("--out=" + safePath(args.output));
+      return (await runArgs(a)).output;
+    }
     default: throw new Error("未知工具: " + name);
   }
 }
