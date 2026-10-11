@@ -52,6 +52,7 @@ const TOOLS = [
   { name: "rf_doctor", description: "环境自检：诊断为什么跑不起来（Node/puppeteer/浏览器/快照/文档/测试）", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "rf_gen_channels", description: "从音频 dossier 自动生成视觉强度曲线（intensity/bassEnergy/beatPulse/buildDrop）——把节奏审美锁进引擎", inputSchema: { type: "object", properties: { dossier: { type: "string" }, output: { type: "string" } }, required: ["dossier"] } },
   { name: "rf_diagnose", description: "批评归因：把像素指标报告转成「归属层 + 具体参数修改建议」", inputSchema: { type: "object", properties: { report: { type: "string" }, storyboard: { type: "string" }, output: { type: "string" } }, required: ["report"] } },
+  { name: "rf_compose", description: "构图建议：按三分法/安全区/视觉焦点检查分镜元素位置，给出构图改进建议", inputSchema: { type: "object", properties: { input: { type: "string" }, output: { type: "string" } }, required: ["input"] } },
 ];
 
 function runArgs(args, opts) {
@@ -199,6 +200,11 @@ async function handleTool(name, args) {
     }
 
     case "rf_doctor": return (await runArgs(["node", "tools/doctor.js"])).output;
+    case "rf_compose": {
+      const a = ["node", "tools/compose.js", safeRead(args.input)];
+      if (args.output) a.push("--out=" + safePath(args.output));
+      return (await runArgs(a)).output;
+    }
     case "rf_diagnose": {
       const a = ["node", "tools/diagnose.js", safeRead(args.report)];
       if (args.storyboard) a.push("--storyboard=" + safeRead(args.storyboard));

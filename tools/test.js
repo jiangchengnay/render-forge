@@ -833,6 +833,26 @@ test('diagnose: 全片性问题升级为结构问题', () => {
   assert.ok(d.structuralProblems.length > 0, '跨 50% 帧的问题应升级为结构问题');
 });
 
+test('compose: 文字居中报错（iter-77 构图规则）', () => {
+  const cp = require('./compose.js');
+  const sb = { acts: [{ id: 'a', tracks: [{ effect: 'titleCard', params: { x: 0.5, y: 0.5 } }] }] };
+  const r = cp.suggestComposition(sb);
+  assert.ok(r.suggestions.some(s => s.rule === 'no-text-at-center'), '文字居中应建议');
+});
+test('compose: 贴边报错', () => {
+  const cp = require('./compose.js');
+  const sb = { acts: [{ id: 'a', tracks: [{ effect: 'dotGrid', params: { x: 0.02, y: 0.5 } }] }] };
+  const r = cp.suggestComposition(sb);
+  assert.ok(r.suggestions.some(s => s.rule === 'safe-area'), '贴边应建议');
+});
+test('compose: 合规构图无建议 + 确定性', () => {
+  const cp = require('./compose.js');
+  const sb = { acts: [{ id: 'a', tracks: [{ effect: 'titleCard', params: { x: 0.5, y: 0.72 } }] }] };
+  const r = cp.suggestComposition(sb);
+  assert.strictEqual(r.suggestions.length, 0, '合规不该有建议');
+  assert.deepStrictEqual(cp.suggestComposition(sb), cp.suggestComposition(sb), '确定性');
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);

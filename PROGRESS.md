@@ -1358,10 +1358,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-76：P0-3 框架侧切片——批评归因器 diagnose.js
-- 新增 tools/diagnose.js：把像素指标报告 → 问题类型 → **归属层（L0-L3）** → **具体参数修改建议**。
-- 修复 WORKFLOW.md「归因表无代码实现」——现在有代码。
-- 关键：从"像素统计"升级为"可执行归因"（每条含 param + change）。
-- 空帧过滤（t=0 开场全 0 帧不误报"过暗"）；全片性问题自动升级为结构层。
-- MCP 加 rf_diagnose（第 21 工具）+ 2 测试（139 全过）。
-- 意义：ARCH-CRITIQUE P0-3 的框架侧（不依赖外部视觉模型的归因部分）。
+### iter-77：P0-1 构图规则切片——compose.js
+- 新增 tools/compose.js：按**三分法/安全区/视觉焦点**检查分镜元素位置，给构图建议。
+- 4 条规则：no-text-at-center（文字忌居中）、safe-area（忌贴边）、rule-of-thirds（对齐三分线）、too-scattered（焦点过多）。
+- 把"构图审美"锁进引擎：AI 不用懂构图，引擎给出具体位置建议。
+- MCP 加 rf_compose（第 22 工具）+ 3 测试（142 全过）。
+- 意义：ARCH-CRITIQUE P0-1 的空间审美切片（配合 iter-75 的节奏审美）。
