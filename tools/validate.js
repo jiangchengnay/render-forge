@@ -205,7 +205,10 @@ function validate(sb, effectNames, effectMeta, lists) {
           // 颜色占位符（$0/$accent/hex/rgba）允许字符串
           const isColorParam = /color/i.test(k);
           const isColorValue = typeof v === "string" && (/^\$/.test(v) || /^#/.test(v) || /^rgba?\(/.test(v));
-          if (spec.type === "number") {
+          // 表达式（以 = 开头，动态求值）对任何类型都合法，跳过静态类型检查
+          const isExprValue = typeof v === "string" && v.length > 1 && v[0] === "=";
+          if (isExprValue) { /* 表达式，跳过 */ }
+          else if (spec.type === "number") {
             if (typeof v !== "number" && !(isColorParam && isColorValue))
               push("warn", where + ".params." + k, "期望 number，实际 " + (typeof v) + " (" + JSON.stringify(v) + ")");
           } else if (spec.type === "array") {
@@ -215,8 +218,16 @@ function validate(sb, effectNames, effectMeta, lists) {
           } else if (spec.type === "string") {
             if (typeof v !== "string") push("warn", where + ".params." + k, "期望 string，实际 " + typeof v);
           }
-          if (spec.range && spec.range.indexOf(v) < 0)
-            push("warn", where + ".params." + k, "值 '" + v + "' 不在允许范围: " + spec.range.join(", "));
+          // range 检查：string 类型按枚举（值必须在内）；number 类型若是 [min,max] 区间则按区间判断
+          if (spec.range && !isExprValue) {
+            if (spec.type === "number" && Array.isArray(spec.range) && spec.range.length === 2
+                && typeof spec.range[0] === "number" && typeof spec.range[1] === "number") {
+              if (typeof v === "number" && (v < spec.range[0] || v > spec.range[1]))
+                push("warn", where + ".params." + k, "值 " + v + " 超出范围 [" + spec.range[0] + ", " + spec.range[1] + "]");
+            } else if (spec.range.indexOf(v) < 0) {
+              push("warn", where + ".params." + k, "值 '" + v + "' 不在允许范围: " + spec.range.join(", "));
+            }
+          }
         }
       });
     }

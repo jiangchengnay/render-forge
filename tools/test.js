@@ -369,6 +369,18 @@ test('focus_curve t 非递减', () => { const r = okReport(); r.layers.focus_cur
 test('红线：action 含效果名报错', () => { const r = okReport(); r.mapping[0].action = '用 particles 爆发'; assert.ok(vi.validate(r).errors.some(e => e.msg.indexOf('引擎效果名') >= 0)); });
 test('intensity 越界报错', () => { const r = okReport(); r.music.emotion_curve[0].intensity = 1.5; assert.ok(vi.validate(r).errors.some(e => e.path.indexOf('intensity') >= 0)); });
 test('key_moment 非法枚举报错', () => { const r = okReport(); r.music.key_moments[0].type = 'boom'; assert.ok(vi.validate(r).errors.some(e => e.path.indexOf('type') >= 0)); });
+test('validate: 表达式参数不误报类型（iter-25）', () => {
+  const sb = { meta: { duration: 2 }, acts: [{ id: 'a', dur: 2, tracks: [{ effect: 'ripples', at: 0, dur: 2, params: { maxRadius: '=t * 0.15' } }] }] };
+  const errs = v.validate(sb, ['ripples'], {}, {}).filter((p) => p.msg.indexOf('期望 number') >= 0);
+  assert.strictEqual(errs.length, 0, '表达式不该报 number 类型错');
+});
+test('validate: number 参数 [min,max] 区间不误报（iter-25）', () => {
+  // 用带 range:[0,1] 的 number 参数：0.5 合法
+  const meta = { dotGrid: { spacing: { type: 'number', range: [0, 1] } } };
+  const sb = { meta: { duration: 2 }, acts: [{ id: 'a', dur: 2, tracks: [{ effect: 'dotGrid', at: 0, dur: 2, params: { spacing: 0.5 } }] }] };
+  const errs = v.validate(sb, ['dotGrid'], meta, {}).filter((p) => p.msg.indexOf('不在允许范围') >= 0);
+  assert.strictEqual(errs.length, 0, '0.5 在 [0,1] 内不该报错');
+});
 
 console.log('\n[prompts 占位符]');
 test('四个 prompt 模板存在且含占位符', () => {

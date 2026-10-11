@@ -1313,3 +1313,10 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 通过 JSON-RPC 实测 13 个可参数化 MCP 工具（list/schema/recommend + 各层 validate + l0_input/analyze/build_plan_input/assign_task/assemble），全部成功返回。
 - 其余 5 个（generate/critique/apply_patch/render/resolve_conflict）需文件/渲染，此前已单独验证。
 - 结论：MCP 18 工具链路全通，Cuckoo 接入完整。
+
+
+### iter-25：修复 validate 两个误报 bug（真实缺陷）
+- bug1：number 参数值为表达式（"=t*0.15"）时误报"期望 number"——已跳过表达式的静态类型检查。
+- bug2：number 参数 range:[0,1] 被当枚举做 indexOf，导致 0.5 误报"不在允许范围"——已区分区间与枚举。
+- 验证：flagship 校验从"6 警告"降到"0 警告"；全示例 0 失败；补 2 测试，122 全过。
+- 附带：刷新引擎快照消除"过期"提示。
