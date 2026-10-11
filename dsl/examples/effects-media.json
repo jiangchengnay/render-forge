@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "title": "Media Effects",
+    "width": 1080,
+    "height": 1080,
+    "duration": 8,
+    "seed": 5
+  },
+  "palette": "deepSea",
+  "assets": [
+    { "id": "logo", "src": "./assets/logo.png" },
+    { "id": "star", "src": "./assets/star.svg" }
+  ],
+  "post": [
+    {
+      "effect": "bloom",
+      "amount": 0.3,
+      "threshold": 0.75
+    },
+    {
+      "effect": "vignette",
+      "amount": 0.5
+    }
+  ],
+  "acts": [
+    {
+      "id": "a1",
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "inner": "#0a1838",
+        "outer": "#020610"
+      },
+      "transitionIn": {
+        "type": "fade",
+        "dur": 0.4
+      },
+      "tracks": [
+        {
+          "effect": "image",
+          "at": 0.3,
+          "dur": 3.4,
+          "ease": "outCubic",
+          "params": {
+            "src": "logo",
+            "x": 0.35,
+            "y": 0.5,
+            "w": 0.3,
+            "h": 0.3,
+            "fit": "contain",
+            "radius": 12,
+            "shadow": true
+          }
+        },
+        {
+          "effect": "svg",
+          "at": 0.8,
+          "dur": 2.8,
+          "ease": "outCubic",
+          "params": {
+            "src": "star",
+            "x": 0.68,
+            "y": 0.5,
+            "w": 0.24,
+            "h": 0.24
+          }
+        },
+        {
+          "effect": "labelText",
+          "at": 0.5,
+          "dur": 3.2,
+          "params": {
+            "text": "image + svg",
+            "x": 0.5,
+            "y": 0.86,
+            "size": 0.02
+          }
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "dur": 4,
+      "background": {
+        "type": "solid",
+        "color": "#03080f"
+      },
+      "transitionIn": {
+        "type": "wipe",
+        "dur": 0.3,
+        "dir": "left"
+      },
+      "tracks": [
+        {
+          "effect": "gradientBlob",
+          "at": 0,
+          "dur": 4,
+          "opacity": 0.4,
+          "params": {
+            "count": 2,
+            "mode": "screen"
+          }
+        },
+        {
+          "effect": "imageMask",
+          "at": 0.2,
+          "dur": 3.6,
+          "ease": "outCubic",
+          "params": {
+            "src": "logo",
+            "x": 0.5,
+            "y": 0.5,
+            "w": 0.5,
+            "h": 0.5
+          }
+        },
+        {
+          "effect": "labelText",
+          "at": 0.6,
+          "dur": 3,
+          "params": {
+            "text": "imageMask（图片裁切）",
+            "x": 0.5,
+            "y": 0.88,
+            "size": 0.018
+          }
+        }
+      ]
+    }
+  ]
+}

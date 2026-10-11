@@ -145,7 +145,7 @@ npm run serve                # 本地服务
 - `dsl/CONTEXT-GUIDE.md` / `dsl/ANALYSIS-GUIDE.md` / `dsl/ORCHESTRATION-GUIDE.md` — L0 语境叙事 / L1 分析层 / L2-L4 编排使用指南
 - `ARCHITECTURE.md` / `WORKFLOW.md` — 五层架构 / 完整工作流
 - `PROGRESS.md` — 跨会话记忆（含四份诊断报告对照）
-- `dsl/examples/` — 18 个示例
+- `dsl/examples/` — 19 个示例
 
 ## 浏览器要求
 

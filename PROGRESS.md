@@ -1354,6 +1354,10 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-51：schema-校验器映射核查
-- 6 个 schema（conflict/creative-constitution/fragment/interpretation/storyboard/task-plan）全部有对应校验器，无"schema 无校验器"的漏洞。
-- conflict 由 validate-constitution 统一校验（合理）。
+
+### iter-52~54：素材效果示例 + 收尾核查
+- iter-52：doctor/smoke/e2e 全绿确认；USAGE 走查所需文件齐全。
+- iter-54：新增 dsl/examples/effects-media.json（image + svg + imageMask 用真实素材文件 assets/logo.png + star.svg）。
+  - 效果示例覆盖率 53/58 → 56/58（仅剩 video/waveform 需真视频/音频，示例难自带）。
+  - 实测：assets 加载 2 个、校验通过、出片 240 帧。
+  - 意义：素材类效果（之前无任何示例）现在有可照抄的参考。
