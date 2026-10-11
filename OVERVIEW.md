@@ -35,6 +35,7 @@ AI 只产出 JSON，引擎负责一切渲染。
 
 ## 或让 AI 全自动（MCP）
 
+基础流程：
 ```
 AI → rf_generate（生成分镜）
    → rf_validate（校验）
@@ -42,6 +43,18 @@ AI → rf_generate（生成分镜）
    → rf_apply_patch（改）
    → rf_render（出片）
 ```
+
+## 多 Agent 编排（音乐 PV 等复杂片）
+
+五层流水线 L0→L4（见 ARCHITECTURE.md / WORKFLOW.md）：
+```
+L0 语境与叙事  → 创作宪法
+L1 分析层      → 解读报告
+L2 决策        → 任务清单
+L3 执行        → 片段
+L4 组装        → 完整分镜 → 渲染
+```
+框架不碰 LLM/网络：工具准备输入包 + prompt 模板，外部 AI 处理，再校验/组装。已接入 Cuckoo Code（MCP + 12 Agents + Skill）。
 
 ## 能力清单
 
@@ -61,7 +74,7 @@ AI → rf_generate（生成分镜）
 | 布局 | 九宫格锚点 |
 | 编排 | 分组 / 镜头 / 关键帧 |
 | 导出 | MP4（零依赖）/ WebM / ffmpeg |
-| 集成 | MCP（8 工具） |
+| 集成 | MCP（18 工具：基础 8 + 编排 10） |
 
 ## 目录导航
 
@@ -74,6 +87,9 @@ AI → rf_generate（生成分镜）
 | 用模板 | dsl/TEMPLATE-SLOTS.md |
 | 看示例 | dsl/examples/ |
 | 了解历史 | PROGRESS.md |
+| 完整使用总纲 | USAGE.md |
+| 架构设计 | ARCHITECTURE.md |
+| 工作流 | WORKFLOW.md |
 | 深入规范 | dsl/schemas/storyboard.schema.md |
 
 ## 零依赖起步

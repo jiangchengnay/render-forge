@@ -1237,3 +1237,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 问题：.gitignore 原排除整个 .cuckoo/，导致 agents 和 skills 不被 git 追踪（应随仓库走、团队共享）。
 - 修复：改为只忽略 .cuckoo/tool-results/ 和临时 json，保留 agents/skills/rules。
 - 结果：12 个 agents + 1 个 skill 已纳入追踪。
+
+
+### iter-10：OVERVIEW.md 更新
+- "MCP（8 工具）"→"MCP（18 工具：基础8+编排10）"。
+- 补充「多 Agent 编排」段落（五层流水线 + Cuckoo 接入）。
+- 目录导航补 USAGE/ARCHITECTURE/WORKFLOW。
