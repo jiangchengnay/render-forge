@@ -1283,3 +1283,10 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 修复：新增 dsl/examples/effects-gallery.json（6 幕，覆盖 kaleidoscope/metaball/feedback/shake/lensFlare/barChart/pieChart 等 23 个），覆盖率 30/58 → 53/58。
 - 附带：check-commands.js 加"效果示例覆盖率"信息性检查。
 - 剩 5 个未覆盖：image/video/svg/imageMask（需外部素材）+ waveform（无音频兜底）。
+
+
+### iter-20：修复 SVG 字符串注册 bug（真实缺陷）
+- 问题：media.js 的统一入口 register() 对"以内联 SVG 源码字符串"（以 < 开头）没路由到 registerSVG，落到 registerImage 把源码当 URL → 加载失败。
+- 修复：register() 加一条路由——字符串以 < 开头即走 SVG 注册。
+- 验证：image + svg 同时渲染，0 报错，100% 内容；补测试。
+- 影响：之前用户/AI 用内联 SVG 会失败，现已可用。

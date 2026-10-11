@@ -88,6 +88,8 @@
       throw new Error("unsupported file type: " + fileOrUrl.type);
     }
     if (typeof fileOrUrl === "string") {
+      // 以内联 SVG 源码字符串传入（以 < 开头）→ 走 SVG 注册
+      if (fileOrUrl.trim().startsWith("<")) return registerSVG(id, fileOrUrl);
       if (/\.svg($|\?)/i.test(fileOrUrl)) return registerSVG(id, fileOrUrl);
       if (/\.(mp4|webm|mov|m4v)($|\?)/i.test(fileOrUrl)) return registerVideo(id, fileOrUrl);
       return registerImage(id, fileOrUrl);
