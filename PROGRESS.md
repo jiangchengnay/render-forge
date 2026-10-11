@@ -1345,7 +1345,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-39：验证模板 + 片段库（README 承诺核查）
-- 模板（template-product）出片 420 帧；片段库（scenelet-demo）出片 360 帧，均正常。
-- 确认"模板 slots""片段库 include"是真实现，非空承诺。
-- （延续 iter-37/38 的"文档承诺 vs 实现"核查线，这两个通过。）
+
+### iter-40：验证批评闭环链路（README 承诺核查）
+- 完整跑通：critique（出报告）→ patch（生成方案）→ apply-patch（应用 4 处修改）→ validate（通过）。
+- 确认"批评闭环"是真实现。
+- 至此"文档承诺 vs 实现"核查完成：模板/片段/批评闭环 ✓ 真实现；assets/SRT 曾缺失（iter-37/38 已补）。
