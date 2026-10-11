@@ -1325,3 +1325,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 ### iter-26：验证 check-docs 防线有效性
 - 造错测试：把 README 单元测试数改成 999 → check-docs 正确报错（exit 1）；改回 → 通过。
 - 确认 check-docs 真能抓单元测试数不一致，不是空跑。
+
+
+### iter-27：性能基准工具 bench.js
+- 新增 tools/bench.js：测 seek 渲染速度，防性能回归。
+- 基线（flagship 1080p）：7.59 ms/帧，131 fps 等效；5min@30fps 纯渲染约 1.1 分钟。
+- npm run bench 可跑。

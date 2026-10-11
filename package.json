@@ -26,6 +26,7 @@
     "check-docs": "node tools/check-docs.js",
     "e2e": "node tools/e2e.js",
     "check-commands": "node tools/check-commands.js",
+    "bench": "node tools/bench.js",
     "verify": "node tools/check-docs.js && node tools/check-commands.js && node tools/test.js && node tools/e2e.js"
   },
   "keywords": [
