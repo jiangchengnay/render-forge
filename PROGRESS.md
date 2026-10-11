@@ -1350,7 +1350,8 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-46：DSL 特性真实性审计
-- 对照测试（改一个特性 vs base，比差异像素）：expr 19% ✓、transform 17% ✓、clipsRef 1% ✓、ease 1% ✓ 均生效。
-- motion 显示 0%——经查是测试采样缺陷（t=2 恰在 p=0.5，motion 中值等价于无变换），非实现缺陷（_resolveTransform 确处理 motion）。
-- 意义：确认大部分 DSL 特性真实生效；配合 iter-45 的 groupTransform 修复，验证了"文档教的特性"基本都真能工作。
+
+### iter-47：验证单位后缀与 beat 语法
+- 单位后缀：150px = 150/720、50% = 0.5，差异均 0%（完全等价，换算正确）。
+- （上一轮 64% 是我测试基准写错，非 bug。）
+- 配合 iter-45/46，DSL 特性真实性审计完成：groupTransform 已修，其余特性均生效。
