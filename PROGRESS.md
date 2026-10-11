@@ -1336,6 +1336,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 ### iter-28：全效果 smoke test（固化为 tools/smoke.js）
 - 新增 tools/smoke.js：对全部 58 效果做最小渲染 smoke test，抓"某效果会崩"。
 
-### iter-29：示例效果名有效性检查固化
-- check-commands.js 新增"示例里引用的 effect 名必须有效"检查。
-- 结果：所有示例的效果名全部有效。
+
+### iter-30：项目健康总览 HEALTH.md
+- 新增 HEALTH.md：一眼看全项目状态（核心指标 + 验证状态 + 架构 + 接入 + 边界 + 命令）。
+- 作为本轮长迭代的收尾交付。
