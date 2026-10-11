@@ -795,6 +795,24 @@ test('expression: ch.<channel> 引用（iter-74 属性频道）', () => {
   assert.strictEqual(ef.evalExpr('=ch.missing', scope), 0, '未知 channel 返回 0');
 });
 
+test('gen-channels: generateChannels 生成 intensity/beatPulse（iter-75）', () => {
+  const gc = require('./gen-channels.js');
+  const dossier = { meta: { duration: 8 }, audio: { duration: 8,
+    sections: [{start:0,end:4,type:'intro',energy:'low'},{start:4,end:8,type:'chorus',energy:'high'}],
+    bands_summary: { bass: [{start:0,end:4,mean:0.2},{start:4,end:8,mean:0.7}] },
+    beats: [0, 0.5, 1] } };
+  const r = gc.generateChannels(dossier);
+  assert.ok(r.channels.intensity, '应有 intensity');
+  assert.ok(r.channels.beatPulse, '应有 beatPulse');
+  assert.ok(r.channels.buildDrop, '应有 buildDrop（low→high 跳变）');
+  assert.strictEqual(r.channels.intensity.keys.length >= 3, true);
+});
+test('gen-channels: 确定性', () => {
+  const gc = require('./gen-channels.js');
+  const d = { meta: { duration: 4 }, audio: { duration: 4, sections: [{start:0,end:4,type:'a',energy:'high'}], beats: [0,1] } };
+  assert.deepStrictEqual(gc.generateChannels(d), gc.generateChannels(d));
+});
+
 // —— 汇总 ——
 console.log("\n=== 结果 ===");
 console.log("通过: " + passed + "  失败: " + failed);

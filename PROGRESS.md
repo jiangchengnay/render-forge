@@ -1358,9 +1358,13 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-74：channels 可被表达式引用（=ch.名）
-- expression.js 的 resolveRef 加 ch.<name> 分支；runtime _buildScope 把 channels 当前值放入 scope.ch。
-- 效果：channel 现在能驱动**任意参数**（不只 transform），如 "=ch.pulse" 驱动 radius/count 等。
-- 实测：=ch.pulse 驱动 morphPolygon.radius 生效（t=2 像素 198576）。
-- 补测试（135 全过）+ AI-GUIDE 文档。
-- 意义：配合 iter-73，channels 现在是完整的"绝对秒属性轨道"——bind 绑 transform + 表达式绑任意参数，跨幕连续。
+### iter-75：P0-1 切片——从音频自动生成视觉强度曲线（gen-channels）
+- 新增 tools/gen-channels.js：从 dossier 的 sections/bands/beats 自动生成 4 条 channels：
+  - intensity（段落 energy → 视觉强度）
+  - bassEnergy（各段低音均值）
+  - beatPulse（每 beat 脉冲）
+  - buildDrop（能量 low→high 跳变 = drop 点）
+- 把"节奏→视觉强度"这条审美规则锁进引擎：AI 不用自己算强度曲线。
+- 实测：从 analysis-demo 生成 4 频道，bind 驱动画面出片正常。
+- MCP 加 rf_gen_channels（第 20 工具）+ 2 测试（137 全过）+ 文档。
+- 意义：ARCH-CRITIQUE P0-1 的第一块（节奏模板引擎化）。
