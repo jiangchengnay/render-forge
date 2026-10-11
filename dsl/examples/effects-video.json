@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Media Video",
+    "width": 1080,
+    "height": 1080,
+    "duration": 4,
+    "seed": 3
+  },
+  "palette": "deepSea",
+  "assets": [
+    {
+      "id": "clip",
+      "src": "./assets/demo-clip.mp4"
+    }
+  ],
+  "post": [
+    {
+      "effect": "vignette",
+      "amount": 0.5
+    }
+  ],
+  "acts": [
+    {
+      "id": "a",
+      "dur": 4,
+      "background": {
+        "type": "radial",
+        "inner": "#0a1838",
+        "outer": "#020610"
+      },
+      "transitionIn": {
+        "type": "fade",
+        "dur": 0.4
+      },
+      "tracks": [
+        {
+          "effect": "video",
+          "at": 0,
+          "dur": 4,
+          "params": {
+            "src": "clip",
+            "x": 0.5,
+            "y": 0.4,
+            "w": 0.5,
+            "h": 0.5,
+            "fit": "cover"
+          }
+        },
+        {
+          "effect": "waveform",
+          "at": 0,
+          "dur": 4,
+          "params": {
+            "mode": "bars",
+            "count": 40,
+            "x": 0.5,
+            "y": 0.82,
+            "w": 0.7,
+            "h": 0.15,
+            "color": "$accent",
+            "color2": "$1"
+          }
+        },
+        {
+          "effect": "labelText",
+          "at": 0.3,
+          "dur": 3.4,
+          "params": {
+            "text": "video + waveform",
+            "x": 0.5,
+            "y": 0.94,
+            "size": 0.02
+          }
+        }
+      ]
+    }
+  ]
+}

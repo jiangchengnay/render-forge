@@ -1358,7 +1358,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-68：MCP server 健壮性加固
-- 问题：缺必填参数时暴露底层 Node 堆栈（不友好）。
-- 修复：handleTool 加通用必填参数校验（16 个工具），缺参数返回友好错误。
-- 验证：未知工具/非法路径→友好错误；缺参数→"缺少必填参数 input"。
+### iter-69：补全 video/waveform 示例（覆盖率 56→58 满格）
+- 生成测试视频 dsl/examples/assets/demo-clip.mp4（用 export 工具，2s 渐变+多边形）。
+- 新增 dsl/examples/effects-video.json（video 效果 + waveform 效果）。
+- 效果示例覆盖率 56/58 → 58/58（满格）。
