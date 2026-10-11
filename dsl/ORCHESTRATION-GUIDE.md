@@ -123,3 +123,20 @@ node tools/assemble.js --plan=plan.json --fragments=fragments/ --out=storyboard.
 | \`tools/assemble.js\` | 组装器 |
 | \`dsl/schemas/task-plan.schema.md\` / \`fragment.schema.md\` | 规范 |
 | \`prompts/planner.md\` / \`worker.md\` / \`assembler.md\` | 三角色模板 |
+
+
+## 从音频自动生成视觉强度曲线（gen-channels）
+
+把 节奏到视觉强度 的审美规则锁进引擎——AI 不用自己算强度曲线：
+
+```bash
+node tools/gen-channels.js --dossier=dossier.json --out=channels.json
+```
+
+生成 4 条 channel（可直接并入分镜的 channels 字段）：
+- `intensity`：段落能量到视觉强度（low/high）
+- `bassEnergy`：各段低音均值到低频驱动
+- `beatPulse`：每个 beat 处脉冲（卡点用）
+- `buildDrop`：能量从 low 跳到 high 的 drop 点
+
+用 `bind` 或表达式 `=ch.intensity` 驱动画面。
