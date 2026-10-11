@@ -1358,7 +1358,7 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 
 
 
-### iter-69：补全 video/waveform 示例（覆盖率 56→58 满格）
-- 生成测试视频 dsl/examples/assets/demo-clip.mp4（用 export 工具，2s 渐变+多边形）。
-- 新增 dsl/examples/effects-video.json（video 效果 + waveform 效果）。
-- 效果示例覆盖率 56/58 → 58/58（满格）。
+### iter-70：转场 + 后处理真实性验证（最后一块系统性核查）
+- 9 转场（seek 1.75s，转场进行中 vs cut 基准）：fade 100%、wipe 50%、zoomFade 86%、iris 15%、slide 61%、glitch 100%、blocks 43%、shapeMask 15% —— 全部真生效。
+- 7 后处理（vs 无 post）：bloom 34%、vignette 45%、grain 76%、chroma 27%、scanlines 50%、glitch 1%、tint 100% —— 全部真生效。
+- 至此：58 效果 + 9 转场 + 7 后处理 + DSL 特性 + 五层架构，全部系统性验证完毕。
