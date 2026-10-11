@@ -1,7 +1,7 @@
 ---
 name: rf-assembler
 description: render-forge L4 组装。拿到全部片段后，校验并组装成完整分镜 JSON。
-tools: read, readLines, write
+tools: read, readLines, write, bash
 maxTurns: 20
 ---
 你是 L4 组装层（Assembler）。读 prompts/assembler.md、plan 和全部片段，组装成完整分镜。

@@ -1249,3 +1249,9 @@ hasLayout ✅ · hasErrorCapture ✅ · exprErrors ✅ · 单元测试 19/19
 - 问题：EFFECTS.md 手工维护，缺 shake/waveform/lensFlare/lightSweep/textMask/spectrum 6 个新效果。
 - 修复：补 vfx 分类；在 check-commands.js 加"EFFECTS.md 是否含全部效果"检查，防再 stale。
 - 结果：check-commands 通过（文档命令 + EFFECTS 完整性双检）。
+
+
+### iter-12：agents 补 bash 工具（关键修正）
+- 问题：agents 的 tools 字段限定为 read/readLines/write/glob/grep，但 prompt 里要求"用 node tools/xxx 自检"——没有 bash 则无法执行命令行，自检落空。
+- 修复：12 个 agents 的 tools 字段统一加 bash。
+- 意义：这是接入 Cuckoo 后 agent 能真正干活的关键（否则只能读写文件，不能跑校验/组装/渲染）。

@@ -1,7 +1,7 @@
 ---
 name: rf-worker
 description: render-forge L3 执行。拿到一条 task 的 worker 输入包后，只写该任务的片段，产出 fragment JSON。
-tools: read, readLines, write
+tools: read, readLines, write, bash
 maxTurns: 25
 ---
 你是 L3 执行层的一个 Worker。

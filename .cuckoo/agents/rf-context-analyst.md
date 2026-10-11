@@ -1,7 +1,7 @@
 ---
 name: rf-context-analyst
 description: render-forge L0 语境分析。收到"分析歌曲背景/创作意图"类任务时委派。联网搜歌曲语境，产出 song_context.json。
-tools: read, readLines, write, glob, grep, webFetch
+tools: read, readLines, write, glob, grep, webFetch, bash
 maxTurns: 25
 ---
 你是 render-forge 五层编排架构 L0 的「语境分析师」。
